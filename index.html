@@ -80,6 +80,81 @@
       .grid.s-3,.grid.s-4{grid-template-columns:1fr}
       .logo-wall{grid-template-columns:repeat(2,1fr)}
     }
+
+    /* ===== Contact Btn & Modal ===== */
+    .btn-contact{
+      position: relative;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      border-radius: 12px;
+      transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+      box-shadow: 0 6px 0 rgba(0,0,0,.14);
+    }
+    /* A版：悬浮位移 */
+    .btn-contact:hover{
+      filter: brightness(1.1);
+      transform: translate(-3px, -3px);
+      box-shadow: 0 14px 20px rgba(0,0,0,.28);
+    }
+    /* 如果想B版：只变色不移动，添加：
+    .btn-contact:hover{ filter:brightness(1.1); transform:none; box-shadow:0 10px 16px rgba(0,0,0,.22);}
+    */
+
+    .modal.hidden{ display: none; }
+    .modal{ position: fixed; inset: 0; z-index: 1000; }
+    .modal__backdrop{
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(2px);
+    }
+    .modal__panel{
+      position: relative;
+      margin: 8vh auto 0;
+      width: min(920px, 92vw);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px;
+      color: var(--text);
+      box-shadow: 0 30px 60px rgba(0,0,0,.35);
+    }
+    .modal__close{
+      position: absolute;
+      top: 12px; right: 14px;
+      width: 36px; height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--text);
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .modal__grid{
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 28px;
+    }
+    .modal__left h2{ font-size: 32px; margin: 0 0 10px; color: var(--text); }
+    .modal__left p{ color: var(--muted); margin: 0; }
+    .modal__form label{ display:block; margin: 0 0 14px; font-weight: 600; }
+    .modal__form input,
+    .modal__form textarea{
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: 6px;
+      background: #e5e7eb;
+      color: #0b1020;
+      outline: none;
+    }
+    .modal__form textarea{ min-height: 140px; resize: vertical; }
+    .btn-contact.btn-submit{ width: 100%; margin-top: 6px; }
+    .form-msg{ margin-top: 10px; min-height: 1.2em; color: var(--muted); }
+    @media (max-width: 860px){
+      .modal__grid{ grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -226,9 +301,96 @@
     </div>
   </section>
 
-  <footer>
+ <footer>
     <div class="container">© <span id="y"></span> SAIGE Footwear · All rights reserved.</div>
   </footer>
+
+  <!-- Contact Modal -->
+  <div id="contactModal" class="modal hidden" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+      <button class="modal__close" aria-label="Close" data-close>×</button>
+      <div class="modal__grid">
+        <div class="modal__left">
+          <h2 id="contactTitle">Get In Touch</h2>
+          <p>We’d love to discuss your production needs and answer your questions.</p>
+        </div>
+        <form id="contactForm" class="modal__form" novalidate>
+          <label>Full Name (Required)
+            <input type="text" name="name" required />
+          </label>
+          <label>Email (Required)
+            <input type="email" name="email" required />
+          </label>
+          <label>Message (Required)
+            <textarea name="message" required></textarea>
+          </label>
+          <button type="submit" class="btn btn-contact btn-submit">CONTACT US</button>
+          <p id="formMsg" class="form-msg" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const btn = document.getElementById('contactBtn');
+    const modal = document.getElementById('contactModal');
+    const form = document.getElementById('contactForm');
+    const msg = document.getElementById('formMsg');
+
+    function openModal(){
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(){
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    btn?.addEventListener('click', function(e){
+      e.preventDefault();
+      openModal();
+    });
+
+    modal?.addEventListener('click', (e)=>{
+      if (e.target.hasAttribute('data-close')) closeModal();
+    });
+    document.addEventListener('keydown',(e)=>{
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+    });
+
+    // 表单提交：Formspree
+    const ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_YOURS'; // 替换成你自己的
+
+    form?.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const payload = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        message: form.message.value.trim()
+      };
+      if(!payload.name || !payload.email || !payload.message){
+        msg.textContent = 'Please fill in all required fields.'; return;
+      }
+      msg.textContent = 'Sending...';
+      try{
+        const res = await fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if(!res.ok) throw new Error('Network error');
+        msg.textContent = 'Thanks! Your message has been sent.';
+        form.reset();
+        setTimeout(closeModal, 900);
+      }catch(err){
+        console.error(err);
+        msg.textContent = 'Send failed. Please try again.';
+      }
+    });
+  })();
+  </script>
 
   <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
 </body>
