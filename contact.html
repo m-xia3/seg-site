@@ -146,6 +146,63 @@ textarea{ min-height: 200px; resize: vertical; }
   .grid{ grid-template-columns: 1fr; max-width: 720px; }
   .panel{ padding: 24px; }
 }
+
+    /* ===== 紧凑一屏版（桌面端）===== */
+@media (min-width: 861px){
+  /* 整页上下留白更小，控制在一屏内 */
+  .page{
+    padding: 36px 0;                 /* 原来可能是 56~100，收紧 */
+  }
+
+  /* 面板尺寸与高度：保证不超过一屏 */
+  .panel{
+    max-width: 1080px;               /* 横向略收 */
+    margin: 0 auto;
+    padding: 24px 28px;              /* 内边距收紧 */
+    background: transparent;         /* 去色差 */
+    border: 1px solid #233047;       /* 仅保留细边 */
+    box-shadow: none;                /* 去阴影 */
+    border-radius: 14px;
+
+    /* 关键：限制高度= 一屏 - 顶栏和页脚大约高度 */
+    max-height: calc(100dvh - 120px);/* nav(~60) + footer(~60) */
+  }
+
+  /* 两栏比例与间距更紧凑 */
+  .grid{
+    grid-template-columns: 1fr 0.9fr;/* 右侧稍窄一些 */
+    gap: 20px;
+    max-width: 1060px;               /* 版心控制 */
+    width: 100%;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  /* 文案/标题收一点 */
+  h1{ font-size: 34px; margin: 0 0 8px; }
+  .lead{ line-height: 1.7; }
+
+  /* 表单控件紧凑 */
+  label{ margin: 0 0 12px; font-weight: 700; }
+  input{ height: 44px; }
+  textarea{ min-height: 140px; }
+  input, textarea{
+    border:1px solid #2a374e;
+    border-radius:12px;
+    padding:12px 14px;
+    background:#e5e7eb; color:#0b1020;
+  }
+
+  /* 提交按钮高度 */
+  .btn-contact.btn-block{ height: 48px; font-size: 14px; letter-spacing:.08em; }
+}
+
+/* 极小屏或窗口高度很矮时的兜底（避免溢出屏幕）
+   —— 面板内部出现轻微滚动，而不是整页滚动 —— */
+@media (min-width: 861px) and (max-height: 740px){
+  .panel{ overflow: auto; }  /* 仅在高度过矮时启用内部滚动 */
+}
+    
   </style>
 </head>
 <body>
