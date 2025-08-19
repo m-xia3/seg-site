@@ -83,23 +83,42 @@
 
     /* ===== Contact Btn & Modal ===== */
     .btn-contact{
-      position: relative;
-      font-weight: 800;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      border-radius: 12px;
-      transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
-      box-shadow: 0 6px 0 rgba(0,0,0,.14);
-    }
-    /* A版：悬浮位移 */
-    .btn-contact:hover{
-      filter: brightness(1.1);
-      transform: translate(-3px, -3px);
-      box-shadow: 0 14px 20px rgba(0,0,0,.28);
-    }
-    /* 如果想B版：只变色不移动，添加：
-    .btn-contact:hover{ filter:brightness(1.1); transform:none; box-shadow:0 10px 16px rgba(0,0,0,.22);}
-    */
+  position: relative;
+  display: inline-block;           /* 确保 transform 可见且占位 */
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  border-radius: 16px;
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease, background .25s ease;
+  box-shadow: 0 6px 0 rgba(0,0,0,.18);
+}
+
+/* 外沿描边（参考站“右下折边”的层次感） */
+.btn-contact::after{
+  content:"";
+  position:absolute;
+  right:-6px; bottom:-6px;
+  width:100%; height:100%;
+  border-radius:16px;
+  border:3px solid var(--accent);
+  z-index:-1;
+  transition:right .25s ease, bottom .25s ease, border-color .25s ease;
+}
+
+/* A 版：上浮位移 + 阴影增强（更明显） */
+.btn-contact:hover{
+  filter: brightness(1.08);
+  transform: translate(-6px,-6px);    /* 上浮位移更大 */
+  box-shadow: 0 18px 26px rgba(0,0,0,.35);
+}
+.btn-contact:hover::after{
+  right:-2px; bottom:-2px;
+  border-color: color-mix(in srgb, var(--accent) 85%, white);
+}
+
+/* 如果想“只变色不移动”，再加下面一行覆盖即可：
+.btn-contact:hover{ transform:none; box-shadow:0 12px 18px rgba(0,0,0,.28); }
+*/
 
     .modal.hidden{ display: none; }
     .modal{ position: fixed; inset: 0; z-index: 1000; }
