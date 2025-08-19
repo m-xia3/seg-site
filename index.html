@@ -81,40 +81,31 @@
       .logo-wall{grid-template-columns:repeat(2,1fr)}
     }
 
-    /* ===== Contact Btn & Modal ===== */
+/* === 红色外边框右下滑出（参考图效果） === */
 .btn-contact{
   position: relative;
-  display: inline-block;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.18);  /* 默认边框与按钮重合 */
-  box-shadow: none;
-  transform: none;
-  transition: filter .2s ease;
+  z-index: 1;
+  border-radius: 16px;    /* 按钮圆角，改成和你按钮一致 */
+  overflow: visible;
 }
-.btn-contact::after{ content: none !important; }   /* 关闭之前的 ::after 折边层 */
 
-/* === 新的“干净悬浮边框”效果 ===
-   默认完全看不到外圈；悬停时在按钮外 2px~4px 出现一圈柔和描边 */
-.btn-contact::before{
+.btn-contact::after{
   content:"";
   position:absolute;
-  inset:-2px;                       /* 外圈刚好贴边（比按钮大 2px） */
+  inset:0;
   border-radius: inherit;
-  border: 2px solid rgba(255,255,255,.35);  /* 你可改成 var(--accent) 看品牌色外圈 */
-  opacity: 0;                       /* 默认不可见 */
-  transition: opacity .18s ease, inset .18s ease;
-  pointer-events: none;
-}
-.btn-contact:hover{
-  filter: brightness(1.06);         /* 轻微亮一点就好 */
-}
-.btn-contact:hover::before{
-  opacity: 1;                       /* 悬停才显示外圈 */
-  inset:-4px;                       /* 轻微扩大 2px，形成“浮起”的错觉 */
+  border: 2px solid #ff3055;   /* 红色，可改成 var(--accent) */
+  opacity: 0;
+  transform: translate(0,0);
+  transition: transform .22s ease, opacity .12s ease, border-color .2s ease;
+  z-index: -1;
 }
 
-/* 如果你更想要纯品牌色外圈，把上面 :before 的 border 改成： */
-/* border: 2px solid color-mix(in srgb, var(--accent) 75%, white); */
+.btn-contact:hover::after{
+  opacity: 1;
+  transform: translate(8px,8px); /* 滑出距离 */
+}
+
 
     .modal.hidden{ display: none; }
     .modal{ position: fixed; inset: 0; z-index: 1000; }
