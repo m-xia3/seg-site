@@ -66,6 +66,86 @@
 
     /* 页脚 */
     footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;margin-top:40px}
+
+    /* ===== 联系页微调覆盖（去阴影 + 尺寸优化）===== */
+
+/* 1) 整体留白更舒适 */
+.page{
+  /* 上下留白更大一些 */
+  padding: clamp(60px, 9vh, 100px) 0;
+}
+
+/* 2) 面板取消阴影 & 取消浅蓝色差，保持仅边框分隔 */
+.panel{
+  background: transparent;                 /* 与页面背景一致，去色差 */
+  border: 1px solid #233047;               /* 适度的深色描边（可调浅/深） */
+  box-shadow: none;                        /* 去掉柔光阴影 */
+  border-radius: 14px;                     /* 圆角略收敛 */
+  padding: clamp(28px, 4vw, 44px);         /* 内边距响应式 */
+  max-width: 1120px;                       /* 面板最大宽 */
+  margin: 0 auto;                          /* 居中 */
+}
+
+/* 3) 两栏宽度与间距优化 */
+.grid{
+  grid-template-columns: 1.05fr 0.95fr;    /* 视觉平衡一点 */
+  gap: clamp(24px, 4vw, 44px);
+  max-width: 1100px;                       /* 版心控制 */
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 4) 标题/正文尺寸 */
+h1{
+  font-size: clamp(30px, 3.6vw, 44px);
+  margin: 0 0 12px;
+}
+.lead{ line-height: 1.75; }
+
+/* 5) 表单控件尺寸（更大更易填） */
+label{ display:block; margin: 0 0 16px; font-weight: 700; }
+input, textarea{
+  width: 100%;
+  border: 1px solid #2a374e;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-top: 6px;
+  background: #e5e7eb;
+  color: #0b1020;
+  outline: none;
+  font-size: 16px;
+}
+input{ height: 48px; }
+textarea{ min-height: 200px; resize: vertical; }
+
+/* 6) 提交按钮高度/字距 */
+.btn-contact.btn-block{
+  height: 52px;
+  font-size: 14px;
+  letter-spacing: .08em;
+}
+
+/* 7) 右上角关闭按钮微调（更低调） */
+.close{
+  width: 40px; height: 40px;
+  border: 1px solid rgba(255,255,255,.20);
+  background: rgba(255,255,255,.06);
+  border-radius: 50%;
+}
+
+/* 保留你要的“红色外框右下滑出”效果（如已存在可忽略） */
+.btn-contact{ position:relative; z-index:1; border-radius:16px; overflow:visible; }
+.btn-contact::after{
+  content:""; position:absolute; inset:0; border-radius:inherit;
+  border:2px solid var(--accent); opacity:0; transform:translate(0,0);
+  transition: transform .22s ease, opacity .12s ease; z-index:-1;
+}
+.btn-contact:hover::after{ opacity:1; transform:translate(8px,8px); }
+
+@media (max-width: 860px){
+  .grid{ grid-template-columns: 1fr; max-width: 720px; }
+  .panel{ padding: 24px; }
+}
   </style>
 </head>
 <body>
