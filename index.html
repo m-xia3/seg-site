@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>赛格鞋业 · OEM/ODM 展示站（框架版）</title>
+  <style>
+    :root{
+      --bg:#0f172a;
+      --ink:#0b1020;
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+      --card:#111827;
+      --line:#1f2937;
+      --accent:#e11d48;
+      --accent-ink:#ffffff;
+      --surface:#0b1222;
+      --container: 1200px;
+    }
+    html,body{margin:0;background:#0a0f1f;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+    .container{max-width:var(--container);margin:0 auto;padding:0 24px}
+    .nav{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:saturate(160%) blur(6px);
+      background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
+      border-bottom:1px solid var(--line);
+    }
+    .nav .row{display:flex;align-items:center;gap:20px;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.5px}
+    .brand .logo{width:28px;height:28px;border-radius:6px;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink);font-weight:800}
+    .menu{display:flex;gap:18px;flex:1;flex-wrap:wrap}
+    .menu a{color:var(--muted);font-weight:500}
+    .menu a:hover{color:var(--text)}
+    .cta{margin-left:auto}
+    .btn{
+      background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:10px;
+      border:1px solid rgba(255,255,255,.12);font-weight:700
+    }
+    .btn:hover{filter:brightness(1.08)}
+    section{scroll-margin-top:80px}
+    .hero{padding:110px 0 72px;background:
+      radial-gradient(1000px 500px at 70% -10%, rgba(225,29,72,.15), transparent 55%),
+      radial-gradient(800px 400px at 10% -5%, rgba(59,130,246,.12), transparent 60%),
+      var(--surface);}
+    .hero .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+    .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+    .kpi b{font-size:20px}
+    .title{font-size:40px;line-height:1.15;margin:0 0 12px}
+    .lead{color:var(--muted);max-width:800px}
+    .bar{height:1px;background:var(--line);margin:42px 0}
+    .grid{display:grid;gap:16px}
+    .grid.s-3{grid-template-columns:repeat(3,1fr)}
+    .grid.s-4{grid-template-columns:repeat(4,1fr)}
+    .card{
+      background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden
+    }
+    .card .ph{aspect-ratio:4/3;background:linear-gradient(135deg,#1b2436,#0f1629)}
+    .card .bd{padding:14px 16px;color:var(--muted)}
+    .h2{font-size:28px;margin:0 0 8px}
+    .h3{font-size:18px;margin:0 0 4px}
+    details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+    details+details{margin-top:12px}
+    summary{cursor:pointer;font-weight:700}
+    .logo-wall{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+    .logo{background:#0c1426;border:1px dashed #23314f;border-radius:12px;aspect-ratio:7/3;display:grid;place-items:center;color:#2b3b5f;font-weight:700}
+    .cert{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+    .info{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px}
+    footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;margin-top:40px}
+    @media (max-width:1024px){
+      .hero .kpis{grid-template-columns:1fr}
+      .grid.s-3{grid-template-columns:repeat(2,1fr)}
+      .grid.s-4{grid-template-columns:repeat(2,1fr)}
+      .logo-wall{grid-template-columns:repeat(3,1fr)}
+      .info{grid-template-columns:1fr}
+      .title{font-size:32px}
+    }
+    @media (max-width:520px){
+      .grid.s-3,.grid.s-4{grid-template-columns:1fr}
+      .logo-wall{grid-template-columns:repeat(2,1fr)}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container row">
+      <div class="brand">
+        <span class="logo">SG</span>
+        <span>赛格鞋业 SEG Footwear</span>
+      </div>
+      <div class="menu">
+        <a href="#about">Who We Are</a>
+        <a href="#samples">Samples</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#philosophy">Philosophy</a>
+        <a href="#partners">Partners</a>
+        <a href="#certs">Certifications</a>
+        <a href="#info">Info</a>
+      </div>
+      <div class="cta">
+        <a class="btn" href="#contact">Contact Us</a>
+      </div>
+    </div>
+  </nav>
+
+  <section id="about" class="hero">
+    <div class="container">
+      <h1 class="title">我们是谁（占位）</h1>
+      <p class="lead">一句话定位 / 年产能 / 核心品类 / 服务市场（占位文案）。</p>
+      <div class="kpis">
+        <div class="kpi"><b>1,000,000+</b><br/><span class="muted">年产能（双）</span></div>
+        <div class="kpi"><b>48h</b><br/><span class="muted">打样响应</span></div>
+        <div class="kpi"><b>REACH / CPSIA</b><br/><span class="muted">合规预置</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="bar container"></div>
+
+  <section id="samples" class="section">
+    <div class="container">
+      <h2 class="h2">样品展示（占位）</h2>
+      <p class="lead">按男/女/童/Slip-on/High/Low 等分类的画廊占位。</p>
+
+      <div class="grid s-4" style="margin-top:16px;">
+        <article class="card"><div class="ph"></div><div class="bd"><div class="h3">高帮 Vulcanized</div>占位描述</div></article>
+        <article class="card"><div class="ph"></div><div class="bd"><div class="h3">低帮 Canvas</div>占位描述</div></article>
+        <article class="card"><div class="ph"></div><div class="bd"><div class="h3">Slip-on</div>占位描述</div></article>
+        <article class="card"><div class="ph"></div><div class="bd"><div class="h3">Kids’ Canvas</div>占位描述</div></article>
+      </div>
+    </div>
+  </section>
+
+  <div class="bar container"></div>
+
+  <section id="expertise" class="section">
+    <div class="container">
+      <h2 class="h2">我们的专业性（占位）</h2>
+      <p class="lead">工艺/设备/质量/交付的概述；下方为可展开的部门详情。</p>
+      <details>
+        <summary>硫化工艺与成型车间（点击查看详情）</summary>
+        <div style="margin-top:10px;color:var(--muted)">放置：工艺要点、设备清单、流程图占位。</div>
+      </details>
+      <details>
+        <summary>裁剪 & 车缝车间（点击查看详情）</summary>
+        <div style="margin-top:10px;color:var(--muted)">放置：排料率、针距标准、品质控制点占位。</div>
+      </details>
+      <details>
+        <summary>品控实验室（点击查看详情）</summary>
+        <div style="margin-top:10px;color:var(--muted)">放置：剥离/耐折/硬度/RSL 测试项占位。</div>
+      </details>
+      <details>
+        <summary>打样中心 & 研发（点击查看详情）</summary>
+        <div style="margin-top:10px;color:var(--muted)">放置：48h 打样流程、ODM 协作占位。</div>
+      </details>
+      <details>
+        <summary>仓储 & 物流（点击查看详情）</summary>
+        <div style="margin-top:10px;color:var(--muted)">放置：出货时效、包装规范、目的国合规占位。</div>
+      </details>
+    </div>
+  </section>
+
+  <div class="bar container"></div>
+
+  <section id="philosophy" class="section">
+    <div class="container">
+      <h2 class="h2">我们的理念（占位）</h2>
+      <p class="lead">环保 · 人文 · 可持续（口号占位）。配 3–6 张现场照片位。</p>
+      <div class="grid s-3" style="margin-top:16px;">
+        <div class="card"><div class="ph"></div><div class="bd">环保设施照片占位</div></div>
+        <div class="card"><div class="ph"></div><div class="bd">员工活动照片占位</div></div>
+        <div class="card"><div class="ph"></div><div class="bd">厂区绿化照片占位</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="bar container"></div>
+
+  <section id="partners" class="section">
+    <div class="container">
+      <h2 class="h2">合作的品牌（占位）</h2>
+      <p class="lead">若无授权，使用“Global Fast-Fashion / Sportswear / Retailers”描述或灰占位块。</p>
+      <div class="logo-wall" style="margin-top:16px;">
+        <div class="logo">LOGO</div><div class="logo">LOGO</div><div class="logo">LOGO</div>
+        <div class="logo">LOGO</div><div class="logo">LOGO</div><div class="logo">LOGO</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="bar container"></div>
+
+  <section id="certs" class="section">
+    <div class="container">
+      <h2 class="h2">认证资质（占位）</h2>
+      <p class="lead">ISO / BSCI / SMETA / Higg / REACH / CPSIA 等（证书缩略图占位）。</p>
+      <div class="grid s-4" style="margin-top:16px;">
+        <div class="cert">证书占位</div>
+        <div class="cert">证书占位</div>
+        <div class="cert">证书占位</div>
+        <div class="cert">证书占位</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="bar container"></div>
+
+  <section id="info" class="section">
+    <div class="container">
+      <h2 class="h2">基本信息（占位）</h2>
+      <div class="info" style="margin-top:16px;">
+        <div>
+          <div class="h3">公司信息</div>
+          <p class="lead">赛格鞋业（SEG Footwear） · 地址/成立年/员工规模/年产能等占位。</p>
+        </div>
+        <div>
+          <div class="h3">主要市场</div>
+          <p class="lead">EU / NA / JP / KR / MEA（占位）。</p>
+        </div>
+        <div id="contact">
+          <div class="h3">联系</div>
+          <p class="lead">Email / 电话 / WhatsApp / WeChat（占位）。</p>
+          <a class="btn" href="mailto:sales@example.com">发送邮件（占位）</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© <span id="y"></span> SEG Footwear · All rights reserved.</div>
+  </footer>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+</body>
+</html>
