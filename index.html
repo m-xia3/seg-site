@@ -82,43 +82,39 @@
     }
 
     /* ===== Contact Btn & Modal ===== */
-    .btn-contact{
+.btn-contact{
   position: relative;
-  display: inline-block;           /* 确保 transform 可见且占位 */
-  font-weight: 800;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  border-radius: 16px;
-  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease, background .25s ease;
-  box-shadow: 0 6px 0 rgba(0,0,0,.18);
+  display: inline-block;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.18);  /* 默认边框与按钮重合 */
+  box-shadow: none;
+  transform: none;
+  transition: filter .2s ease;
 }
+.btn-contact::after{ content: none !important; }   /* 关闭之前的 ::after 折边层 */
 
-/* 外沿描边（参考站“右下折边”的层次感） */
-.btn-contact::after{
+/* === 新的“干净悬浮边框”效果 ===
+   默认完全看不到外圈；悬停时在按钮外 2px~4px 出现一圈柔和描边 */
+.btn-contact::before{
   content:"";
   position:absolute;
-  right:-6px; bottom:-6px;
-  width:100%; height:100%;
-  border-radius:16px;
-  border:3px solid var(--accent);
-  z-index:-1;
-  transition:right .25s ease, bottom .25s ease, border-color .25s ease;
+  inset:-2px;                       /* 外圈刚好贴边（比按钮大 2px） */
+  border-radius: inherit;
+  border: 2px solid rgba(255,255,255,.35);  /* 你可改成 var(--accent) 看品牌色外圈 */
+  opacity: 0;                       /* 默认不可见 */
+  transition: opacity .18s ease, inset .18s ease;
+  pointer-events: none;
 }
-
-/* A 版：上浮位移 + 阴影增强（更明显） */
 .btn-contact:hover{
-  filter: brightness(1.08);
-  transform: translate(-6px,-6px);    /* 上浮位移更大 */
-  box-shadow: 0 18px 26px rgba(0,0,0,.35);
+  filter: brightness(1.06);         /* 轻微亮一点就好 */
 }
-.btn-contact:hover::after{
-  right:-2px; bottom:-2px;
-  border-color: color-mix(in srgb, var(--accent) 85%, white);
+.btn-contact:hover::before{
+  opacity: 1;                       /* 悬停才显示外圈 */
+  inset:-4px;                       /* 轻微扩大 2px，形成“浮起”的错觉 */
 }
 
-/* 如果想“只变色不移动”，再加下面一行覆盖即可：
-.btn-contact:hover{ transform:none; box-shadow:0 12px 18px rgba(0,0,0,.28); }
-*/
+/* 如果你更想要纯品牌色外圈，把上面 :before 的 border 改成： */
+/* border: 2px solid color-mix(in srgb, var(--accent) 75%, white); */
 
     .modal.hidden{ display: none; }
     .modal{ position: fixed; inset: 0; z-index: 1000; }
