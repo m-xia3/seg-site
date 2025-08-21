@@ -1,4 +1,4 @@
-// api/send-email.js —— CommonJS 版本（Vercel Functions）
+// api/send-email.js — 带自动回复（修正版）
 const nodemailer = require('nodemailer');
 
 module.exports = async (req, res) => {
@@ -9,19 +9,27 @@ module.exports = async (req, res) => {
 
   try {
     const { name, email, message, honeypot } = req.body || {};
-    if (honeypot) return res.status(200).json({ ok: true }); // 蜜罐：机器人直接吃掉
+
+    // 反机器人：蜜罐被填直接吞
+    if (honeypot) return res.status(200).json({ ok: true });
+
+    // 基本校验
     if (!name || !email || !message) {
       return res.status(400).json({ error: 'Missing fields' });
     }
+    const userEmail = String(email).trim();                   // ← 补上
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userEmail);
+    if (!emailOk) return res.status(400).json({ error: 'Invalid email' });
 
+    // SMTP 连接
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT || 587),
-      secure: String(process.env.SMTP_PORT) === '465', // 465 用 SSL
+      secure: String(process.env.SMTP_PORT) === '465',        // 465 用 SSL
       auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
     });
 
-// 1) 发给你们内部
+    // 1) 发给你们内部
     await transporter.sendMail({
       from: `"Website Contact" <${process.env.MAIL_FROM}>`,
       to: process.env.MAIL_TO,
@@ -37,7 +45,7 @@ module.exports = async (req, res) => {
       `,
     });
 
-    // 2) 自动回复给访客（避免和系统地址互相循环）
+    // 2) 自动回复（失败也不影响主流程）
     const lower = userEmail.toLowerCase();
     const deny = ['postmaster', 'mailer-daemon', 'bounce', 'no-reply', 'noreply'];
     const safeToAutoReply =
@@ -47,10 +55,10 @@ module.exports = async (req, res) => {
       !deny.some(k => lower.includes(k));
 
     if (safeToAutoReply) {
-      await transporter.sendMail({
+      transporter.sendMail({
         from: `"赛格鞋业 SAIGE Footwear" <${process.env.MAIL_FROM}>`,
         to: userEmail,
-        replyTo: process.env.MAIL_TO, // 访客点“回复”会回到你们的收件箱
+        replyTo: process.env.MAIL_TO,
         subject: '我们已收到您的来信 | We received your message',
         text:
 `您好 ${name}：
@@ -62,9 +70,9 @@ module.exports = async (req, res) => {
           <p>感谢您的来信！我们已收到，并会在 <b>24–48 小时</b> 内回复您。</p>
           <p>— 赛格鞋业 SAIGE Footwear</p>
         `
-      });
+      }).catch(err => console.error('auto-reply error:', err));
     }
-    
+
     return res.status(200).json({ ok: true });
   } catch (err) {
     console.error('send-email error:', err);
@@ -72,6 +80,7 @@ module.exports = async (req, res) => {
   }
 };
 
+// 简单 XSS 处理
 function escapeHtml(str=''){
   return String(str)
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
