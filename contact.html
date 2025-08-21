@@ -257,7 +257,7 @@ textarea{ min-height: 200px; resize: vertical; }
     const msg  = document.getElementById('formMsg');
 
     // 用 Formspree：去 formspree.io 新建表单，替换下面的 endpoint
-    const ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_YOURS'; // ← 换成你的ID
+    const ENDPOINT = '/api/send-email'; // ← 换成你的ID
 
     form.addEventListener('submit', async (e)=>{
       e.preventDefault();
