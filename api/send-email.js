@@ -21,16 +21,17 @@ module.exports = async (req, res) => {
       auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
     });
 
+// 1) 发给你们内部
     await transporter.sendMail({
       from: `"Website Contact" <${process.env.MAIL_FROM}>`,
       to: process.env.MAIL_TO,
-      replyTo: email,
+      replyTo: userEmail,                                     // 用校验后的
       subject: `New message from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+      text: `Name: ${name}\nEmail: ${userEmail}\n\n${message}`,
       html: `
         <h3>New Website Message</h3>
         <p><b>Name:</b> ${escapeHtml(name)}</p>
-        <p><b>Email:</b> ${escapeHtml(email)}</p>
+        <p><b>Email:</b> ${escapeHtml(userEmail)}</p>
         <p><b>Message:</b></p>
         <p>${escapeHtml(message).replace(/\n/g,'<br>')}</p>
       `,
