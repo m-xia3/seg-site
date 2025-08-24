@@ -161,71 +161,42 @@
     @media (max-width: 860px){
       .modal__grid{ grid-template-columns: 1fr; }
     }
-    /* === 新 Hero Section 样式覆盖 === */
-.hero {
-  min-height: 100vh;                /* 占满并超过一屏高度 */
+
+    /* === Hero Section 调整（只作用于 #about） === */
+#about.hero {
+  min-height: 85vh;              /* 高度，原来100vh太高了，可以调节 */
   display: flex;
   align-items: center;
-  padding: 120px 0 100px;           /* 顶部/底部留白更大 */
+  padding: 80px 0 60px;          /* 上下留白缩小一些 */
   position: relative;
 }
 
-.copy {
-  max-width: 60%;                   /* 文字区域占屏幕约 2/3，侵入中线一点 */
+#about .copy {
+  max-width: 58%;                /* 文字区域宽度，差不多到中线 */
 }
 
-.copy .title {
-  font-size: clamp(44px, 6.8vw, 92px); /* 更大字号 */
-  line-height: 1.15;
+#about .title {
+  font-size: clamp(38px, 5.5vw, 72px);  /* 主标题大小（调小一些） */
+  line-height: 1.2;
   font-weight: 700;
-  margin: 0 0 20px;
+  margin: 0 0 18px;
 }
 
-.copy .lead {
-  font-size: clamp(18px, 2vw, 24px); /* 副文案加大 */
-  line-height: 1.65;
+#about .lead {
+  font-size: clamp(16px, 1.8vw, 20px);  /* 副文案 */
+  line-height: 1.6;
   color: var(--muted);
-  max-width: 50ch;                  /* 限制文字行宽，避免拉太长 */
+  max-width: 50ch;
 }
 
-/* 小屏幕时自动缩小字号 */
+/* 小屏幕适配 */
 @media (max-width: 900px) {
-  .copy { max-width: 100%; }
-  .copy .title { font-size: clamp(32px, 7vw, 54px); }
-  .copy .lead { font-size: clamp(16px, 3.6vw, 18px); }
-}
-/* === FORCE: Hero 更高 + 左侧文案更大更靠左（只影响 #about） === */
-#about.hero{
-  min-height: 100vh !important;        /* 向下明显扩展 */
-  padding: 120px 0 100px !important;   /* 上下留白更大 */
-  position: relative;
+  #about.hero { min-height: auto; padding: 100px 0 80px; }
+  #about .copy { max-width: 100%; }
+  #about .title { font-size: clamp(28px, 6.5vw, 44px); }
+  #about .lead { font-size: clamp(15px, 3.5vw, 18px); }
 }
 
-#about .copy{
-  max-width: 60% !important;           /* 文字区域占到中线并略过一点 */
-}
-
-#about .title{
-  font-size: clamp(46px, 6.9vw, 96px) !important;  /* 标语更大 */
-  line-height: 1.12 !important;
-  margin: 0 0 22px !important;
-  letter-spacing: .2px;
-}
-
-#about .lead{
-  font-size: clamp(18px, 2.1vw, 24px) !important;  /* 副文案也放大 */
-  line-height: 1.65 !important;
-  color: var(--muted) !important;
-  max-width: 52ch !important;           /* 控制行宽，读起来不散 */
-}
-
-/* 小屏处理（不挤爆） */
-@media (max-width: 900px){
-  #about.hero{ min-height: 92vh !important; padding: 140px 0 110px !important; }
-  #about .copy{ max-width: 100% !important; }
-  #about .title{ font-size: clamp(32px, 7.2vw, 56px) !important; }
-  #about .lead{ font-size: clamp(16px, 3.6vw, 18px) !important; }
-}
   </style>
 </head>
 <body>
