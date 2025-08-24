@@ -194,6 +194,38 @@
   .copy .title { font-size: clamp(32px, 7vw, 54px); }
   .copy .lead { font-size: clamp(16px, 3.6vw, 18px); }
 }
+/* === FORCE: Hero 更高 + 左侧文案更大更靠左（只影响 #about） === */
+#about.hero{
+  min-height: 110vh !important;        /* 向下明显扩展 */
+  padding: 180px 0 160px !important;   /* 上下留白更大 */
+  position: relative;
+}
+
+#about .copy{
+  max-width: 66% !important;           /* 文字区域占到中线并略过一点 */
+}
+
+#about .title{
+  font-size: clamp(46px, 6.9vw, 96px) !important;  /* 标语更大 */
+  line-height: 1.12 !important;
+  margin: 0 0 22px !important;
+  letter-spacing: .2px;
+}
+
+#about .lead{
+  font-size: clamp(18px, 2.1vw, 24px) !important;  /* 副文案也放大 */
+  line-height: 1.65 !important;
+  color: var(--muted) !important;
+  max-width: 52ch !important;           /* 控制行宽，读起来不散 */
+}
+
+/* 小屏处理（不挤爆） */
+@media (max-width: 900px){
+  #about.hero{ min-height: 92vh !important; padding: 140px 0 110px !important; }
+  #about .copy{ max-width: 100% !important; }
+  #about .title{ font-size: clamp(32px, 7.2vw, 56px) !important; }
+  #about .lead{ font-size: clamp(16px, 3.6vw, 18px) !important; }
+}
   </style>
 </head>
 <body>
