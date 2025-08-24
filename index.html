@@ -199,6 +199,45 @@
   margin: 16px 0 !important;         /* 原来 42px；改小到 12~18px 都可 */
 }
 
+/* === Hero 右侧素描三连 === */
+.hero { position: relative; overflow: hidden; }
+
+.hero-art{
+  position: absolute;
+  right: clamp(8px, 4vw, 48px);
+  top: 80px;                      /* 视需要微调和导航高度配合 */
+  display: grid;
+  gap: clamp(14px, 2.2vw, 26px);
+  pointer-events: none;           /* 不挡住文字选中 */
+}
+
+.hero-art img{
+  width: min(38vw, 440px);        /* 基础宽度 */
+  height: auto;
+  opacity: .95;
+  filter: drop-shadow(0 10px 28px rgba(0,0,0,.35));
+}
+
+/* 细微差异：三张图尺寸层级，避免完全一致显得呆板 */
+.hero-art img:nth-child(1){ width: min(36vw, 430px); }
+.hero-art img:nth-child(2){ width: min(37vw, 435px); }
+.hero-art img:nth-child(3){ width: min(38vw, 440px); }
+
+/* 根据你之前的文案区域宽度进行让位 */
+#about .copy{ position: relative; z-index: 1; }
+
+/* 响应式：中屏缩小；小屏隐藏（或改为下移） */
+@media (max-width: 1200px){
+  .hero-art{ top: 96px; right: 24px; }
+  .hero-art img{ width: min(44vw, 420px); opacity:.92; }
+}
+@media (max-width: 960px){
+  .hero-art{ opacity: .12; }     /* 或直接 display:none; */
+}
+@media (max-width: 720px){
+  .hero-art{ display: none; }    /* 移动端默认不显示，避免遮挡 */
+}
+
   </style>
 </head>
 <body>
@@ -235,6 +274,11 @@
         a manufacturing partner that delivers quality with responsibility,
         and adapts to every brand’s vision.
       </p>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <img src="images/shoe1.png" alt="" loading="lazy" decoding="async">
+      <img src="images/shoe2.png" alt="" loading="lazy" decoding="async">
+      <img src="images/shoe3.png" alt="" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
