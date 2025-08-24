@@ -204,25 +204,25 @@
 
 .hero-art{
   position: absolute;
-  right: clamp(12px, 6vw, 72px);
-  top: 64px;
+  right: clamp(60px, 10vw, 160px); /* 往左移 */
+  top: 40px;                       /* 上移 */
   display: grid;
-  gap: clamp(10px, 1.6vw, 18px);
-  pointer-events: none;           /* 不挡文字/交互 */
+  gap: clamp(14px, 2.2vw, 26px);
+  pointer-events: none;
 }
 
 .hero-art img{
-  width: min(28vw, 320px);        /* 基础更小 */
+  width: min(20vw, 240px);  /* 图片更小 */
   height: auto;
   opacity: .95;
   filter: drop-shadow(0 10px 28px rgba(0,0,0,.35));
 }
 
 /* 轻微层级差异，避免呆板 */
-.hero-art img:nth-child(1){ width: min(26vw, 300px); }
-.hero-art img:nth-child(2){ width: min(27vw, 310px); }
-.hero-art img:nth-child(3){ width: min(28vw, 320px); }
-
+.hero-art img:nth-child(1){ width: min(18vw, 220px); }
+.hero-art img:nth-child(2){ width: min(19vw, 230px); }
+.hero-art img:nth-child(3){ width: min(20vw, 240px); }
+    
 /* 超大屏也不无限放大 */
 @media (min-width: 1400px){
   .hero-art img{ max-width: 340px; }
