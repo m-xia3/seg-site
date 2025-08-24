@@ -199,45 +199,50 @@
   margin: 16px 0 !important;         /* 原来 42px；改小到 12~18px 都可 */
 }
 
-/* === Hero 右侧素描三连 === */
+/* === Hero 右侧素描三连（更新版） === */
 .hero { position: relative; overflow: hidden; }
 
 .hero-art{
   position: absolute;
-  right: clamp(8px, 4vw, 48px);
-  top: 80px;                      /* 视需要微调和导航高度配合 */
+  right: clamp(12px, 6vw, 72px);
+  top: 64px;
   display: grid;
-  gap: clamp(14px, 2.2vw, 26px);
-  pointer-events: none;           /* 不挡住文字选中 */
+  gap: clamp(10px, 1.6vw, 18px);
+  pointer-events: none;           /* 不挡文字/交互 */
 }
 
 .hero-art img{
-  width: min(38vw, 440px);        /* 基础宽度 */
+  width: min(28vw, 320px);        /* 基础更小 */
   height: auto;
   opacity: .95;
   filter: drop-shadow(0 10px 28px rgba(0,0,0,.35));
 }
 
-/* 细微差异：三张图尺寸层级，避免完全一致显得呆板 */
-.hero-art img:nth-child(1){ width: min(36vw, 430px); }
-.hero-art img:nth-child(2){ width: min(37vw, 435px); }
-.hero-art img:nth-child(3){ width: min(38vw, 440px); }
+/* 轻微层级差异，避免呆板 */
+.hero-art img:nth-child(1){ width: min(26vw, 300px); }
+.hero-art img:nth-child(2){ width: min(27vw, 310px); }
+.hero-art img:nth-child(3){ width: min(28vw, 320px); }
 
-/* 根据你之前的文案区域宽度进行让位 */
-#about .copy{ position: relative; z-index: 1; }
+/* 超大屏也不无限放大 */
+@media (min-width: 1400px){
+  .hero-art img{ max-width: 340px; }
+}
 
-/* 响应式：中屏缩小；小屏隐藏（或改为下移） */
+/* 中屏：略缩并上移一点 */
 @media (max-width: 1200px){
-  .hero-art{ top: 96px; right: 24px; }
-  .hero-art img{ width: min(44vw, 420px); opacity:.92; }
-}
-@media (max-width: 960px){
-  .hero-art{ opacity: .12; }     /* 或直接 display:none; */
-}
-@media (max-width: 720px){
-  .hero-art{ display: none; }    /* 移动端默认不显示，避免遮挡 */
+  .hero-art{ top: 80px; right: 28px; }
+  .hero-art img{ width: min(36vw, 300px); }
 }
 
+/* 小于 960：若嫌挡视线，可改淡化或隐藏 */
+@media (max-width: 960px){
+  .hero-art{ opacity: .12; }   /* 或者：display:none; */
+}
+
+/* 移动端直接隐藏，避免遮挡主文案 */
+@media (max-width: 720px){
+  .hero-art{ display: none; }
+}
   </style>
 </head>
 <body>
