@@ -161,6 +161,39 @@
     @media (max-width: 860px){
       .modal__grid{ grid-template-columns: 1fr; }
     }
+    /* === 新 Hero Section 样式覆盖 === */
+.hero {
+  min-height: 105vh;                /* 占满并超过一屏高度 */
+  display: flex;
+  align-items: center;
+  padding: 160px 0 140px;           /* 顶部/底部留白更大 */
+  position: relative;
+}
+
+.copy {
+  max-width: 64%;                   /* 文字区域占屏幕约 2/3，侵入中线一点 */
+}
+
+.copy .title {
+  font-size: clamp(44px, 6.8vw, 92px); /* 更大字号 */
+  line-height: 1.15;
+  font-weight: 700;
+  margin: 0 0 20px;
+}
+
+.copy .lead {
+  font-size: clamp(18px, 2vw, 24px); /* 副文案加大 */
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 50ch;                  /* 限制文字行宽，避免拉太长 */
+}
+
+/* 小屏幕时自动缩小字号 */
+@media (max-width: 900px) {
+  .copy { max-width: 100%; }
+  .copy .title { font-size: clamp(32px, 7vw, 54px); }
+  .copy .lead { font-size: clamp(16px, 3.6vw, 18px); }
+}
   </style>
 </head>
 <body>
