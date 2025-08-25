@@ -243,6 +243,17 @@
 @media (max-width: 720px){
   .hero-art{ display: none; }
 }
+    
+/* --- philosophy 卡片图片样式（新增） --- */
+.grid-photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.card{background:var(--surface);border:1px solid color-mix(in oklab, #fff 8%, transparent);
+  border-radius:16px;padding:12px}
+.card-media{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:12px}
+.card-media img{width:100%;height:100%;object-fit:cover;display:block}
+.card-media::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.10), transparent)}
+.card-caption{margin-top:10px;color:var(--muted);font-size:14px}
+    
   </style>
 </head>
 <body>
@@ -339,11 +350,28 @@
     <div class="container">
       <h2 class="h2">我们的理念（占位）</h2>
       <p class="lead">环保 · 人文 · 可持续（口号占位）。配 3–6 张现场照片位。</p>
-      <div class="grid s-3" style="margin-top:16px;">
-        <div class="card"><div class="ph"></div><div class="bd">环保设施照片占位</div></div>
-        <div class="card"><div class="ph"></div><div class="bd">员工活动照片占位</div></div>
-        <div class="card"><div class="ph"></div><div class="bd">厂区绿化照片占位</div></div>
+ <div class="grid-photos" style="margin-top:24px">
+    <!-- 环保设施：仍保留占位 -->
+    <article class="card">
+      <div class="card-media" style="background:#0b1222"></div>
+      <div class="card-caption">环保设施照片占位</div>
+    </article>
+
+    <!-- 员工活动：仍保留占位 -->
+    <article class="card">
+      <div class="card-media" style="background:#0b1222"></div>
+      <div class="card-caption">员工活动照片占位</div>
+    </article>
+
+    <!-- ★ 厂区绿化/厂房：替换为真实图片 -->
+    <article class="card">
+      <div class="card-media">
+        <img src="./images/saige-factory.jpg"
+             alt="SAIGE 赛格厂区外观"
+             loading="lazy" decoding="async">
       </div>
+      <div class="card-caption">厂区环境 / Factory Environment</div>
+    </article>
     </div>
   </section>
 
