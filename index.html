@@ -249,32 +249,7 @@
 .card{background:var(--surface);border:1px solid color-mix(in oklab, #fff 8%, transparent);
   border-radius:16px;padding:12px}
 .card-media{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:12px}
-.card-media img{width:100%;height:100%;object-fit:cover;display:block}
-
-  /* 🎬 电影质感滤镜 */
-  filter: brightness(0.85)       /* 压低亮度，营造暗部层次 */
-          contrast(1.2)          /* 增加对比度，层次分明 */
-          saturate(0.8)          /* 降低饱和度，避免过艳 */
-          sepia(0.2)             /* 增添胶片的褐色调 */
-          hue-rotate(-8deg)      /* 整体往冷色（蓝青）微调 */
-          grayscale(0.05)        /* 加点灰，去掉塑料感 */
-          blur(0.3px);           /* 极轻微模糊，营造油画感 */
-  
-  mix-blend-mode: multiply;      /* 与背景混合，压进画面 */
-  transition: filter .3s ease;
-}
-
-/* 📽️ 添加颗粒质感 (电影胶片感) */
-.card-media::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("https://www.transparenttextures.com/patterns/noise.png"); /* 噪点纹理 */
-  opacity: 0.15;          /* 透明度控制颗粒感强弱 */
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
-    
+.card-media img{width:100%;height:100%;object-fit:cover;display:block}    
 .card-media::after{content:"";position:absolute;inset:0;
   background:linear-gradient(to top, rgba(0,0,0,.10), transparent)}
 .card-caption{margin-top:10px;color:var(--muted);font-size:14px}
