@@ -266,6 +266,38 @@
   z-index:1; /* 在图片上层，但低于文字 */
 }
 .card-caption{margin-top:10px;color:var(--muted);font-size:14px}
+
+    /* === Samples 样品卡片样式 === */
+.sample-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.sample-card{
+  display:block;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:var(--card);
+  overflow:hidden;
+  position:relative;
+  aspect-ratio:4/3;
+  text-align:center;
+  color:var(--text);
+}
+.sample-card .ph{
+  width:100%;height:100%;
+  background:linear-gradient(135deg,#1b2436,#0f1629);
+}
+.sample-card .sample-tag{
+  position:absolute;
+  bottom:12px;left:0;right:0;
+  font-weight:600;
+  color:var(--muted);
+}
+.sample-card:hover{
+  filter:brightness(1.08);
+  border-color:var(--accent);
+}
     
   </style>
 </head>
