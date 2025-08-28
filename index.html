@@ -267,37 +267,62 @@
 }
 .card-caption{margin-top:10px;color:var(--muted);font-size:14px}
 
-    /* === Samples 样品卡片样式 === */
+/* === Samples 栅格与卡片（修复拉伸 & 标签被遮挡） === */
 .sample-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:20px;
+  gap:24px;
 }
+@media (max-width:1024px){ .sample-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:600px){ .sample-grid{ grid-template-columns:1fr; } }
+
 .sample-card{
-  display:block;
-  border-radius:14px;
-  border:1px solid var(--line);
-  background:var(--card);
-  overflow:hidden;
-  position:relative;
-  aspect-ratio:4/3;
-  text-align:center;
-  color:var(--text);
+  position: relative;         /* 让内部绝对定位基于卡片 */
+  display: block;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
 }
+
+/* 图片容器：固定比例，居中展示 */
 .sample-card .ph{
-  width:100%;height:100%;
-  background:linear-gradient(135deg,#1b2436,#0f1629);
+  aspect-ratio: 16 / 9;       /* 你也可以改成 4/3，看你封面比例 */
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg,#121a2c,#0b1222);
 }
-.sample-card .sample-tag{
+
+/* 关键：不拉伸，保持原比例 */
+.sample-card .ph img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;        /* contain 避免变形；cover 会裁切 */
+}
+
+/* 底部渐变，用于托住文字，且保证文字在最上面 */
+.sample-card::after{
+  content:"";
   position:absolute;
-  bottom:12px;left:0;right:0;
-  font-weight:600;
-  color:var(--muted);
+  left:0; right:0; bottom:0;
+  height: 34%;
+  background: linear-gradient(to top, rgba(0,0,0,.45), rgba(0,0,0,0));
+  z-index: 2;                 /* 渐变在图片之上 */
+  pointer-events: none;
 }
-.sample-card:hover{
-  filter:brightness(1.08);
-  border-color:var(--accent);
+
+/* 标签：放最上层就不会被图片挡住 */
+.sample-tag{
+  position: absolute;
+  left: 18px;
+  bottom: 14px;
+  z-index: 3;                 /* 高于图片和渐变 */
+  color: rgba(229,231,235,.95);
+  font-weight: 700;
+  letter-spacing: .3px;
+  text-shadow: 0 2px 6px rgba(0,0,0,.5);
 }
+
     
   </style>
 </head>
