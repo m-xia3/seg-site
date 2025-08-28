@@ -290,17 +290,20 @@
 
 
 /* 照片容器：中间亮、四周暗的冷色渐变 */
-.sample-card .ph{
+.sample-card {
   position: relative;
-  aspect-ratio: 4 / 3;        /* 保持比例，避免图片被压缩 */
-  display: grid;
-  place-items: center;
+  display: block;
+  border-radius: 16px;
   overflow: hidden;
+  /* 新的渐变：中心明显更亮，向四周逐渐过渡到深色 */
   background: radial-gradient(circle at center,
-              rgba(120,150,200,0.22) 0%,   /* 中心：偏亮冷蓝 */
-              rgba(40,60,90,0.55) 60%,     /* 中间：柔和过渡 */
-              rgba(11,18,34,0.95) 100%);   /* 边缘：深色与整体背景衔接 */
+              rgba(120, 150, 200, 0.28) 0%,   /* 中心亮蓝灰，透明度28% */
+              rgba(40, 55, 85, 0.18) 40%,     /* 过渡层，略暗但有色差 */
+              rgba(15, 23, 42, 1) 100%        /* 边缘完全过渡到原深色 */
+  );
+  aspect-ratio: 4/3;
 }
+
     
 .sample-card .ph::before{
   content:"";                                     /* 暗角，让边缘更顺滑 */
