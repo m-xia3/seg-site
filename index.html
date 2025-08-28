@@ -289,19 +289,19 @@
 }
 
 
-/* 图片容器：保持比例、不变形 */
+/* 照片容器：中间亮、四周暗的冷色渐变 */
 .sample-card .ph{
   position: relative;
-  aspect-ratio: 16 / 9;          /* 你也可以换 4/3 */
+  aspect-ratio: 4 / 3;        /* 保持比例，避免图片被压缩 */
   display: grid;
   place-items: center;
   overflow: hidden;
-
-  /* 背景：边缘与页面底色顺接，中心略亮且偏冷色，托深色鞋子 */
-  background: 
-    radial-gradient(75% 80% at 55% 60%, rgba(96,165,250,.16) 0%, rgba(96,165,250,0) 58%), /* 冷色柔光 */
-    #0b1222;                                        /* 与页面一致的底色 */
+  background: radial-gradient(circle at center,
+              rgba(120,150,200,0.22) 0%,   /* 中心：偏亮冷蓝 */
+              rgba(40,60,90,0.55) 60%,     /* 中间：柔和过渡 */
+              rgba(11,18,34,0.95) 100%);   /* 边缘：深色与整体背景衔接 */
 }
+    
 .sample-card .ph::before{
   content:"";                                     /* 暗角，让边缘更顺滑 */
   position:absolute; inset:0;
@@ -309,13 +309,23 @@
   pointer-events:none;
 }
 
-.sample-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;   /* 保持原比例，不会变形 */
-  display: block;
-  z-index: 1;
-  position: relative;
+.sample-card .ph::before{
+  content:"";
+  position:absolute; inset:0;
+  border-radius: inherit;
+  pointer-events:none;
+  /* 可选：再叠一点轻微的内阴影，增加层次 */
+  box-shadow: inset 0 0 120px rgba(0,0,0,.45);
+}
+
+.sample-card img{
+  max-width:88%;
+  max-height:88%;
+  object-fit:contain;
+  display:block;
+  z-index:1;
+  position:relative;
+  mix-blend-mode:normal;  /* 避免被渐变底色染色 */
 }
 
 /* 标题放到图片下方，不会再覆盖图片 */
