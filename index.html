@@ -319,11 +319,17 @@
 .sample-meta{
   padding: 12px 16px 16px;
 }
-.sample-tag{
-  display:inline-block;
-  font-weight: 800;
-  letter-spacing: .2px;
+.sample-tag {
+  position: absolute;
+  bottom: 10px;
+  left: 50%; 
+  transform: translateX(-50%); /* 居中 */
   color: var(--text);
+  font-weight: 700;
+  background: rgba(0,0,0,0.4); /* 半透明底，避免和鞋子颜色冲突 */
+  padding: 4px 10px;
+  border-radius: 6px;
+  z-index: 2;
 }
     
   </style>
