@@ -267,8 +267,7 @@
 }
 .card-caption{margin-top:10px;color:var(--muted);font-size:14px}
 
-/* === Samples 栅格与卡片（修复拉伸 & 标签被遮挡） === */
-/* === Samples 栅格与卡片（不变形 + 边缘向内渐变 + 标题不覆盖图片） === */
+/* === Samples 栅格与卡片（大面积提亮 + 悬停更亮） === */
 .sample-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -277,18 +276,17 @@
 @media (max-width:1024px){ .sample-grid{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:600px){ .sample-grid{ grid-template-columns:1fr; } }
 
-/* 1) 卡片容器不再上背景，只负责框与比例 */
+/* 只负责框与比例，不上背景色，避免压暗 */
 .sample-card{
   position: relative;
   display: block;
   border-radius: 16px;
   overflow: hidden;
   aspect-ratio: 4/3;
-  background: transparent;   /* ← 不要背景，避免把亮区压暗 */
+  background: transparent;
 }
 
-
-/* 2) 把“中间亮、四周暗”的渐变放到 .ph，直接在图片后面 */
+/* 照片容器：默认就很亮，亮区很大（覆盖整只鞋） */
 .sample-card .ph{
   position: relative;
   aspect-ratio: 4/3;
@@ -296,27 +294,29 @@
   place-items: center;
   overflow: hidden;
 
-  /* —— 更亮的中心 + 更柔的过渡 —— */
+  /* 大范围中心提亮，向四周柔和过渡到底色 */
   background: radial-gradient(
-    62% 72% at 50% 55%,
-    rgba(245,250,255,.72) 0%,    /* 中心明显更亮（不刺眼） */
-    rgba(196,214,238,.42) 34%,   /* 过渡层：浅蓝灰 */
-    rgba(66,86,126,.24)  60%,    /* 继续过渡 */
-    rgba(20,28,48,.92)   86%,    /* 边缘收住 */
-    rgba(15,23,42,1)    100%     /* 与页面底色顺接 */
+    115% 150% at 50% 56%,
+    rgba(255,255,255,.92) 0%,
+    rgba(241,248,255,.78) 26%,
+    rgba(190,208,232,.50) 56%,
+    rgba(28,38,64,.86)   92%,
+    rgba(15,23,42,1)     100%
   );
+
+  transition: background .24s ease, box-shadow .24s ease;
 }
 
-    
-/* 3) 只保留一层“轻”内阴影，别叠两层；降低强度避免变灰 */
+/* 轻内阴影，增加层次但不变灰 */
 .sample-card .ph::before{
   content:"";
   position:absolute; inset:0;
-  box-shadow: inset 0 0 160px 20px rgba(8,13,26,.18);
+  box-shadow: inset 0 0 120px 14px rgba(8,13,26,.14);
   pointer-events:none;
+  transition: box-shadow .24s ease;
 }
-    
-/* 4) 图片保持本色，不被底色染色；留一点边距 */
+
+/* 图片保持本色，四周留一点呼吸 */
 .sample-card img{
   max-width:92%;
   max-height:92%;
@@ -327,30 +327,31 @@
   mix-blend-mode:normal;
 }
 
-/* 5)（可选）hover 时中心再微亮一点，增强层次但不刺眼 */
-.sample-card .ph{ transition: background .2s ease; }
+/* 悬停时：亮区更大、更亮（而不是变暗） */
 .sample-card:hover .ph{
-  background:
-    radial-gradient(60% 70% at 50% 55%,
-      rgba(210,224,245,.42) 0%,
-      rgba(150,180,220,.30) 34%,
-      rgba(46,64,100,.22)   56%,
-      rgba(20,28,48,.96)    88%,
-      rgba(15,23,42,1)     100%);
-}    
-
-/* 标题放到图片下方，不会再覆盖图片 */
-.sample-meta{
-  padding: 12px 16px 16px;
+  background: radial-gradient(
+    125% 165% at 50% 56%,
+    rgba(255,255,255,.98) 0%,
+    rgba(248,252,255,.90) 26%,
+    rgba(196,214,236,.56) 56%,
+    rgba(24,32,56,.82)   92%,
+    rgba(15,23,42,1)     100%
+  );
 }
-.sample-tag {
+.sample-card:hover .ph::before{
+  box-shadow: inset 0 0 90px 8px rgba(8,13,26,.10);
+}
+
+/* 标题条保持不变 */
+.sample-meta{ padding: 12px 16px 16px; }
+.sample-tag{
   position: absolute;
   bottom: 10px;
-  left: 50%; 
-  transform: translateX(-50%); /* 居中 */
+  left: 50%;
+  transform: translateX(-50%);
   color: var(--text);
   font-weight: 700;
-  background: rgba(0,0,0,0.4); /* 半透明底，避免和鞋子颜色冲突 */
+  background: rgba(0,0,0,0.4);
   padding: 4px 10px;
   border-radius: 6px;
   z-index: 2;
