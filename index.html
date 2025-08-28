@@ -277,59 +277,65 @@
 @media (max-width:1024px){ .sample-grid{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:600px){ .sample-grid{ grid-template-columns:1fr; } }
 
-.sample-card {
+/* 1) 卡片容器不再上背景，只负责框与比例 */
+.sample-card{
   position: relative;
   display: block;
   border-radius: 16px;
   overflow: hidden;
-  background: radial-gradient(circle at center,
-              rgba(40,50,70,0.9) 0%,     /* 中心偏亮 */
-              rgba(15,23,42,1) 100%);   /* 四周过渡到深色 */
-  aspect-ratio: 4/3; /* 保持比例，避免图片被压缩 */
+  aspect-ratio: 4/3;
+  background: transparent;   /* ← 不要背景，避免把亮区压暗 */
 }
 
 
-/* 照片容器：中间亮、四周暗的冷色渐变 */
-.sample-card {
+/* 2) 把“中间亮、四周暗”的渐变放到 .ph，直接在图片后面 */
+.sample-card .ph{
   position: relative;
-  display: block;
-  border-radius: 16px;
-  overflow: hidden;
-  /* 新的渐变：中心明显更亮，向四周逐渐过渡到深色 */
-  background: radial-gradient(circle at center,
-              rgba(120, 150, 200, 0.28) 0%,   /* 中心亮蓝灰，透明度28% */
-              rgba(40, 55, 85, 0.18) 40%,     /* 过渡层，略暗但有色差 */
-              rgba(15, 23, 42, 1) 100%        /* 边缘完全过渡到原深色 */
-  );
   aspect-ratio: 4/3;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  /* 中心更亮，过渡更长，更耐看 */
+  background:
+    radial-gradient(60% 70% at 50% 55%,
+      rgba(210,224,245,.36) 0%,
+      rgba(150,180,220,.26) 32%,
+      rgba(46,64,100,.22)   56%,
+      rgba(20,28,48,.96)    88%,
+      rgba(15,23,42,1)     100%);
 }
 
     
-.sample-card .ph::before{
-  content:"";                                     /* 暗角，让边缘更顺滑 */
-  position:absolute; inset:0;
-  box-shadow: inset 0 0 180px 40px rgba(8,13,26,.85);
-  pointer-events:none;
-}
-
+/* 3) 只保留一层“轻”内阴影，别叠两层；降低强度避免变灰 */
 .sample-card .ph::before{
   content:"";
   position:absolute; inset:0;
-  border-radius: inherit;
+  box-shadow: inset 0 0 160px 20px rgba(8,13,26,.35);
   pointer-events:none;
-  /* 可选：再叠一点轻微的内阴影，增加层次 */
-  box-shadow: inset 0 0 120px rgba(0,0,0,.45);
 }
-
+    
+/* 4) 图片保持本色，不被底色染色；留一点边距 */
 .sample-card img{
-  max-width:88%;
-  max-height:88%;
+  max-width:92%;
+  max-height:92%;
   object-fit:contain;
   display:block;
-  z-index:1;
   position:relative;
-  mix-blend-mode:normal;  /* 避免被渐变底色染色 */
+  z-index:1;
+  mix-blend-mode:normal;
 }
+
+/* 5)（可选）hover 时中心再微亮一点，增强层次但不刺眼 */
+.sample-card .ph{ transition: background .2s ease; }
+.sample-card:hover .ph{
+  background:
+    radial-gradient(60% 70% at 50% 55%,
+      rgba(210,224,245,.42) 0%,
+      rgba(150,180,220,.30) 34%,
+      rgba(46,64,100,.22)   56%,
+      rgba(20,28,48,.96)    88%,
+      rgba(15,23,42,1)     100%);
+}    
 
 /* 标题放到图片下方，不会再覆盖图片 */
 .sample-meta{
