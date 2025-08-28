@@ -268,6 +268,7 @@
 .card-caption{margin-top:10px;color:var(--muted);font-size:14px}
 
 /* === Samples 栅格与卡片（修复拉伸 & 标签被遮挡） === */
+/* === Samples 栅格与卡片（不变形 + 边缘向内渐变 + 标题不覆盖图片） === */
 .sample-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -277,52 +278,53 @@
 @media (max-width:600px){ .sample-grid{ grid-template-columns:1fr; } }
 
 .sample-card{
-  position: relative;         /* 让内部绝对定位基于卡片 */
-  display: block;
+  display:flex;
+  flex-direction: column;         /* 让标题在图片下方 */
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 16px;
   overflow: hidden;
+  text-decoration: none;          /* <a> 去下划线 */
+  color: inherit;
 }
 
-/* 图片容器：固定比例，居中展示 */
+/* 图片容器：保持比例、不变形 */
 .sample-card .ph{
-  aspect-ratio: 16 / 9;       /* 你也可以改成 4/3，看你封面比例 */
+  position: relative;
+  aspect-ratio: 16 / 9;          /* 你也可以换 4/3 */
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg,#121a2c,#0b1222);
+  overflow: hidden;
+
+  /* 背景：边缘与页面底色顺接，中心略亮且偏冷色，托深色鞋子 */
+  background: 
+    radial-gradient(75% 80% at 55% 60%, rgba(96,165,250,.16) 0%, rgba(96,165,250,0) 58%), /* 冷色柔光 */
+    #0b1222;                                        /* 与页面一致的底色 */
+}
+.sample-card .ph::before{
+  content:"";                                     /* 暗角，让边缘更顺滑 */
+  position:absolute; inset:0;
+  box-shadow: inset 0 0 180px 40px rgba(8,13,26,.85);
+  pointer-events:none;
 }
 
-/* 关键：不拉伸，保持原比例 */
 .sample-card .ph img{
   width: 100%;
   height: 100%;
-  object-fit: contain;        /* contain 避免变形；cover 会裁切 */
+  object-fit: contain;             /* contain：不裁切不拉伸 */
+  filter: drop-shadow(0 14px 28px rgba(0,0,0,.55)) contrast(1.04) saturate(.98);
 }
 
-/* 底部渐变，用于托住文字，且保证文字在最上面 */
-.sample-card::after{
-  content:"";
-  position:absolute;
-  left:0; right:0; bottom:0;
-  height: 34%;
-  background: linear-gradient(to top, rgba(0,0,0,.45), rgba(0,0,0,0));
-  z-index: 2;                 /* 渐变在图片之上 */
-  pointer-events: none;
+/* 标题放到图片下方，不会再覆盖图片 */
+.sample-meta{
+  padding: 12px 16px 16px;
 }
-
-/* 标签：放最上层就不会被图片挡住 */
 .sample-tag{
-  position: absolute;
-  left: 18px;
-  bottom: 14px;
-  z-index: 3;                 /* 高于图片和渐变 */
-  color: rgba(229,231,235,.95);
-  font-weight: 700;
-  letter-spacing: .3px;
-  text-shadow: 0 2px 6px rgba(0,0,0,.5);
+  display:inline-block;
+  font-weight: 800;
+  letter-spacing: .2px;
+  color: var(--text);
 }
-
     
   </style>
 </head>
