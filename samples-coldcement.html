@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -15,6 +16,7 @@
     img{max-width:100%;height:auto;display:block}
     .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 
+    /* 顶部导航，与首页一致风格 */
     .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(6px);
       background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
       border-bottom:1px solid var(--line);}
@@ -29,31 +31,107 @@
     .section{padding:36px 0}
     .h2{font-size:28px;margin:0 0 8px}
     .lead{color:var(--muted);margin:0 0 8px}
-
     .crumbs{color:var(--muted);font-size:14px;margin:10px 0 18px}
     .crumbs a{color:var(--muted)} .crumbs a:hover{color:var(--text)}
-
     .bar{height:1px;background:var(--line);margin:24px 0}
-
-    /* 复用首页卡片风格 */
-    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-    .card-media{position:relative;aspect-ratio:16/9;overflow:hidden}
-    .card-media img{width:100%;height:100%;object-fit:cover}
-    .card-media::before{
-      content:"";position:absolute;inset:0;
-      background: radial-gradient(circle at center,
-        rgba(15,23,42,0) 68%, rgba(15,23,42,.85) 100%); pointer-events:none;
-    }
-    .card-caption{padding:12px 14px;color:var(--muted);font-size:14px}
-
-    /* 简单画廊 */
-    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
-    @media (max-width:1024px){ .gallery{grid-template-columns:repeat(2,1fr);} }
-    @media (max-width:560px){ .gallery{grid-template-columns:1fr;} }
-
     .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);
       padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);font-weight:700}
     .btn:hover{filter:brightness(1.08)}
+
+    /* === 画廊栅格 === */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
+    @media (max-width:1024px){ .gallery{grid-template-columns:repeat(2,1fr);} }
+    @media (max-width:560px){ .gallery{grid-template-columns:1fr;} }
+
+    /* === 与首页 .sample-card 同款的“亮背景”缩略图容器 === */
+    .thumb{
+      position:relative; border-radius:16px; overflow:hidden; aspect-ratio:4/3;
+      background: transparent; cursor: zoom-in;
+    }
+    .thumb-inner{
+      position:relative; inset:0; width:100%; height:100%;
+      display:grid; place-items:center; overflow:hidden;
+      /* 首页同款大范围提亮 */
+      background: radial-gradient(
+        115% 150% at 50% 56%,
+        rgba(255,255,255,.92) 0%,
+        rgba(241,248,255,.78) 26%,
+        rgba(190,208,232,.50) 56%,
+        rgba(28,38,64,.86)   92%,
+        rgba(15,23,42,1)     100%
+      );
+      transition: background .24s ease, box-shadow .24s ease;
+      border-radius:16px;
+    }
+    .thumb-inner::before{
+      content:""; position:absolute; inset:0; pointer-events:none; border-radius:16px;
+      box-shadow: inset 0 0 120px 14px rgba(8,13,26,.14);
+      transition: box-shadow .24s ease;
+    }
+    .thumb img{
+      max-width:92%; max-height:92%; object-fit:contain; mix-blend-mode:normal; z-index:1;
+    }
+    .thumb:hover .thumb-inner{
+      background: radial-gradient(
+        125% 165% at 50% 56%,
+        rgba(255,255,255,.98) 0%,
+        rgba(248,252,255,.90) 26%,
+        rgba(196,214,236,.56) 56%,
+        rgba(24,32,56,.82)   92%,
+        rgba(15,23,42,1)     100%
+      );
+    }
+    .thumb:hover .thumb-inner::before{ box-shadow: inset 0 0 90px 8px rgba(8,13,26,.10); }
+    .cap{color:var(--muted);font-size:14px;margin-top:8px;padding:0 2px}
+
+    /* === 放大预览（原生 dialog 轻量实现）=== */
+    dialog#lightbox{
+      border:none; padding:0; background:transparent; width:100%; max-width:none;
+    }
+    dialog::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
+    .lightbox-panel{
+      position:relative; margin:auto; width:min(1100px,92vw);
+      background:var(--card); border:1px solid var(--line); border-radius:16px;
+      padding:18px; box-shadow:0 30px 60px rgba(0,0,0,.35);
+    }
+    .lightbox-stage{
+      position:relative; border-radius:14px; overflow:hidden; aspect-ratio:4/3;
+      display:grid; place-items:center;
+      /* 与缩略图一致的明亮背景，确保风格统一 */
+      background: radial-gradient(
+        115% 150% at 50% 56%,
+        rgba(255,255,255,.92) 0%,
+        rgba(241,248,255,.78) 26%,
+        rgba(190,208,232,.50) 56%,
+        rgba(28,38,64,.86)   92%,
+        rgba(15,23,42,1)     100%
+      );
+    }
+    .lightbox-stage img{
+      max-width:95%; max-height:95%; object-fit:contain; mix-blend-mode:normal;
+    }
+/* 右上角关闭按钮：更大的点击热区 */
+.lightbox-close{
+  position:absolute; top:10px; right:12px;
+  width:44px; height:44px;             /* ← 原来36×36 改成 44×44 */
+  display:grid; place-items:center;    /* 让“×”始终居中 */
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:var(--ink);
+  color:var(--text);
+  font-size:22px;                      /* 稍微放大“×” */
+  line-height:1;
+  cursor:pointer;
+  z-index:5;
+}
+
+/* 在按钮周围额外扩展12px透明可点击区域 */
+.lightbox-close::after{
+  content:"";
+  position:absolute;
+  inset:-12px;        /* 上下左右各扩展 12px */
+  border-radius:50%; /* 仍保持圆形范围 */
+}
   </style>
 </head>
 <body>
@@ -66,26 +144,265 @@
 
   <section class="section">
     <div class="container">
-      <div class="crumbs"><a href="index.html">首页</a> › <a href="index.html#samples">样品</a> › 硫化鞋</div>
+      <div class="crumbs"><a href="index.html">首页</a> › <a href="index.html#samples">样品</a> › 冷粘鞋</div>
       <h2 class="h2">冷粘鞋 Vulcanized</h2>
-      <p class="lead">精选案例（后续可补充更多图片与参数）。</p>
+      <p class="lead">精选案例（点击图片可放大预览）。</p>
 
-      <div class="gallery">
-        <!-- 以后把下面这些占位换成你的图片即可 -->
-        <article class="card">
-          <div class="card-media" style="background:#0b1222">
-            <!-- <img src="images/xxx.jpg" alt="xxx"> -->
+      <div class="gallery" id="gallery">
+        <!-- 每个条目：data-full 指向大图；src 用同图也可 -->
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/page-vulcanized.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/page-vulcanized.PNG" alt="Vulcanized 1">
+            </div>
           </div>
-          <div class="card-caption">示例占位（16:9）</div>
-        </article>
+          <figcaption class="cap">Vulcanized-1</figcaption>
+        </figure>
+        
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/1.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/1.PNG" alt="Vulcanized 1">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-2</figcaption>
+        </figure>
 
-        <article class="card"><div class="card-media" style="background:#0b1222"></div><div class="card-caption">示例占位</div></article>
-        <article class="card"><div class="card-media" style="background:#0b1222"></div><div class="card-caption">示例占位</div></article>
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/2.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/2.PNG" alt="Vulcanized 2">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-3</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/3.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/3.PNG" alt="Vulcanized 3">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-4</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/4.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/4.PNG" alt="Vulcanized 4">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-5</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/5.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/5.PNG" alt="Vulcanized 5">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-6</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/6.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/6.PNG" alt="Vulcanized 6">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-7</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/7.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/7.PNG" alt="Vulcanized 7">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-8</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/8.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/8.PNG" alt="Vulcanized 8">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-9</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/9.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/9.PNG" alt="Vulcanized 9">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-10</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/10.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/10.PNG" alt="Vulcanized 10">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-11</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/11.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/11.PNG" alt="Vulcanized 11">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-12</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/12.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/12.PNG" alt="Vulcanized 12">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-13</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/13.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/13.PNG" alt="Vulcanized 13">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-14</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/14.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/14.PNG" alt="Vulcanized 14">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-15</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/15.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/15.PNG" alt="Vulcanized 15">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-16</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/16.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/16.PNG" alt="Vulcanized 16">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-17</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/17.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/17.PNG" alt="Vulcanized 17">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-18</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/18.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/18.PNG" alt="Vulcanized 18">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-19</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/19.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/19.PNG" alt="Vulcanized 19">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-20</figcaption>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/vulcanized/20.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/vulcanized/20.PNG" alt="Vulcanized 20">
+            </div>
+          </div>
+          <figcaption class="cap">Vulcanized-21</figcaption>
+        </figure>
+        
+        <!-- 按需继续添加 … 统一保持相同结构即可 -->
       </div>
 
       <div class="bar"></div>
       <a class="btn" href="index.html#contact">联系打样 / 报价</a>
     </div>
   </section>
+
+  <!-- 预览弹窗 -->
+  <dialog id="lightbox">
+    <div class="lightbox-panel">
+      <button class="lightbox-close" aria-label="Close">×</button>
+      <div class="lightbox-stage">
+        <img id="lightboxImg" src="" alt="">
+      </div>
+    </div>
+  </dialog>
+
+<script>
+(function(){
+  const dlg  = document.getElementById('lightbox');
+  const img  = document.getElementById('lightboxImg');
+  const panel = dlg.querySelector('.lightbox-panel');
+  const btnClose = dlg.querySelector('.lightbox-close');
+
+  function openDlg(url, alt){
+    img.src = url;
+    img.alt = alt || 'Preview';
+    if (typeof dlg.showModal === 'function') dlg.showModal();
+    else dlg.setAttribute('open','');
+  }
+
+  function closeDlg(){
+    img.src = '';
+    if (typeof dlg.close === 'function') dlg.close();
+    else dlg.removeAttribute('open');
+  }
+
+  // 点击缩略图打开
+  document.getElementById('gallery').addEventListener('click', (e)=>{
+    const thumb = e.target.closest('.thumb');
+    if(!thumb) return;
+    openDlg(thumb.getAttribute('data-full'), thumb.querySelector('img')?.alt);
+  });
+
+  // 点击黑色遮罩关闭
+  dlg.addEventListener('click', (e)=>{
+    if (e.target === dlg) closeDlg();
+  });
+
+  // 明确给按钮绑定关闭（避免某些冒泡问题）
+  btnClose.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    closeDlg();
+  });
+
+  // 阻止点击面板内部时触发遮罩关闭
+  panel.addEventListener('click', (e)=> e.stopPropagation());
+
+  // Esc 关闭
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape' && (dlg.open || dlg.hasAttribute('open'))) closeDlg();
+  });
+})();
+</script>
 </body>
 </html>
