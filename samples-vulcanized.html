@@ -109,11 +109,28 @@
     .lightbox-stage img{
       max-width:95%; max-height:95%; object-fit:contain; mix-blend-mode:normal;
     }
-    .lightbox-close{
-      position:absolute; top:10px; right:12px; width:36px; height:36px;
-      border:1px solid var(--line); border-radius:50%; background:var(--ink);
-      color:var(--text); font-size:20px; cursor:pointer;
-    }
+/* 右上角关闭按钮：更大的点击热区 */
+.lightbox-close{
+  position:absolute; top:10px; right:12px;
+  width:44px; height:44px;             /* ← 原来36×36 改成 44×44 */
+  display:grid; place-items:center;    /* 让“×”始终居中 */
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:var(--ink);
+  color:var(--text);
+  font-size:22px;                      /* 稍微放大“×” */
+  line-height:1;
+  cursor:pointer;
+  z-index:5;
+}
+
+/* 在按钮周围额外扩展12px透明可点击区域 */
+.lightbox-close::after{
+  content:"";
+  position:absolute;
+  inset:-12px;        /* 上下左右各扩展 12px */
+  border-radius:50%; /* 仍保持圆形范围 */
+}
   </style>
 </head>
 <body>
