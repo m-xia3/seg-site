@@ -177,40 +177,52 @@
     </div>
   </dialog>
 
-  <script>
-    // 轻量图片预览
-    (function(){
-      const dlg  = document.getElementById('lightbox');
-      const img  = document.getElementById('lightboxImg');
+<script>
+(function(){
+  const dlg  = document.getElementById('lightbox');
+  const img  = document.getElementById('lightboxImg');
+  const panel = dlg.querySelector('.lightbox-panel');
+  const btnClose = dlg.querySelector('.lightbox-close');
 
-      document.getElementById('gallery').addEventListener('click', (e)=>{
-        const thumb = e.target.closest('.thumb');
-        if(!thumb) return;
-        const url = thumb.getAttribute('data-full');
-        img.src = url;
-        img.alt = thumb.querySelector('img')?.alt || 'Preview';
-        if(typeof dlg.showModal === 'function'){ dlg.showModal(); }
-        else { dlg.setAttribute('open',''); } // 简易降级
-      });
+  function openDlg(url, alt){
+    img.src = url;
+    img.alt = alt || 'Preview';
+    if (typeof dlg.showModal === 'function') dlg.showModal();
+    else dlg.setAttribute('open','');
+  }
 
-      dlg.addEventListener('click', (e)=>{
-        // 点击空白或关闭按钮关闭
-        if(e.target === dlg || e.target.classList.contains('lightbox-close')){
-          img.src = '';
-          if(typeof dlg.close === 'function'){ dlg.close(); }
-          else { dlg.removeAttribute('open'); }
-        }
-      });
+  function closeDlg(){
+    img.src = '';
+    if (typeof dlg.close === 'function') dlg.close();
+    else dlg.removeAttribute('open');
+  }
 
-      // Esc 关闭
-      document.addEventListener('keydown', (e)=>{
-        if(e.key === 'Escape' && (dlg.open || dlg.hasAttribute('open'))){
-          img.src = '';
-          if(typeof dlg.close === 'function'){ dlg.close(); }
-          else { dlg.removeAttribute('open'); }
-        }
-      });
-    })();
-  </script>
+  // 点击缩略图打开
+  document.getElementById('gallery').addEventListener('click', (e)=>{
+    const thumb = e.target.closest('.thumb');
+    if(!thumb) return;
+    openDlg(thumb.getAttribute('data-full'), thumb.querySelector('img')?.alt);
+  });
+
+  // 点击黑色遮罩关闭
+  dlg.addEventListener('click', (e)=>{
+    if (e.target === dlg) closeDlg();
+  });
+
+  // 明确给按钮绑定关闭（避免某些冒泡问题）
+  btnClose.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    closeDlg();
+  });
+
+  // 阻止点击面板内部时触发遮罩关闭
+  panel.addEventListener('click', (e)=> e.stopPropagation());
+
+  // Esc 关闭
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape' && (dlg.open || dlg.hasAttribute('open'))) closeDlg();
+  });
+})();
+</script>
 </body>
 </html>
