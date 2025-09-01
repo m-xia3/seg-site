@@ -355,6 +355,68 @@
   border-radius: 6px;
   z-index: 2;
 }
+
+/* === 三等分矩形：Team / R&D / Factory === */
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+@media (max-width:960px){ .tri{grid-template-columns:1fr} }
+
+.tri-card{
+  position:relative; border-radius:16px; overflow:hidden; aspect-ratio:5/3; /* 比例可调 */
+  cursor:pointer; user-select:none;
+  background: radial-gradient(
+    115% 150% at 50% 56%,
+    rgba(255,255,255,.90) 0%,
+    rgba(241,248,255,.80) 26%,
+    rgba(190,208,232,.48) 56%,
+    rgba(28,38,64,.86)   92%,
+    rgba(15,23,42,1)     100%
+  );
+  border:1px solid var(--line);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.tri-card:hover{ transform:translateY(-2px); box-shadow:0 16px 36px rgba(0,0,0,.28); }
+.tri-card:active{ transform:translateY(0); }
+
+.tri-card .title{
+  position:absolute; inset:auto 0 12px 0; text-align:center;
+  font-weight:800; letter-spacing:.4px;
+  color:var(--text); z-index:2;
+  text-shadow: 0 2px 10px rgba(0,0,0,.35);
+  font-size:18px;
+}
+
+/* 背景图（可放团队/设备/工厂图） */
+.tri-card .ph{
+  position:absolute; inset:0; display:grid; place-items:center; overflow:hidden;
+}
+.tri-card img{ width:100%; height:100%; object-fit:cover; opacity:.92; }
+
+/* 统一弹窗（dialog） */
+dialog.dlg{ border:none; padding:0; background:transparent; width:100%; max-width:none; }
+dialog.dlg::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
+.dlg-panel{
+  position:relative; margin:6vh auto; width:min(1100px,92vw);
+  background:var(--card); border:1px solid var(--line); border-radius:16px;
+  padding:18px 18px 22px; box-shadow:0 30px 60px rgba(0,0,0,.35);
+}
+.dlg-head{ display:flex; align-items:center; gap:10px; padding:6px 6px 10px 6px; }
+.dlg-head h3{ margin:0; font-size:22px; }
+.dlg-close{
+  margin-left:auto; position:relative; width:40px; height:40px;
+  display:grid; place-items:center; border-radius:50%;
+  background:var(--ink); color:var(--text); border:1px solid var(--line);
+  font-size:20px; cursor:pointer; line-height:1;
+}
+/* 扩大可点击范围（解决“叉号难点”问题） */
+.dlg-close::before{
+  content:""; position:absolute; inset:-10px; /* 命中范围扩大到40+20=60px */
+}
+.dlg-body{ display:grid; grid-template-columns:1.05fr 1fr; gap:18px; }
+@media (max-width:900px){ .dlg-body{ grid-template-columns:1fr; } }
+
+.dlg-photos{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+.dlg-photos img{ width:100%; height:180px; object-fit:cover; border-radius:10px; }
+.dlg-text{ color:var(--muted); line-height:1.7; }
     
   </style>
 </head>
@@ -455,32 +517,122 @@
 
   <div class="bar container"></div>
 
-  <section id="expertise" class="section">
-    <div class="container">
-      <h2 class="h2">我们的专业性（占位）</h2>
-      <p class="lead">工艺/设备/质量/交付的概述；下方为可展开的部门详情。</p>
-      <details>
-        <summary>硫化工艺与成型车间（点击查看详情）</summary>
-        <div style="margin-top:10px;color:var(--muted)">放置：工艺要点、设备清单、流程图占位。</div>
-      </details>
-      <details>
-        <summary>裁剪 & 车缝车间（点击查看详情）</summary>
-        <div style="margin-top:10px;color:var(--muted)">放置：排料率、针距标准、品质控制点占位。</div>
-      </details>
-      <details>
-        <summary>品控实验室（点击查看详情）</summary>
-        <div style="margin-top:10px;color:var(--muted)">放置：剥离/耐折/硬度/RSL 测试项占位。</div>
-      </details>
-      <details>
-        <summary>打样中心 & 研发（点击查看详情）</summary>
-        <div style="margin-top:10px;color:var(--muted)">放置：48h 打样流程、ODM 协作占位。</div>
-      </details>
-      <details>
-        <summary>仓储 & 物流（点击查看详情）</summary>
-        <div style="margin-top:10px;color:var(--muted)">放置：出货时效、包装规范、目的国合规占位。</div>
-      </details>
+<section id="expertise" class="section">
+  <div class="container">
+    <h2 class="h2">我们的专业性 Expertise</h2>
+    <p class="lead">我们以三位一体的能力，确保从需求理解 → 研发打样 → 稳定量产的全链路可控。</p>
+
+    <div class="tri">
+      <!-- TEAM -->
+      <article class="tri-card" data-open="dlgTeam" aria-label="Team">
+        <div class="ph">
+          <!-- 替换成你的团队照 -->
+          <img src="images/expertise/team-cover.jpg" alt="Team">
+        </div>
+        <div class="title">TEAM · 外贸与项目管理</div>
+      </article>
+
+      <!-- R&D -->
+      <article class="tri-card" data-open="dlgRD" aria-label="R&D">
+        <div class="ph">
+          <!-- 可用：3D 扫描、ERP样品系统、切割机等的合成或代表性照片 -->
+          <img src="images/expertise/rd-cover.jpg" alt="R&D">
+        </div>
+        <div class="title">R&amp;D · 设计与打样中心</div>
+      </article>
+
+      <!-- FACTORY -->
+      <article class="tri-card" data-open="dlgFactory" aria-label="Factory">
+        <div class="ph">
+          <!-- 厂内大场景 / 生产线 / 硫化釜等 -->
+          <img src="images/expertise/factory-cover.jpg" alt="Factory">
+        </div>
+        <div class="title">FACTORY · 生产与交付</div>
+      </article>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- === 详情弹窗：TEAM === -->
+<dialog id="dlgTeam" class="dlg">
+  <div class="dlg-panel">
+    <div class="dlg-head">
+      <h3>Team · 外贸与项目管理</h3>
+      <button class="dlg-close" data-close>×</button>
+    </div>
+    <div class="dlg-body">
+      <div class="dlg-text">
+        <p>我们不是传统意义上的“贸易中转”。团队深度理解鞋类工艺、材料与测试规范，能把客户的设计语言快速转换为可量产的工艺方案。</p>
+        <ul>
+          <li>一对一项目管理：从 Tech Pack 到大货排程全程透明。</li>
+          <li>跨时区响应：样品节拍与风险点在前期就被识别并跟踪。</li>
+          <li>熟悉合规与测试：REACH / CPSIA / RSL 等要求预防性把控。</li>
+        </ul>
+      </div>
+      <div class="dlg-photos">
+        <!-- 替换为你的团队/沟通场景照 -->
+        <img src="images/expertise/team-1.jpg" alt="">
+        <img src="images/expertise/team-2.jpg" alt="">
+        <img src="images/expertise/team-3.jpg" alt="">
+        <img src="images/expertise/team-4.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- === 详情弹窗：R&D === -->
+<dialog id="dlgRD" class="dlg">
+  <div class="dlg-panel">
+    <div class="dlg-head">
+      <h3>R&amp;D · 设计与打样中心</h3>
+      <button class="dlg-close" data-close>×</button>
+    </div>
+    <div class="dlg-body">
+      <div class="dlg-text">
+        <p>从 3D 扫描、楦型开发、结构拆解到刀模与自动切割，打样流程可在 48–72 小时内闭环。实验室同步进行剥离/耐折/耐磨等验证。</p>
+        <ul>
+          <li>3D 扫描与数字化楦型（更快迭代，更高贴合度）。</li>
+          <li>ERP 样品管理系统（版本、物料与变更可追溯）。</li>
+          <li>自动切割/数控设备（提效并提升一致性）。</li>
+        </ul>
+      </div>
+      <div class="dlg-photos">
+        <!-- 可直接用你发过的照片路径（示例路径，按你站点实际替换） -->
+        <img src="images/expertise/3d-scan.jpg" alt="3D 扫描">
+        <img src="images/expertise/erp-sample.jpg" alt="ERP 样品系统">
+        <img src="images/expertise/cutter.jpg" alt="自动切割">
+        <img src="images/expertise/lab.jpg" alt="实验室">
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- === 详情弹窗：FACTORY === -->
+<dialog id="dlgFactory" class="dlg">
+  <div class="dlg-panel">
+    <div class="dlg-head">
+      <h3>Factory · 生产与交付</h3>
+      <button class="dlg-close" data-close>×</button>
+    </div>
+    <div class="dlg-body">
+      <div class="dlg-text">
+        <p>多工艺产线覆盖（硫化 / 冷粘 / 板材贴合等），标准化品控节点配合现场实验室，确保稳定交付与可追溯。</p>
+        <ul>
+          <li>硫化成型与高压釜、自动贴合/冲切、装配总装线。</li>
+          <li>全流程 QC：来料 → 制程 → 终检 → 包装 → 装柜。</li>
+          <li>交付能力：弹性产能与安全库存策略。</li>
+        </ul>
+      </div>
+      <div class="dlg-photos">
+        <!-- 选用你上传的生产线/硫化釜/QC/车缝等图 -->
+        <img src="images/expertise/workshop-1.jpg" alt="">
+        <img src="images/expertise/workshop-2.jpg" alt="">
+        <img src="images/expertise/auto-press.jpg" alt="">
+        <img src="images/expertise/qc.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</dialog>
 
   <div class="bar container"></div>
 
@@ -655,6 +807,41 @@
   })();
   </script>
 
+<script>
+/* === 三等分矩形 -> 弹窗 === */
+const openers = document.querySelectorAll('[data-open]');
+openers.forEach(el=>{
+  el.addEventListener('click', ()=>{
+    const id = el.getAttribute('data-open');
+    const dlg = document.getElementById(id);
+    if(!dlg) return;
+    if(typeof dlg.showModal==='function'){ dlg.showModal(); }
+    else { dlg.setAttribute('open',''); }
+  });
+});
+
+// 统一关闭：点击叉号 / 点击背景 / Esc
+const dlgs = document.querySelectorAll('dialog.dlg');
+dlgs.forEach(dlg=>{
+  dlg.addEventListener('click', (e)=>{
+    if(e.target === dlg || e.target.hasAttribute('data-close') || e.target.closest('[data-close]')){
+      if(typeof dlg.close==='function'){ dlg.close(); }
+      else { dlg.removeAttribute('open'); }
+    }
+  });
+});
+document.addEventListener('keydown', (e)=>{
+  if(e.key==='Escape'){
+    dlgs.forEach(dlg=>{
+      if(dlg.open || dlg.hasAttribute('open')){
+        if(typeof dlg.close==='function'){ dlg.close(); }
+        else { dlg.removeAttribute('open'); }
+      }
+    });
+  }
+});
+</script>
+  
   <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
 </body>
 </html>
