@@ -397,13 +397,23 @@
   opacity:.6; pointer-events:none;
 }
 /* 中央标题牌 */
+/* 每块自己的标题：把锚点放在对应重心 */
 .slice > span{
+  position:absolute;
+  left: var(--x,50%);   /* 每个分块用 --x 定义自己的水平位置 */
+  top: 50%;
+  transform: translate(-50%,-50%);
   pointer-events:none;
   font-weight:800; letter-spacing:.6px;
   padding:8px 14px; border-radius:10px;
   background: rgba(0,0,0,.35);
   box-shadow: 0 6px 18px rgba(0,0,0,.25);
 }
+
+/* 三块的标题位置 & 轻遮罩（让三等分更可见） */
+.slice.team    { --x:20%;  background:linear-gradient(90deg, rgba(0,0,0,.08), rgba(0,0,0,0) 65%); }
+.slice.rd      { --x:50%;  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.04)); }
+.slice.factory { --x:80%;  background:linear-gradient(270deg, rgba(0,0,0,.08), rgba(0,0,0,0) 65%); }
 .slice:is(:hover, :focus-visible){ transform: translateY(-2px); filter: brightness(1.04); }
 
 /* 三块形状：左楔形 / 中倒三角 / 右楔形 */
@@ -627,87 +637,6 @@ dialog.dlg::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
           <li>品质体系：现场实验室抽检 + 过程质量看板。</li>
           <li>交付能力：常规 45–60 天，支持加急排产与安全库存。</li>
         </ul>
-      </div>
-    </div>
-  </div>
-</dialog>
-
-<!-- === 详情弹窗：TEAM === -->
-<dialog id="dlgTeam" class="dlg">
-  <div class="dlg-panel">
-    <div class="dlg-head">
-      <h3>Team · 外贸与项目管理</h3>
-      <button class="dlg-close" data-close>×</button>
-    </div>
-    <div class="dlg-body">
-      <div class="dlg-text">
-        <p>我们不是传统意义上的“贸易中转”。团队深度理解鞋类工艺、材料与测试规范，能把客户的设计语言快速转换为可量产的工艺方案。</p>
-        <ul>
-          <li>一对一项目管理：从 Tech Pack 到大货排程全程透明。</li>
-          <li>跨时区响应：样品节拍与风险点在前期就被识别并跟踪。</li>
-          <li>熟悉合规与测试：REACH / CPSIA / RSL 等要求预防性把控。</li>
-        </ul>
-      </div>
-      <div class="dlg-photos">
-        <!-- 替换为你的团队/沟通场景照 -->
-        <img src="images/expertise/team-1.jpg" alt="">
-        <img src="images/expertise/team-2.jpg" alt="">
-        <img src="images/expertise/team-3.jpg" alt="">
-        <img src="images/expertise/team-4.jpg" alt="">
-      </div>
-    </div>
-  </div>
-</dialog>
-
-<!-- === 详情弹窗：R&D === -->
-<dialog id="dlgRD" class="dlg">
-  <div class="dlg-panel">
-    <div class="dlg-head">
-      <h3>R&amp;D · 设计与打样中心</h3>
-      <button class="dlg-close" data-close>×</button>
-    </div>
-    <div class="dlg-body">
-      <div class="dlg-text">
-        <p>从 3D 扫描、楦型开发、结构拆解到刀模与自动切割，打样流程可在 48–72 小时内闭环。实验室同步进行剥离/耐折/耐磨等验证。</p>
-        <ul>
-          <li>3D 扫描与数字化楦型（更快迭代，更高贴合度）。</li>
-          <li>ERP 样品管理系统（版本、物料与变更可追溯）。</li>
-          <li>自动切割/数控设备（提效并提升一致性）。</li>
-        </ul>
-      </div>
-      <div class="dlg-photos">
-        <!-- 可直接用你发过的照片路径（示例路径，按你站点实际替换） -->
-        <img src="images/expertise/3d-scan.jpg" alt="3D 扫描">
-        <img src="images/expertise/erp-sample.jpg" alt="ERP 样品系统">
-        <img src="images/expertise/cutter.jpg" alt="自动切割">
-        <img src="images/expertise/lab.jpg" alt="实验室">
-      </div>
-    </div>
-  </div>
-</dialog>
-
-<!-- === 详情弹窗：FACTORY === -->
-<dialog id="dlgFactory" class="dlg">
-  <div class="dlg-panel">
-    <div class="dlg-head">
-      <h3>Factory · 生产与交付</h3>
-      <button class="dlg-close" data-close>×</button>
-    </div>
-    <div class="dlg-body">
-      <div class="dlg-text">
-        <p>多工艺产线覆盖（硫化 / 冷粘 / 板材贴合等），标准化品控节点配合现场实验室，确保稳定交付与可追溯。</p>
-        <ul>
-          <li>硫化成型与高压釜、自动贴合/冲切、装配总装线。</li>
-          <li>全流程 QC：来料 → 制程 → 终检 → 包装 → 装柜。</li>
-          <li>交付能力：弹性产能与安全库存策略。</li>
-        </ul>
-      </div>
-      <div class="dlg-photos">
-        <!-- 选用你上传的生产线/硫化釜/QC/车缝等图 -->
-        <img src="images/expertise/workshop-1.jpg" alt="">
-        <img src="images/expertise/workshop-2.jpg" alt="">
-        <img src="images/expertise/auto-press.jpg" alt="">
-        <img src="images/expertise/qc.jpg" alt="">
       </div>
     </div>
   </div>
