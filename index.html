@@ -356,48 +356,79 @@
   z-index: 2;
 }
 
-/* === 三等分矩形：Team / R&D / Factory === */
-.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
-@media (max-width:960px){ .tri{grid-template-columns:1fr} }
-
-.tri-card{
-  position:relative; border-radius:16px; overflow:hidden; aspect-ratio:5/3; /* 比例可调 */
-  cursor:pointer; user-select:none;
+/* === 三等分大矩形（TEAM / R&D / FACTORY）=== */
+.tri-slab{
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  overflow: hidden;
+  height: clamp(260px, 38vw, 520px);
+}
+/* 提亮底层渐变 */
+.tri-slab::before{
+  content:"";
+  position:absolute; inset:0;
   background: radial-gradient(
     115% 150% at 50% 56%,
-    rgba(255,255,255,.90) 0%,
-    rgba(241,248,255,.80) 26%,
-    rgba(190,208,232,.48) 56%,
+    rgba(255,255,255,.92) 0%,
+    rgba(241,248,255,.78) 26%,
+    rgba(190,208,232,.50) 56%,
     rgba(28,38,64,.86)   92%,
     rgba(15,23,42,1)     100%
   );
-  border:1px solid var(--line);
-  transition: transform .18s ease, box-shadow .18s ease;
+  pointer-events:none;
 }
-.tri-card:hover{ transform:translateY(-2px); box-shadow:0 16px 36px rgba(0,0,0,.28); }
-.tri-card:active{ transform:translateY(0); }
+.tri-track{ position:absolute; inset:0; }
 
-.tri-card .title{
-  position:absolute; inset:auto 0 12px 0; text-align:center;
-  font-weight:800; letter-spacing:.4px;
-  color:var(--text); z-index:2;
-  text-shadow: 0 2px 10px rgba(0,0,0,.35);
-  font-size:18px;
+/* 可点击“切片” */
+.slice{
+  position:absolute; inset:0;
+  display:grid; place-items:center;
+  cursor:pointer; user-select:none;
+  color:var(--text); text-align:center;
+  transition: transform .18s ease, filter .18s ease;
+  outline:none; border:none; background:none;
+}
+/* 细分割线 */
+.slice::before{
+  content:""; position:absolute; inset:0;
+  border-right: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
+  opacity:.6; pointer-events:none;
+}
+/* 中央标题牌 */
+.slice > span{
+  pointer-events:none;
+  font-weight:800; letter-spacing:.6px;
+  padding:8px 14px; border-radius:10px;
+  background: rgba(0,0,0,.35);
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+}
+.slice:is(:hover, :focus-visible){ transform: translateY(-2px); filter: brightness(1.04); }
+
+/* 三块形状：左楔形 / 中倒三角 / 右楔形 */
+.slice.team{
+  clip-path: polygon(0 0, 34% 0, 46% 90%, 0 100%);
+  z-index:3;
+}
+.slice.team::before{ left:auto; right:-1px; width:1px; }
+.slice.rd{
+  clip-path: polygon(34% 0, 66% 0, 52% 100%, 48% 100%);
+  z-index:4;
+}
+.slice.rd::before{ display:none; } /* 中间不额外画线 */
+.slice.factory{
+  clip-path: polygon(66% 0, 100% 0, 100% 100%, 54% 90%);
+  z-index:3;
 }
 
-/* 背景图（可放团队/设备/工厂图） */
-.tri-card .ph{
-  position:absolute; inset:0; display:grid; place-items:center; overflow:hidden;
-}
-.tri-card img{ width:100%; height:100%; object-fit:cover; opacity:.92; }
-
-/* 统一弹窗（dialog） */
-dialog.dlg{ border:none; padding:0; background:transparent; width:100%; max-width:none; }
+/* 弹窗基础样式（与联系弹窗独立） */
+dialog.dlg{ border:none; padding:0; background:transparent; }
 dialog.dlg::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
 .dlg-panel{
-  position:relative; margin:6vh auto; width:min(1100px,92vw);
+  position:relative; margin:6vh auto; width:min(1000px,92vw);
   background:var(--card); border:1px solid var(--line); border-radius:16px;
-  padding:18px 18px 22px; box-shadow:0 30px 60px rgba(0,0,0,.35);
+  padding:20px 20px 22px; box-shadow:0 30px 60px rgba(0,0,0,.35);
 }
 .dlg-head{ display:flex; align-items:center; gap:10px; padding:6px 6px 10px 6px; }
 .dlg-head h3{ margin:0; font-size:22px; }
@@ -407,16 +438,18 @@ dialog.dlg::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
   background:var(--ink); color:var(--text); border:1px solid var(--line);
   font-size:20px; cursor:pointer; line-height:1;
 }
-/* 扩大可点击范围（解决“叉号难点”问题） */
-.dlg-close::before{
-  content:""; position:absolute; inset:-10px; /* 命中范围扩大到40+20=60px */
-}
-.dlg-body{ display:grid; grid-template-columns:1.05fr 1fr; gap:18px; }
-@media (max-width:900px){ .dlg-body{ grid-template-columns:1fr; } }
+.dlg-close::before{ content:""; position:absolute; inset:-10px; } /* 扩大命中 */
 
-.dlg-photos{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
-.dlg-photos img{ width:100%; height:180px; object-fit:cover; border-radius:10px; }
+.dlg-body{ display:grid; grid-template-columns:1fr; gap:14px; }
 .dlg-text{ color:var(--muted); line-height:1.7; }
+
+/* 小屏：纵向三等分，易点 */
+@media (max-width: 760px){
+  .tri-slab{ height: auto; }
+  .tri-track{ position: static; display: grid; grid-template-rows: repeat(3, min(36vw, 180px)); gap:10px; padding:10px; }
+  .slice{ position: relative; clip-path: none; border:1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .slice::before{ display:none; }
+}
     
   </style>
 </head>
@@ -520,38 +553,84 @@ dialog.dlg::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
 <section id="expertise" class="section">
   <div class="container">
     <h2 class="h2">我们的专业性 Expertise</h2>
-    <p class="lead">我们以三位一体的能力，确保从需求理解 → 研发打样 → 稳定量产的全链路可控。</p>
+    <p class="lead">懂产品的国际团队作前台 · 研发为核心 · 稳定产能做背书。点击任一板块了解详情。</p>
 
-    <div class="tri">
-      <!-- TEAM -->
-      <article class="tri-card" data-open="dlgTeam" aria-label="Team">
-        <div class="ph">
-          <!-- 替换成你的团队照 -->
-          <img src="images/expertise/team-cover.jpg" alt="Team">
-        </div>
-        <div class="title">TEAM · 外贸与项目管理</div>
-      </article>
-
-      <!-- R&D -->
-      <article class="tri-card" data-open="dlgRD" aria-label="R&D">
-        <div class="ph">
-          <!-- 可用：3D 扫描、ERP样品系统、切割机等的合成或代表性照片 -->
-          <img src="images/expertise/rd-cover.jpg" alt="R&D">
-        </div>
-        <div class="title">R&amp;D · 设计与打样中心</div>
-      </article>
-
-      <!-- FACTORY -->
-      <article class="tri-card" data-open="dlgFactory" aria-label="Factory">
-        <div class="ph">
-          <!-- 厂内大场景 / 生产线 / 硫化釜等 -->
-          <img src="images/expertise/factory-cover.jpg" alt="Factory">
-        </div>
-        <div class="title">FACTORY · 生产与交付</div>
-      </article>
+    <!-- 一整块大矩形，三等分 -->
+    <div class="tri-slab" style="margin-top:16px;">
+      <div class="tri-track">
+        <button class="slice team" data-open="dlgTeam" aria-label="我们的团队">
+          <span>TEAM</span>
+        </button>
+        <button class="slice rd" data-open="dlgRD" aria-label="研发中心">
+          <span>R&amp;D</span>
+        </button>
+        <button class="slice factory" data-open="dlgFactory" aria-label="工厂与制造">
+          <span>FACTORY</span>
+        </button>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- TEAM 详情 -->
+<dialog id="dlgTeam" class="dlg">
+  <div class="dlg-panel">
+    <div class="dlg-head">
+      <h3>Team · 外贸与项目管理</h3>
+      <button class="dlg-close" data-close>×</button>
+    </div>
+    <div class="dlg-body">
+      <div class="dlg-text">
+        <p>我们不是“中转型贸易”。团队具备鞋类工艺与合规背景，能把买手/设计/QA 的语言迅速转换为可量产方案。</p>
+        <ul>
+          <li>一对一项目制：从 Tech Pack、BOM 到量产排程全链路透明。</li>
+          <li>跨时区响应：CN/EU/US 三时区覆盖，缩短样品确认周期。</li>
+          <li>合规熟练：REACH / CPSIA / RSL 文档与测试流程前置把控。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- R&D 详情 -->
+<dialog id="dlgRD" class="dlg">
+  <div class="dlg-panel">
+    <div class="dlg-head">
+      <h3>R&amp;D · 设计与打样中心</h3>
+      <button class="dlg-close" data-close>×</button>
+    </div>
+    <div class="dlg-body">
+      <div class="dlg-text">
+        <p>覆盖 3D 扫描/楦型开发/结构拆解/自动切割，48–72 小时内闭环样品；实验室并行完成剥离/耐折/耐磨等验证。</p>
+        <ul>
+          <li>数字化：3D 扫描与楦型数据库，加速贴合与复现。</li>
+          <li>可追溯：ERP 样品管理，版本/物料/变更全记录。</li>
+          <li>一致性：自动裁剪/数控设备，效率与良率同步提升。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- Factory 详情 -->
+<dialog id="dlgFactory" class="dlg">
+  <div class="dlg-panel">
+    <div class="dlg-head">
+      <h3>Factory · 生产与交付</h3>
+      <button class="dlg-close" data-close>×</button>
+    </div>
+    <div class="dlg-body">
+      <div class="dlg-text">
+        <p>硫化 / 冷粘两大线别，标准化在制品与追溯；从来料到 OQC 的全流程 QC，稳定交付按期装柜。</p>
+        <ul>
+          <li>关键工序：压底、硫化釜、自动贴合/冲切、装配、全检。</li>
+          <li>品质体系：现场实验室抽检 + 过程质量看板。</li>
+          <li>交付能力：常规 45–60 天，支持加急排产与安全库存。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</dialog>
 
 <!-- === 详情弹窗：TEAM === -->
 <dialog id="dlgTeam" class="dlg">
@@ -819,14 +898,11 @@ openers.forEach(el=>{
     else { dlg.setAttribute('open',''); }
   });
 });
-
-// 统一关闭：点击叉号 / 点击背景 / Esc
 const dlgs = document.querySelectorAll('dialog.dlg');
 dlgs.forEach(dlg=>{
   dlg.addEventListener('click', (e)=>{
     if(e.target === dlg || e.target.hasAttribute('data-close') || e.target.closest('[data-close]')){
-      if(typeof dlg.close==='function'){ dlg.close(); }
-      else { dlg.removeAttribute('open'); }
+      if(typeof dlg.close==='function'){ dlg.close(); } else { dlg.removeAttribute('open'); }
     }
   });
 });
@@ -834,8 +910,7 @@ document.addEventListener('keydown', (e)=>{
   if(e.key==='Escape'){
     dlgs.forEach(dlg=>{
       if(dlg.open || dlg.hasAttribute('open')){
-        if(typeof dlg.close==='function'){ dlg.close(); }
-        else { dlg.removeAttribute('open'); }
+        if(typeof dlg.close==='function'){ dlg.close(); } else { dlg.removeAttribute('open'); }
       }
     });
   }
