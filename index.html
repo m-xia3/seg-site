@@ -431,6 +431,21 @@
   --x: 82%;              /* 标题位置：更靠右 */
 }
 
+/* 让斜边有清晰的“描边” */
+.slice{
+  /* 1px 的白色微光描边，会沿 clip-path 走，刚好就是分割线 */
+  filter: drop-shadow(0 0 1px rgba(255,255,255,.22));
+  transition: filter .18s ease, transform .18s ease;
+}
+
+/* 悬停：整体稍亮 + 描边更明显（像 Samples 的高亮） */
+.slice:hover{
+  filter:
+    brightness(1.05)
+    drop-shadow(0 0 2px rgba(255,255,255,.26))
+    drop-shadow(0 8px 24px rgba(0,0,0,.28)); /* 轻微浮起效果 */
+}
+
 /* 弹窗基础样式（与联系弹窗独立） */
 dialog.dlg{ border:none; padding:0; background:transparent; }
 dialog.dlg::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
