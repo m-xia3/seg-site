@@ -356,7 +356,7 @@
   z-index: 2;
 }
 
-/* === 三等分大矩形（TEAM / R&D / FACTORY）=== */
+/* === 四等分大矩形（TEAM / R&D / FACTORY / QC）=== */
 .tri-slab{
   position: relative;
   border-radius: 16px;
@@ -365,7 +365,8 @@
   overflow: hidden;
   height: clamp(260px, 38vw, 520px);
 }
-/* 提亮底层渐变 */
+
+/* 提亮底层渐变（保留整体质感） */
 .tri-slab::before{
   content:"";
   position:absolute; inset:0;
@@ -379,57 +380,68 @@
   );
   pointer-events:none;
 }
+
 .tri-track{ position:absolute; inset:0; }
 
-/* 可点击“切片” */
+/* 四等分通用基样式 */
 .slice{
-  position:absolute; inset:0;
+  position:absolute; top:0; bottom:0;
   display:grid; place-items:center;
   cursor:pointer; user-select:none;
   color:var(--text); text-align:center;
   transition: transform .18s ease, filter .18s ease;
   outline:none; border:none; background:none;
 }
-/* 细分割线 */
-.slice::before{
-  content:""; position:absolute; inset:0;
-  border-right: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
-  opacity:.6; pointer-events:none;
-}
-/* 中央标题牌 */
-/* 每块自己的标题：把锚点放在对应重心 */
+
+/* 标题牌 */
 .slice > span{
   position:absolute;
-  left: var(--x,50%);   /* 每个分块用 --x 定义自己的水平位置 */
-  top: 50%;
-  transform: translate(-50%,-50%);
-  pointer-events:none;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
   font-weight:800; letter-spacing:.6px;
   padding:8px 14px; border-radius:10px;
   background: rgba(0,0,0,.35);
   box-shadow: 0 6px 18px rgba(0,0,0,.25);
+  pointer-events:none;
 }
 
-/* 三块的标题位置 & 轻遮罩（让三等分更可见） */
-.slice.team    { --x:20%;  background:linear-gradient(90deg, rgba(0,0,0,.08), rgba(0,0,0,0) 65%); }
-.slice.rd      { --x:50%;  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.04)); }
-.slice.factory { --x:80%;  background:linear-gradient(270deg, rgba(0,0,0,.08), rgba(0,0,0,0) 65%); }
-.slice:is(:hover, :focus-visible){ transform: translateY(-2px); filter: brightness(1.04); }
+/* 悬停提亮（与 Samples 交互保持一致风格） */
+.slice:is(:hover, :focus-visible){
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+}
 
-/* 三块形状：左楔形 / 中倒三角 / 右楔形 */
-.slice.team{
-  clip-path: polygon(0 0, 34% 0, 46% 90%, 0 100%);
-  z-index:3;
+/* 四等分位置（等宽） */
+.slice.team    { left:0;    right:75%; clip-path: polygon(0 0, 25% 0, 25% 100%, 0 100%); }
+.slice.rd      { left:25%;  right:50%; clip-path: polygon(25% 0, 50% 0, 50% 100%, 25% 100%); }
+.slice.factory { left:50%;  right:25%; clip-path: polygon(50% 0, 75% 0, 75% 100%, 50% 100%); }
+.slice.qc      { left:75%;  right:0;  clip-path: polygon(75% 0, 100% 0, 100% 100%, 75% 100%); }
+
+/* 分割线更明显，让四块看起来相互独立 */
+.slice.team::after,
+.slice.rd::after,
+.slice.factory::after{
+  content:""; position:absolute; top:0; bottom:0;
+  width:1px; background:rgba(255,255,255,.35);
 }
-.slice.team::before{ left:auto; right:-1px; width:1px; }
-.slice.rd{
-  clip-path: polygon(34% 0, 66% 0, 52% 100%, 48% 100%);
-  z-index:4;
-}
-.slice.rd::before{ display:none; } /* 中间不额外画线 */
-.slice.factory{
-  clip-path: polygon(66% 0, 100% 0, 100% 100%, 54% 90%);
-  z-index:3;
+.slice.team::after{ right:0; }
+.slice.rd::after{ right:0; }
+.slice.factory::after{ right:0; }
+
+/* 小屏改为上下四块（更好点按） */
+@media (max-width: 760px){
+  .tri-slab{ height: auto; }
+  .tri-track{
+    position: static;
+    display: grid;
+    grid-template-rows: repeat(4, min(36vw, 180px));
+    gap:10px; padding:10px;
+  }
+  .slice{
+    position: relative; left:auto; right:auto; clip-path: none;
+    border:1px solid var(--line); border-radius: 14px; overflow: hidden;
+  }
+  .slice.team::after, .slice.rd::after, .slice.factory::after{ display:none; }
 }
 
 /* 弹窗基础样式（与联系弹窗独立） */
@@ -566,20 +578,22 @@ dialog.dlg::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
     <p class="lead">懂产品的国际团队作前台 · 研发为核心 · 稳定产能做背书。点击任一板块了解详情。</p>
 
     <!-- 一整块大矩形，三等分 -->
-    <div class="tri-slab" style="margin-top:16px;">
-      <div class="tri-track">
-        <button class="slice team" data-open="dlgTeam" aria-label="我们的团队">
-          <span>TEAM</span>
-        </button>
-        <button class="slice rd" data-open="dlgRD" aria-label="研发中心">
-          <span>R&amp;D</span>
-        </button>
-        <button class="slice factory" data-open="dlgFactory" aria-label="工厂与制造">
-          <span>FACTORY</span>
-        </button>
-      </div>
-    </div>
+<div class="tri-slab" style="margin-top:16px;">
+  <div class="tri-track">
+    <button class="slice team" data-open="dlgTeam" aria-label="我们的团队">
+      <span>TEAM</span>
+    </button>
+    <button class="slice rd" data-open="dlgRD" aria-label="研发中心">
+      <span>R&amp;D</span>
+    </button>
+    <button class="slice factory" data-open="dlgFactory" aria-label="工厂与制造">
+      <span>FACTORY</span>
+    </button>
+    <button class="slice qc" data-open="dlgQC" aria-label="质量控制">
+      <span>QC</span>
+    </button>
   </div>
+</div>
 </section>
 
 <!-- TEAM 详情 -->
@@ -636,6 +650,26 @@ dialog.dlg::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
           <li>关键工序：压底、硫化釜、自动贴合/冲切、装配、全检。</li>
           <li>品质体系：现场实验室抽检 + 过程质量看板。</li>
           <li>交付能力：常规 45–60 天，支持加急排产与安全库存。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- QC 详情 -->
+<dialog id="dlgQC" class="dlg">
+  <div class="dlg-panel">
+    <div class="dlg-head">
+      <h3>QC · 质量控制</h3>
+      <button class="dlg-close" data-close>×</button>
+    </div>
+    <div class="dlg-body">
+      <div class="dlg-text">
+        <p>从来料到出货全流程质检：AQL 抽检标准、过程质量看板、现场实验室并行测试。</p>
+        <ul>
+          <li>进料检验（IQC）：材料来料批批核验 &amp; RSL 合规预审。</li>
+          <li>制程检验（IPQC）：关键工序全检 + 过程审核（压底、硫化、贴合等）。</li>
+          <li>成品检验（OQC）：AQL 出货抽检，尺寸/外观/功能/试穿测试。</li>
         </ul>
       </div>
     </div>
