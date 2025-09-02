@@ -357,27 +357,39 @@
 }
 
 /* === 五等分大矩形（TEAM / R&D / FACTORY / QC / STORE & SHIPPING）=== */
-.tri-slab{
-  position: relative;
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  background: var(--card);
-  overflow: hidden;
-  height: clamp(260px, 38vw, 520px);
+/* 仅给 Expertise 的大板块加“3D扫描”背景（左右渐隐 + 轻微高光） */
+#expertise .tri-slab{
+  /* 底图：只当背景，不展示整张，居中裁切 */
+  background:
+    /* 左右暗角渐隐，突出中间高端区域 */
+    linear-gradient(to right,
+      rgba(10,15,31,.86) 0%,
+      rgba(10,15,31,.62) 8%,
+      rgba(10,15,31,.28) 18%,
+      rgba(10,15,31,0) 30%,
+      rgba(10,15,31,0) 70%,
+      rgba(10,15,31,.28) 82%,
+      rgba(10,15,31,.62) 92%,
+      rgba(10,15,31,.86) 100%
+    ),
+    /* 轻微纵向加深，避免过曝 */
+    linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.16)),
+    /* 主图：3D 扫描 */
+    url("images/samples/rd/3d-scaner.PNG") center center / cover no-repeat;
 }
-/* 提亮底层渐变（整体气质） */
-.tri-slab::before{
+
+#expertise .tri-slab::before{
   content:"";
   position:absolute; inset:0;
-  background: radial-gradient(
-    115% 150% at 50% 56%,
-    rgba(255,255,255,.82) 0%,
-    rgba(241,248,255,.68) 26%,
-    rgba(190,208,232,.42) 56%,
-    rgba(28,38,64,.84)   92%,
-    rgba(15,23,42,1)     100%
-  );
   pointer-events:none;
+  background: radial-gradient(
+    120% 180% at 50% 58%,
+    rgba(255,255,255,.22) 0%,
+    rgba(241,248,255,.12) 30%,
+    rgba(28,38,64,.36) 86%,
+    rgba(15,23,42,.60) 100%
+  );
+  mix-blend-mode: soft-light; /* 提升质感而不过曝 */
 }
 
 .tri-track{ position:absolute; inset:0; }
