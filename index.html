@@ -495,6 +495,27 @@
 .slice.qc      { background: linear-gradient(270deg, rgba(0,0,0,.05), transparent 65%); }
 .slice.store   { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02)); }
 
+/* === qs：3D 扫描背景 + 宽中间透明，两侧渐隐 === */
+.slice.factory{
+  background-image:
+    linear-gradient(to right,
+      rgba(10,15,31,.95) 0%,
+      rgba(10,15,31,.72) 10%,
+      rgba(10,15,31,.38) 22%,
+      rgba(10,15,31,0) 38%,
+      rgba(10,15,31,0) 62%,
+      rgba(10,15,31,.38) 78%,
+      rgba(10,15,31,.72) 90%,
+      rgba(10,15,31,.95) 100%
+    ),
+    url("images/samples/qs/QS1.jpg"); /* 注意：PNG 大写 */
+  background-position: center center, 30% 50%; /* 如需偏移主体，可把第2个 center 改成 52% 50% 等 */
+  background-size: auto, cover;
+  background-repeat: no-repeat;
+}
+.slice.qc      { background: linear-gradient(270deg, rgba(0,0,0,.05), transparent 65%); }
+.slice.store   { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02)); }
+
 /* 小屏：纵向五块 */
 @media (max-width: 760px){
   .tri-slab{ height: auto; }
