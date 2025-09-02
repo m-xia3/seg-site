@@ -396,6 +396,7 @@
   border-right: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
   opacity:.6; pointer-events:none;
 }
+/* 中央标题牌 */
 /* 每块自己的标题：把锚点放在对应重心 */
 .slice > span{
   position:absolute;
@@ -409,41 +410,26 @@
   box-shadow: 0 6px 18px rgba(0,0,0,.25);
 }
 
-/* 斜边三等分：放大 R&D，缩小 TEAM / FACTORY */
+/* 三块的标题位置 & 轻遮罩（让三等分更可见） */
+.slice.team    { --x:20%;  background:linear-gradient(90deg, rgba(0,0,0,.08), rgba(0,0,0,0) 65%); }
+.slice.rd      { --x:50%;  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.04)); }
+.slice.factory { --x:80%;  background:linear-gradient(270deg, rgba(0,0,0,.08), rgba(0,0,0,0) 65%); }
+.slice:is(:hover, :focus-visible){ transform: translateY(-2px); filter: brightness(1.04); }
+
+/* 三块形状：左楔形 / 中倒三角 / 右楔形 */
 .slice.team{
-  /* 左侧楔形（约 1/4 宽） */
-  clip-path: polygon(0 0, 24% 0, 38% 100%, 0 100%);
-  z-index: 3;
-  --x: 18%;              /* 标题位置：更靠左 */
+  clip-path: polygon(0 0, 34% 0, 46% 90%, 0 100%);
+  z-index:3;
 }
-
+.slice.team::before{ left:auto; right:-1px; width:1px; }
 .slice.rd{
-  /* 中间倒三角（约 1/2 宽） */
-  clip-path: polygon(24% 0, 76% 0, 62% 100%, 38% 100%);
-  z-index: 4;            /* 居中且在最上层，避免被两侧覆盖 */
-  --x: 50%;
+  clip-path: polygon(34% 0, 66% 0, 52% 100%, 48% 100%);
+  z-index:4;
 }
-
+.slice.rd::before{ display:none; } /* 中间不额外画线 */
 .slice.factory{
-  /* 右侧楔形（约 1/4 宽） */
-  clip-path: polygon(76% 0, 100% 0, 100% 100%, 62% 100%);
-  z-index: 3;
-  --x: 82%;              /* 标题位置：更靠右 */
-}
-
-/* 让斜边有清晰的“描边” */
-.slice{
-  /* 1px 的白色微光描边，会沿 clip-path 走，刚好就是分割线 */
-  filter: drop-shadow(0 0 1px rgba(255,255,255,.22));
-  transition: filter .18s ease, transform .18s ease;
-}
-
-/* 悬停：整体稍亮 + 描边更明显（像 Samples 的高亮） */
-.slice:hover{
-  filter:
-    brightness(1.05)
-    drop-shadow(0 0 2px rgba(255,255,255,.26))
-    drop-shadow(0 8px 24px rgba(0,0,0,.28)); /* 轻微浮起效果 */
+  clip-path: polygon(66% 0, 100% 0, 100% 100%, 54% 90%);
+  z-index:3;
 }
 
 /* 弹窗基础样式（与联系弹窗独立） */
