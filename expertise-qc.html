@@ -27,7 +27,7 @@
     .hero{padding:42px 0 22px;
       background:radial-gradient(800px 360px at 70% -10%, rgba(225,29,72,.12), transparent 55%),
       radial-gradient(600px 320px at 10% -5%, rgba(59,130,246,.10), transparent 60%);}
-    .title{font-size:40px;line-height:1.15;margin:0 0 10px;text-align:center}
+    .title{font-size:40px;line-height:1.15;margin:0 0 10px}
     .lead{color:var(--muted);max-width:68ch;margin:0 auto;text-align:center}
 
     .bar{height:1px;background:var(--line);margin:26px 0}
@@ -61,25 +61,25 @@
 
   <main class="container">
     <!-- 流程图 -->
-    <h2 class="title" style="font-size:28px;margin-bottom:20px">Quality Control Flow</h2>
-    <svg viewBox="0 0 1600 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QC Flow" style="display:block;margin:0 auto;max-width:1200px">
+    <h2 class="title" style="font-size:28px;text-align:center;margin-bottom:30px">Quality Control Flow</h2>
+    <svg viewBox="0 0 1600 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QC Flow" style="display:block;margin:0 auto;max-width:1200px">
       <style>
         .node{fill:var(--card);stroke:var(--line);stroke-width:1.5;rx:18;ry:18}
         .text{font:600 20px system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;fill:var(--text)}
-        .sub{font:16px system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;fill:var(--muted)}
+        .sub{font:15px system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;fill:var(--muted)}
         .arrow{stroke:var(--accent);stroke-width:2;marker-end:url(#arrowHead)}
       </style>
       <defs>
-        <marker id="arrowHead" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
+        <marker id="arrowHead" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto">
           <path d="M0,0 L12,5 L0,10 Z" fill="var(--accent)"/>
         </marker>
       </defs>
 
       <!-- Row 1 -->
-      <g transform="translate(40,80)">
+      <g transform="translate(60,80)">
         <rect class="node" width="240" height="90"/>
         <text class="text" x="120" y="38" text-anchor="middle">Incoming Material</text>
-        <text class="sub" x="120" y="62" text-anchor="middle">Inspection (100% Check)</text>
+        <text class="sub" x="120" y="64" text-anchor="middle">Inspection (100% Check)</text>
         <line class="arrow" x1="240" y1="45" x2="300" y2="45"/>
 
         <rect class="node" x="300" width="220" height="90"/>
@@ -92,7 +92,7 @@
 
         <rect class="node" x="880" width="260" height="90"/>
         <text class="text" x="1010" y="38" text-anchor="middle">Upper Warehouse</text>
-        <text class="sub" x="1010" y="62" text-anchor="middle">Sampling</text>
+        <text class="sub" x="1010" y="64" text-anchor="middle">Sampling</text>
         <line class="arrow" x1="1140" y1="45" x2="1200" y2="45"/>
 
         <rect class="node" x="1200" width="280" height="90"/>
@@ -100,19 +100,19 @@
       </g>
 
       <!-- Row 2 -->
-      <g transform="translate(300,250)">
+      <g transform="translate(300,280)">
         <rect class="node" width="280" height="90"/>
         <text class="text" x="140" y="52" text-anchor="middle">Assembly Line Patrol Inspection</text>
         <line class="arrow" x1="280" y1="45" x2="340" y2="45"/>
 
         <rect class="node" x="340" width="260" height="90"/>
         <text class="text" x="470" y="38" text-anchor="middle">Finished Goods Sampling</text>
-        <text class="sub" x="470" y="62" text-anchor="middle">(Warehouse)</text>
+        <text class="sub" x="470" y="64" text-anchor="middle">(Warehouse)</text>
         <line class="arrow" x1="600" y1="45" x2="660" y2="45"/>
 
         <rect class="node" x="660" width="240" height="90"/>
         <text class="text" x="780" y="38" text-anchor="middle">Final Inspection</text>
-        <text class="sub" x="780" y="62" text-anchor="middle">(Pre-shipment / AQL)</text>
+        <text class="sub" x="780" y="64" text-anchor="middle">(Pre-shipment / AQL)</text>
         <line class="arrow" x1="900" y1="45" x2="960" y2="45"/>
 
         <rect class="node" x="960" width="240" height="90"/>
