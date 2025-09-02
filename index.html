@@ -454,30 +454,24 @@
 /* 常态轻微底纹（非常淡，增强区块感，可留可去） */
 .slice.team    { background: linear-gradient(90deg, rgba(0,0,0,.05), transparent 65%); }
 
-/* === 给 R&D 板块单独加背景（3D 扫描图 + 两侧渐隐） === */
-.slice.rd {
-  background:
-    /* 左右渐隐效果 */
+/* === R&D：3D 扫描背景 + 宽中间透明，两侧渐隐 === */
+.slice.rd{
+  /* 顶层做左右渐隐；中间 38%–62% 完全透明，图片清晰可见 */
+  background-image:
     linear-gradient(to right,
-      rgba(10,15,31,0.92) 0%,
-      rgba(10,15,31,0.65) 12%,
-      rgba(10,15,31,0.35) 28%,
-      rgba(10,15,31,0) 46%,
-      rgba(10,15,31,0) 54%,
-      rgba(10,15,31,0.35) 72%,
-      rgba(10,15,31,0.65) 88%,
-      rgba(10,15,31,0.92) 100%
+      rgba(10,15,31,.95) 0%,
+      rgba(10,15,31,.72) 10%,
+      rgba(10,15,31,.38) 22%,
+      rgba(10,15,31,0) 38%,
+      rgba(10,15,31,0) 62%,
+      rgba(10,15,31,.38) 78%,
+      rgba(10,15,31,.72) 90%,
+      rgba(10,15,31,.95) 100%
     ),
-    url("images/samples/rd/3d-scaner.png") center center / cover no-repeat;
-}
-
-/* 让背景层级在底部，不挡住文字 */
-.slice.rd::before {
-  z-index: 0;
-}
-.slice.rd > span {
-  position: relative;
-  z-index: 1;
+    url("images/samples/rd/3D-scaner.PNG"); /* 注意：PNG 大写 */
+  background-position: center center, center center; /* 如需偏移主体，可把第2个 center 改成 52% 50% 等 */
+  background-size: auto, cover;
+  background-repeat: no-repeat;
 }
 
 .slice.factory { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02)); }
