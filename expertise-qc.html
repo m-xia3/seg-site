@@ -64,53 +64,87 @@
     <!-- 流程图 -->
     <h2 class="title" style="font-size:30px;margin-bottom:20px">Quality Control Flow</h2>
 
-    <!-- 宽一些让节点更大、留白更均匀 -->
-    <svg viewBox="0 0 1700 520" xmlns="http://www.w3.org/2000/svg"
-         role="img" aria-label="QC Flow"
-         style="display:block;margin:0 auto;max-width:1280px">
-      <style>
-        .node{fill:var(--card);stroke:var(--line);stroke-width:1.6;rx:20;ry:20}
-        .text{font:600 22px system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;fill:var(--text);dominant-baseline:middle;text-anchor:middle}
-        .sub{font:16px system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;fill:var(--muted);dominant-baseline:middle;text-anchor:middle}
-        .arrow{stroke:var(--accent);stroke-width:2.2;marker-end:url(#arrowHead)}
-        .arrowL{stroke:var(--accent);stroke-width:2.2;marker-end:url(#arrowHead)} /* 用反向坐标实现向左箭头 */
-        .arrowV{stroke:var(--accent);stroke-width:2.2;marker-end:url(#arrowHead)}
-      </style>
-      <defs>
-        <marker id="arrowHead" markerWidth="14" markerHeight="14" refX="11" refY="6" orient="auto">
-          <path d="M0,0 L12,6 L0,12 Z" fill="var(--accent)"/>
-        </marker>
-      </defs>
+<!-- 只贴 <svg> 这一段，替换你当前代码里的同名 <svg> 即可 -->
+<svg viewBox="0 0 1700 520" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-label="QC Flow"
+     style="display:block;margin:0 auto;max-width:1280px">
+  <style>
+    .node{fill:var(--card);stroke:var(--line);stroke-width:1.6;rx:20;ry:20}
+    .text{font:600 22px system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;fill:var(--text);dominant-baseline:middle;text-anchor:middle}
+    .sub{font:16px system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;fill:var(--muted);dominant-baseline:middle;text-anchor:middle}
+    .arrow{stroke:var(--accent);stroke-width:2.2;marker-end:url(#arrowHead)}
+    .arrowL{stroke:var(--accent);stroke-width:2.2;marker-end:url(#arrowHead)}
+    .arrowV{stroke:var(--accent);stroke-width:2.2;marker-end:url(#arrowHead)}
+  </style>
+  <defs>
+    <marker id="arrowHead" markerWidth="14" markerHeight="14" refX="11" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="var(--accent)"/>
+    </marker>
+  </defs>
 
-      <!-- ===== 顶部一行（向右） ===== -->
-      <!-- X 坐标：80 / 420 / 760 / 1100 / 1440 ，Y=160 -->
-      <g transform="translate(80,160)">
-        <!-- Incoming -->
-        <rect class="node" width="260" height="96" />
-        <text class="text" x="130" y="40">Incoming Material</text>
-        <text class="sub"  x="130" y="70">Inspection (100% Check)</text>
-        <line class="arrow" x1="260" y1="48" x2="320" y2="48"/>
+  <!-- 顶部一行（向右） -->
+  <g transform="translate(80,160)">
+    <!-- Incoming -->
+    <rect class="node" width="260" height="96" />
+    <text class="text" x="130" y="40">Incoming Material</text>
+    <text class="sub"  x="130" y="70">Inspection (100% Check)</text>
+    <line class="arrow" x1="260" y1="48" x2="320" y2="48"/>
 
-        <!-- Cutting -->
-        <rect class="node" x="340" width="260" height="96"/>
-        <text class="text" x="470" y="48">Cutting Inspection</text>
-        <line class="arrow" x1="600" y1="48" x2="660" y2="48"/>
+    <!-- Cutting -->
+    <rect class="node" x="340" width="260" height="96"/>
+    <text class="text" x="470" y="48">Cutting Inspection</text>
+    <line class="arrow" x1="600" y1="48" x2="660" y2="48"/>
 
-        <!-- Upper 100% -->
-        <rect class="node" x="680" width="260" height="96"/>
-        <text class="text" x="810" y="48">Upper 100% Check</text>
-        <line class="arrow" x1="940" y1="48" x2="1000" y2="48"/>
+    <!-- Upper 100% -->
+    <rect class="node" x="680" width="260" height="96"/>
+    <text class="text" x="810" y="48">Upper 100% Check</text>
+    <line class="arrow" x1="940" y1="48" x2="1000" y2="48"/>
 
-        <!-- Upper WH Sampling -->
-        <rect class="node" x="1020" width="260" height="96"/>
-        <text class="text" x="1150" y="36">Upper Warehouse</text>
-        <text class="sub"  x="1150" y="66">Sampling</text>
-        <line class="arrow" x1="1280" y1="48" x2="1340" y2="48"/>
+    <!-- Upper WH Sampling -->
+    <rect class="node" x="1020" width="260" height="96"/>
+    <text class="text" x="1150" y="36">Upper Warehouse</text>
+    <text class="sub"  x="1150" y="66">Sampling</text>
+    <!-- 改到直接连到下一卡片左边缘 -->
+    <line class="arrow" x1="1280" y1="48" x2="1360" y2="48"/>
 
-        <!-- Assembly Full -->
-        <rect class="node" x="1360" width="260" height="96"/>
-        <text class="text" x="1490" y="48">Assembly Line Full Inspection</text>
-      </g>
+    <!-- Assembly Full（加大到 320） -->
+    <rect class="node" x="1360" width="320" height="96"/>
+    <text class="text" x="1520" y="48">Assembly Line Full Inspection</text>
+  </g>
+
+  <!-- 垂直箭头：从“Assembly Full”底部中心 → 下行“Patrol”顶部中心 -->
+  <!-- 80(translateX) + 1360 + 320/2 = 1600 -->
+  <!-- y1 = 160 + 96 = 256，y2 = 340 -->
+  <line class="arrowV" x1="1600" y1="256" x2="1600" y2="340"/>
+
+  <!-- 底部一行（从右向左） -->
+  <g transform="translate(80,340)">
+    <!-- Patrol（加大到 320） -->
+    <rect class="node" x="1280" width="320" height="96"/>
+    <text class="text" x="1440" y="48">Assembly Line Patrol Inspection</text>
+    <!-- Patrol -> FG Sampling (向左) -->
+    <line class="arrowL" x1="1280" y1="48" x2="940"  y2="48"/>
+
+    <!-- FG Sampling（加大到 320） -->
+    <rect class="node" x="940" width="320" height="96"/>
+    <text class="text" x="1100" y="36">Finished Goods Sampling</text>
+    <text class="sub"  x="1100" y="66">(Warehouse)</text>
+    <!-- FG Sampling -> Final (向左) -->
+    <line class="arrowL" x1="940"  y1="48" x2="600"  y2="48"/>
+
+    <!-- Final -->
+    <rect class="node" x="600" width="260" height="96"/>
+    <text class="text" x="730" y="36">Final Inspection</text>
+    <text class="sub"  x="730" y="66">(Pre-shipment / AQL)</text>
+    <!-- Final -> Approved (向左) -->
+    <line class="arrowL" x1="600" y1="48" x2="260" y2="48"/>
+
+    <!-- Approved -->
+    <rect class="node" x="260" width="260" height="96"/>
+    <text class="text" x="390" y="48">Approved Shipment</text>
+  </g>
+</svg>
+
 
       <!-- 顶部最后一个向下到巡检 -->
       <line class="arrowV" x1="1520" y1="256" x2="1520" y2="336"/>
