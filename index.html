@@ -454,28 +454,32 @@
 /* 常态轻微底纹（非常淡，增强区块感，可留可去） */
 .slice.team    { background: linear-gradient(90deg, rgba(0,0,0,.05), transparent 65%); }
 
-/* R&D 背景使用 3D 扫描图：左右渐隐 + 轻微纵向压暗 */
-#expertise .slice.rd{
+/* === 给 R&D 板块单独加背景（3D 扫描图 + 两侧渐隐） === */
+.slice.rd {
   background:
-    /* 左右渐隐，突出中间主体 */
+    /* 左右渐隐效果 */
     linear-gradient(to right,
-      rgba(10,15,31,.88) 0%,
-      rgba(10,15,31,.55) 12%,
-      rgba(10,15,31,.18) 28%,
-      rgba(10,15,31,0)   44%,
-      rgba(10,15,31,0)   56%,
-      rgba(10,15,31,.18) 72%,
-      rgba(10,15,31,.55) 88%,
-      rgba(10,15,31,.88) 100%
+      rgba(10,15,31,0.92) 0%,
+      rgba(10,15,31,0.65) 12%,
+      rgba(10,15,31,0.35) 28%,
+      rgba(10,15,31,0) 46%,
+      rgba(10,15,31,0) 54%,
+      rgba(10,15,31,0.35) 72%,
+      rgba(10,15,31,0.65) 88%,
+      rgba(10,15,31,0.92) 100%
     ),
-    /* 纵向压暗，避免过曝 */
-    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.22)),
-    /* 主图：3D 扫描（按需改路径/文件名） */
-    url("images/samples/rd/3d-scaner.PNG") center 46% / cover no-repeat;
+    url("images/samples/rd/3d-scaner.png") center center / cover no-repeat;
 }
-/* 让标签在图上更清晰 */
-#expertise .slice.rd > span{ text-shadow: 0 6px 18px rgba(0,0,0,.65); }
-    
+
+/* 让背景层级在底部，不挡住文字 */
+.slice.rd::before {
+  z-index: 0;
+}
+.slice.rd > span {
+  position: relative;
+  z-index: 1;
+}
+
 .slice.factory { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02)); }
 .slice.qc      { background: linear-gradient(270deg, rgba(0,0,0,.05), transparent 65%); }
 .slice.store   { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02)); }
