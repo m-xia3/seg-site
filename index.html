@@ -409,33 +409,26 @@
   box-shadow: 0 6px 18px rgba(0,0,0,.25);
 }
 
-/* 三块的标题位置 & 轻遮罩（让三等分更可见） */
+/* 斜边三等分：放大 R&D，缩小 TEAM / FACTORY */
 .slice.team{
-  clip-path: polygon(0 0, 28% 0, 42% 90%, 0 100%);
-  z-index:3;
+  /* 左侧楔形（约 1/4 宽） */
+  clip-path: polygon(0 0, 24% 0, 38% 100%, 0 100%);
+  z-index: 3;
+  --x: 18%;              /* 标题位置：更靠左 */
 }
-.slice.rd{
-  clip-path: polygon(28% 0, 72% 0, 58% 100%, 42% 100%);
-  z-index:4;
-}
-.slice.factory{
-  clip-path: polygon(72% 0, 100% 0, 100% 100%, 58% 90%);
-  z-index:3;
-}
-.slice:is(:hover, :focus-visible){ transform: translateY(-2px); filter: brightness(1.04); }
 
-/* 三块形状：左楔形 / 中倒三角 / 右楔形 */
-.slice.team{
-  clip-path: polygon(0 0, 28% 0, 42% 90%, 0 100%);
-  z-index:3;
-}
 .slice.rd{
-  clip-path: polygon(28% 0, 72% 0, 58% 100%, 42% 100%);
-  z-index:4;
+  /* 中间倒三角（约 1/2 宽） */
+  clip-path: polygon(24% 0, 76% 0, 62% 100%, 38% 100%);
+  z-index: 4;            /* 居中且在最上层，避免被两侧覆盖 */
+  --x: 50%;
 }
+
 .slice.factory{
-  clip-path: polygon(72% 0, 100% 0, 100% 100%, 58% 90%);
-  z-index:3;
+  /* 右侧楔形（约 1/4 宽） */
+  clip-path: polygon(76% 0, 100% 0, 100% 100%, 62% 100%);
+  z-index: 3;
+  --x: 82%;              /* 标题位置：更靠右 */
 }
 
 /* 弹窗基础样式（与联系弹窗独立） */
