@@ -405,6 +405,40 @@
   pointer-events:none;
 }
 
+/* 高亮覆盖层：默认透明；悬停时像 Samples 一样提亮 */
+.slice::before{
+  content:"";
+  position:absolute;
+  inset:-1px;                     /* 轻微扩大，避免边缘漏线 */
+  border-radius: 0;
+  pointer-events:none;
+  opacity: 0;
+  transition: opacity .22s ease, transform .22s ease;
+  /* 和 Samples 卡片同风格的径向提亮 */
+  background: radial-gradient(
+    125% 165% at 50% 56%,
+    rgba(255,255,255,.98) 0%,
+    rgba(248,252,255,.90) 26%,
+    rgba(196,214,236,.56) 56%,
+    rgba(24,32,56,.82)   92%,
+    rgba(15,23,42,1)     100%
+  );
+  /* 轻内阴影，层次更自然 */
+  box-shadow: inset 0 0 90px 8px rgba(8,13,26,.10);
+  z-index: 0;                     /* 在内容下、分割线上（::after）下方 */
+}
+
+.slice:is(:hover, :focus-visible)::before{
+  opacity: 1;
+  transform: translateY(-1px);    /* 与轻微上浮保持一致的动感 */
+}
+
+/* 保留原来的位移/亮度微调（可与上面叠加） */
+.slice:is(:hover, :focus-visible){
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+}
+    
 /* 悬停提亮（与 Samples 交互保持一致风格） */
 .slice:is(:hover, :focus-visible){
   transform: translateY(-2px);
