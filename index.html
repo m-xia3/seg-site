@@ -363,93 +363,101 @@
   border: 1px solid var(--line);
   background: var(--card);
   overflow: hidden;
-  height: clamp(280px, 40vw, 560px);
-  box-shadow: inset 0 0 0 1px color-mix(in oklab, #fff 5%, transparent);
+  height: clamp(260px, 38vw, 520px);
 }
-/* 底层柔光，让整块不显得灰 */
+/* 提亮底层渐变 */
 .tri-slab::before{
   content:"";
   position:absolute; inset:0;
   background: radial-gradient(
-    115% 150% at 50% 60%,
-    rgba(255,255,255,.85) 0%,
-    rgba(240,246,255,.68) 28%,
-    rgba(180,198,226,.42) 58%,
-    rgba(22,30,54,.80)   92%,
+    115% 150% at 50% 56%,
+    rgba(255,255,255,.92) 0%,
+    rgba(241,248,255,.78) 26%,
+    rgba(190,208,232,.50) 56%,
+    rgba(28,38,64,.86)   92%,
     rgba(15,23,42,1)     100%
   );
   pointer-events:none;
 }
-
-/* 轨道 & 竖直分割线（更清晰的边框感） */
 .tri-track{ position:absolute; inset:0; }
-.tri-track::before,
-.tri-track::after{
-  content:"";
-  position:absolute; top:0; bottom:0; width:1.5px;
-  background: color-mix(in oklab, var(--line) 85%, transparent);
-  opacity:.9;
-}
-.tri-track::before{ left:33.3333%; }
-.tri-track::after { left:66.6667%; }
 
-/* 三个“切片”——改为严格三等分的直矩形 */
+/* 可点击“切片” */
 .slice{
   position:absolute; inset:0;
   display:grid; place-items:center;
   cursor:pointer; user-select:none;
   color:var(--text); text-align:center;
+  transition: transform .18s ease, filter .18s ease;
   outline:none; border:none; background:none;
-  /* 悬停的描边/高亮由 box-shadow 与 ::after 控制 */
-  transition: box-shadow .22s ease, filter .22s ease, transform .18s ease;
 }
-/* 左中右三等分（直边），让面积绝对相等 */
-.slice.team   { clip-path: polygon(0 0, 33.333% 0, 33.333% 100%, 0 100%);   z-index:1; }
-.slice.rd     { clip-path: polygon(33.333% 0, 66.666% 0, 66.666% 100%, 33.333% 100%); z-index:2; }
-.slice.factory{ clip-path: polygon(66.666% 0, 100% 0, 100% 100%, 66.666% 100%); z-index:1; }
-
-/* 每块默认就有一点柔光；悬停时更亮、更“浮起” */
-.slice::after{
+/* 细分割线 */
+.slice::before{
   content:""; position:absolute; inset:0;
-  background: radial-gradient(120% 160% at 50% 60%,
-              rgba(255,255,255,.20) 0%,
-              rgba(255,255,255,.10) 40%,
-              rgba(0,0,0,0) 100%);
-  opacity:.14; transition: opacity .22s ease, transform .22s ease;
-  pointer-events:none;
+  border-right: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
+  opacity:.6; pointer-events:none;
 }
-.slice:hover::after,
-.slice:focus-visible::after{ opacity:.34; }
-.slice:hover,
-.slice:focus-visible{
-  filter: brightness(1.06);
-  transform: translateY(-2px);
-  box-shadow: inset 0 0 0 2px color-mix(in oklab, #fff 22%, transparent),
-              0 14px 36px rgba(0,0,0,.28);
-}
-
-/* 标题牌：每块各自居中即可（不再用 --x 偏移） */
+/* 每块自己的标题：把锚点放在对应重心 */
 .slice > span{
-  position:absolute; left:50%; top:50%;
+  position:absolute;
+  left: var(--x,50%);   /* 每个分块用 --x 定义自己的水平位置 */
+  top: 50%;
   transform: translate(-50%,-50%);
   pointer-events:none;
   font-weight:800; letter-spacing:.6px;
   padding:8px 14px; border-radius:10px;
-  background: rgba(0,0,0,.38);
-  box-shadow: 0 8px 20px rgba(0,0,0,.28);
-  font-size: 14px;
+  background: rgba(0,0,0,.35);
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
 }
 
-/* 移动端：纵向三等分，边框更清晰、易点击 */
+/* 三块的标题位置 & 轻遮罩（让三等分更可见） */
+.slice.team    { --x:20%;  background:linear-gradient(90deg, rgba(0,0,0,.08), rgba(0,0,0,0) 65%); }
+.slice.rd      { --x:50%;  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.04)); }
+.slice.factory { --x:80%;  background:linear-gradient(270deg, rgba(0,0,0,.08), rgba(0,0,0,0) 65%); }
+.slice:is(:hover, :focus-visible){ transform: translateY(-2px); filter: brightness(1.04); }
+
+/* 三块形状：左楔形 / 中倒三角 / 右楔形 */
+.slice.team{
+  clip-path: polygon(0 0, 34% 0, 46% 90%, 0 100%);
+  z-index:3;
+}
+.slice.team::before{ left:auto; right:-1px; width:1px; }
+.slice.rd{
+  clip-path: polygon(34% 0, 66% 0, 52% 100%, 48% 100%);
+  z-index:4;
+}
+.slice.rd::before{ display:none; } /* 中间不额外画线 */
+.slice.factory{
+  clip-path: polygon(66% 0, 100% 0, 100% 100%, 54% 90%);
+  z-index:3;
+}
+
+/* 弹窗基础样式（与联系弹窗独立） */
+dialog.dlg{ border:none; padding:0; background:transparent; }
+dialog.dlg::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
+.dlg-panel{
+  position:relative; margin:6vh auto; width:min(1000px,92vw);
+  background:var(--card); border:1px solid var(--line); border-radius:16px;
+  padding:20px 20px 22px; box-shadow:0 30px 60px rgba(0,0,0,.35);
+}
+.dlg-head{ display:flex; align-items:center; gap:10px; padding:6px 6px 10px 6px; }
+.dlg-head h3{ margin:0; font-size:22px; }
+.dlg-close{
+  margin-left:auto; position:relative; width:40px; height:40px;
+  display:grid; place-items:center; border-radius:50%;
+  background:var(--ink); color:var(--text); border:1px solid var(--line);
+  font-size:20px; cursor:pointer; line-height:1;
+}
+.dlg-close::before{ content:""; position:absolute; inset:-10px; } /* 扩大命中 */
+
+.dlg-body{ display:grid; grid-template-columns:1fr; gap:14px; }
+.dlg-text{ color:var(--muted); line-height:1.7; }
+
+/* 小屏：纵向三等分，易点 */
 @media (max-width: 760px){
   .tri-slab{ height: auto; }
-  .tri-track{ position: static; display: grid; grid-template-rows: repeat(3, min(40vw, 190px)); gap:10px; padding:10px; }
-  .tri-track::before, .tri-track::after{ display:none; }
-  .slice{
-    position: relative; clip-path: none; border-radius: 14px; overflow: hidden;
-    border:1px solid var(--line);
-    box-shadow: inset 0 0 0 1px color-mix(in oklab, #fff 6%, transparent);
-  }
+  .tri-track{ position: static; display: grid; grid-template-rows: repeat(3, min(36vw, 180px)); gap:10px; padding:10px; }
+  .slice{ position: relative; clip-path: none; border:1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .slice::before{ display:none; }
 }
     
   </style>
