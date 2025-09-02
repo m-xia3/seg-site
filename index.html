@@ -426,17 +426,15 @@
 
 /* 三块形状：左楔形 / 中倒三角 / 右楔形 */
 .slice.team{
-  clip-path: polygon(0 0, 34% 0, 46% 90%, 0 100%);
+  clip-path: polygon(0 0, 28% 0, 42% 90%, 0 100%);
   z-index:3;
 }
-.slice.team::before{ left:auto; right:-1px; width:1px; }
 .slice.rd{
-  clip-path: polygon(34% 0, 66% 0, 52% 100%, 48% 100%);
+  clip-path: polygon(28% 0, 72% 0, 58% 100%, 42% 100%);
   z-index:4;
 }
-.slice.rd::before{ display:none; } /* 中间不额外画线 */
 .slice.factory{
-  clip-path: polygon(66% 0, 100% 0, 100% 100%, 54% 90%);
+  clip-path: polygon(72% 0, 100% 0, 100% 100%, 58% 90%);
   z-index:3;
 }
 
