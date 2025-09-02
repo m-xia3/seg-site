@@ -412,10 +412,21 @@
 }
 
 /* 四等分位置（等宽） */
-.slice.team    { left:0;    right:75%; clip-path: polygon(0 0, 25% 0, 25% 100%, 0 100%); }
-.slice.rd      { left:25%;  right:50%; clip-path: polygon(25% 0, 50% 0, 50% 100%, 25% 100%); }
-.slice.factory { left:50%;  right:25%; clip-path: polygon(50% 0, 75% 0, 75% 100%, 50% 100%); }
-.slice.qc      { left:75%;  right:0;  clip-path: polygon(75% 0, 100% 0, 100% 100%, 75% 100%); }
+.slice.team    { left:0;    right:75%; }
+.slice.rd      { left:25%;  right:50%; }
+.slice.factory { left:50%;  right:25%; }
+.slice.qc      { left:75%;  right:0;  }
+
+/* 不再用 clip-path，靠 left/right 等比例划分 */
+.slice.team::after,
+.slice.rd::after,
+.slice.factory::after{
+  content:""; position:absolute; top:0; bottom:0;
+  width:1px; background:rgba(255,255,255,.35);
+}
+.slice.team::after{ right:0; }
+.slice.rd::after{ right:0; }
+.slice.factory::after{ right:0; }
 
 /* 分割线更明显，让四块看起来相互独立 */
 .slice.team::after,
