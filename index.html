@@ -770,101 +770,10 @@
 
 
 
-.tri-track{ position:absolute; inset:0; }
 
-/* 通用块 */
-.slice{
-  position:absolute; top:0; bottom:0;
-  display:grid; place-items:center;
-  cursor:pointer; user-select:none;
-  color:var(--text); text-align:center;
-  outline:none; border:none; background:none;
-  transition: transform .18s ease, filter .18s ease;
-}
 
-/* 标题牌：移到底部居中 */
-.slice > span{
-  position: absolute;
-  bottom: 12px;        /* 离底部的距离 */
-  left: 50%;
-  transform: translateX(-50%);
-  font-weight: 800;
-  letter-spacing: .6px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  background: rgba(0,0,0,.35);
-  box-shadow: 0 4px 12px rgba(0,0,0,.25);
-  pointer-events: none;
-  text-align: center;
-  line-height: 1.2;
-}
 
-/* ——更克制的高亮覆盖层（比样品更淡）—— */
-.slice::before{
-  content:"";
-  position:absolute; inset:-1px;
-  pointer-events:none;
-  opacity: 0;
-  transition: opacity .22s ease, transform .22s ease;
-  /* 中心提亮但强度下调，避免过曝 */
-  background: radial-gradient(
-    120% 160% at 50% 56%,
-    rgba(255,255,255,.40) 0%,
-    rgba(240,246,255,.28) 26%,
-    rgba(190,208,232,.18) 56%,
-    rgba(24,32,56,.14)   92%,
-    rgba(15,23,42,.16)   100%
-  );
-  box-shadow: inset 0 0 70px 8px rgba(8,13,26,.08);
-  z-index:0;
-}
-.slice:is(:hover, :focus-visible)::before{ opacity: 1; }
-.slice:is(:hover, :focus-visible){
-  transform: translateY(-2px);
-  filter: brightness(1.03);
-}
 
-/* ——五等分位置（0/20/40/60/80%）—— */
-.slice.team    { left:0;    right:80%; }
-.slice.rd      { left:20%;  right:60%; }
-.slice.factory { left:40%;  right:40%; }
-.slice.qc      { left:60%;  right:20%; }
-.slice.store   { left:80%;  right:0;  }
-
-/* 分割线：前四块画右侧线 */
-.slice.team::after,
-.slice.rd::after,
-.slice.factory::after,
-.slice.qc::after{
-  content:""; position:absolute; top:0; bottom:0; right:0;
-  width:1px; background:rgba(255,255,255,.28);
-  z-index:1;
-}
-
-/* 常态轻微底纹（非常淡，增强区块感，可留可去） */
-.slice.team    { background: linear-gradient(90deg, rgba(0,0,0,.05), transparent 65%); }
-.slice.rd      { background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.02)); }
-.slice.factory { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02)); }
-.slice.qc      { background: linear-gradient(270deg, rgba(0,0,0,.05), transparent 65%); }
-.slice.store   { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02)); }
-
-/* 小屏：纵向五块 */
-@media (max-width: 760px){
-  .tri-slab{ height: auto; }
-  .tri-track{
-    position: static;
-    display: grid;
-    grid-template-rows: repeat(5, min(36vw, 180px));
-    gap:10px; padding:10px;
-  }
-  .slice{
-    position: relative; left:auto; right:auto;
-    border:1px solid var(--line); border-radius:14px; overflow:hidden;
-  }
-  .slice::after{ display:none; }      /* 竖排时不再画竖线 */
-  .slice > span{ position: static; transform:none; }
-}
-    
   </style>
 </head>
 <body>
