@@ -392,17 +392,21 @@
   transition: transform .18s ease, filter .18s ease;
 }
 
-/* 标题牌 */
+/* 标题牌：移到底部居中 */
 .slice > span{
-  position:absolute; top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  font-weight:800; letter-spacing:.6px;
-  padding:8px 14px; border-radius:10px;
-  background: rgba(0,0,0,.30);
-  box-shadow: 0 6px 18px rgba(0,0,0,.22);
-  pointer-events:none;
-  text-align:center;
-  line-height:1.2;
+  position: absolute;
+  bottom: 12px;        /* 离底部的距离 */
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 800;
+  letter-spacing: .6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(0,0,0,.35);
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  pointer-events: none;
+  text-align: center;
+  line-height: 1.2;
 }
 
 /* ——更克制的高亮覆盖层（比样品更淡）—— */
