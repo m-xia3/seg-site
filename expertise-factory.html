@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TEAM · 我们的团队 | SAIGE Footwear</title>
+  <title>FACTORY · 工厂与制造 | SAIGE Footwear</title>
   <style>
     :root{
       --bg:#0a0f1f; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
@@ -12,59 +12,44 @@
     }
     html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
     a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
+    img{max-width:100%;display:block;object-fit:contain;} /* 避免照片被裁剪 */
     .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 
-    /* 顶部返回栏 + 右上角关闭 */
-    .topbar{
-      position:sticky; top:0; z-index:40;
+    .topbar{position:sticky;top:0;z-index:40;
       backdrop-filter:saturate(160%) blur(6px);
       background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
-      border-bottom:1px solid var(--line);
-    }
+      border-bottom:1px solid var(--line);}
     .topbar .row{display:flex;align-items:center;gap:12px;padding:12px 0}
     .brand{font-weight:800;letter-spacing:.3px}
-    .close{
-      margin-left:auto; display:inline-grid; place-items:center;
-      width:36px; height:36px; border-radius:10px;
-      border:1px solid var(--line); background:var(--ink);
-      font-size:18px; cursor:pointer;
-    }
+    .close{margin-left:auto;display:inline-grid;place-items:center;
+      width:36px;height:36px;border-radius:10px;
+      border:1px solid var(--line);background:var(--ink);
+      font-size:18px;cursor:pointer;}
     .close:hover{filter:brightness(1.08)}
 
-    .hero{
-      padding:42px 0 22px;
-      background:
-        radial-gradient(800px 360px at 70% -10%, rgba(225,29,72,.12), transparent 55%),
-        radial-gradient(600px 320px at 10% -5%, rgba(59,130,246,.10), transparent 60%);
-    }
+    .hero{padding:42px 0 22px;
+      background:radial-gradient(800px 360px at 70% -10%, rgba(225,29,72,.12), transparent 55%),
+                 radial-gradient(600px 320px at 10% -5%, rgba(59,130,246,.10), transparent 60%);}
     .title{font-size:40px;line-height:1.15;margin:0 0 10px}
     .lead{color:var(--muted);max-width:68ch;margin:0}
-
     .bar{height:1px;background:var(--line);margin:26px 0}
 
-    /* 复用首页相同的卡片风格 */
     .grid{display:grid;gap:18px}
-    .grid.s-3{grid-template-columns:repeat(3,1fr)}
-    @media (max-width:1024px){ .grid.s-3{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:640px){ .grid.s-3{grid-template-columns:1fr} }
+    .grid.s-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width:768px){ .grid.s-2{grid-template-columns:1fr} }
 
     .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-    .card-media{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0c1426}
-    .card-media img{width:100%;height:100%;object-fit:cover}
+    .card-media{position:relative;aspect-ratio:16/9;background:#0c1426}
+    .card-media img{width:100%;height:100%;object-fit:contain}
     .card-bd{padding:14px 16px;color:var(--muted)}
 
-    /* 返回首页按钮（移动端也好点按） */
-    .back{
-      display:inline-flex;align-items:center;gap:8px;
-      border:1px solid var(--line); border-radius:10px; padding:8px 12px;
-      background:#0b1222; color:var(--text); font-weight:600;
-    }
+    .back{display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--line);border-radius:10px;padding:8px 12px;
+      background:#0b1222;color:var(--text);font-weight:600;}
     .back:hover{filter:brightness(1.06)}
   </style>
 </head>
 <body>
-  <!-- 顶部条：左侧返回首页锚点，右侧“✕”关闭（后退或跳首页#expertise） -->
   <header class="topbar">
     <div class="container row">
       <a class="back" href="index.html#expertise">← Back</a>
@@ -75,50 +60,68 @@
 
   <section class="hero">
     <div class="container">
-      <h1 class="title">TEAM · 我们的团队</h1>
-      <p class="lead">我们不是中转型贸易。具备鞋类工艺与合规背景，能把买手/设计/QA 的语言迅速转换为可量产方案；CN/EU/US 三时区覆盖，加速沟通闭环。</p>
+      <h1 class="title">FACTORY · 工厂与制造</h1>
+      <p class="lead">从原材料裁断到针车工序，再到成型装配，我们的工厂具备完整的鞋类生产链条，确保每一步都符合国际品牌的品质标准。</p>
     </div>
   </section>
 
   <div class="bar"></div>
 
   <main class="container">
-    <div class="grid s-3">
-      <!-- 照片 + 文案段落，按需增删 -->
+    <div class="grid s-2">
+      <!-- 厂区照片 -->
       <article class="card">
-        <div class="card-media">
-          <img src="images/expertise/team-1.jpg" alt="项目管理与买手对接">
-        </div>
-        <div class="card-bd">
-          <h3 style="margin:0 0 6px">项目制管理</h3>
-          <p style="margin:0">一对一项目制，从 Tech Pack、BOM 到量产排程全链路透明，版本/物料/变更留痕。</p>
-        </div>
+        <div class="card-media"><img src="images/factory/overview-1.jpg" alt="Factory Overview"></div>
+        <div class="card-bd"><h3>厂区全景</h3><p>Modernized factory campus with streamlined layout and standardized management.</p></div>
+      </article>
+      <article class="card">
+        <div class="card-media"><img src="images/factory/overview-2.jpg" alt="Factory Environment"></div>
+        <div class="card-bd"><h3>厂区环境</h3><p>Clean and efficient production environment showcasing large-scale capacity.</p></div>
       </article>
 
+      <!-- 裁断车间 -->
       <article class="card">
-        <div class="card-media">
-          <img src="images/expertise/team-2.jpg" alt="跨时区协作">
-        </div>
-        <div class="card-bd">
-          <h3 style="margin:0 0 6px">跨时区响应</h3>
-          <p style="margin:0">CN/EU/US 三时区覆盖，缩短样品确认周期与问题闭环时间。</p>
-        </div>
+        <div class="card-media"><img src="images/factory/cutting-1.jpg" alt="Cutting Workshop"></div>
+        <div class="card-bd"><h3>裁断车间</h3><p>High-precision cutting machines ensuring consistent material utilization and pattern accuracy.</p></div>
+      </article>
+      <article class="card">
+        <div class="card-media"><img src="images/factory/cutting-2.jpg" alt="Cutting Workshop"></div>
+        <div class="card-bd"><h3>裁断工序</h3><p>Skilled operators handling advanced die-cutting equipment for efficiency.</p></div>
       </article>
 
+      <!-- 平板/炼胶车间 -->
       <article class="card">
-        <div class="card-media">
-          <img src="images/expertise/team-3.jpg" alt="合规文档与测试">
-        </div>
-        <div class="card-bd">
-          <h3 style="margin:0 0 6px">合规熟练</h3>
-          <p style="margin:0">REACH / CPSIA / RSL 文档与测试流程前置把控，降低复检与退货风险。</p>
-        </div>
+        <div class="card-media"><img src="images/factory/rubber-1.jpg" alt="Rubber Workshop"></div>
+        <div class="card-bd"><h3>平板车间</h3><p>In-house rubber mixing and sheeting line, securing stable material quality.</p></div>
+      </article>
+      <article class="card">
+        <div class="card-media"><img src="images/factory/rubber-2.jpg" alt="Rubber Workshop"></div>
+        <div class="card-bd"><h3>炼胶工序</h3><p>Ensuring durability and performance through consistent rubber processing.</p></div>
+      </article>
+
+      <!-- 针车车间 -->
+      <article class="card">
+        <div class="card-media"><img src="images/factory/stitching-1.jpg" alt="Stitching Workshop"></div>
+        <div class="card-bd"><h3>针车车间</h3><p>Skilled operators supported by automated stitching equipment for upper production.</p></div>
+      </article>
+      <article class="card">
+        <div class="card-media"><img src="images/factory/stitching-2.jpg" alt="Stitching Workshop"></div>
+        <div class="card-bd"><h3>帮面工序</h3><p>Precision stitching ensures consistency and premium appearance for uppers.</p></div>
+      </article>
+
+      <!-- 成型车间 -->
+      <article class="card">
+        <div class="card-media"><img src="images/factory/assembly-1.jpg" alt="Assembly Workshop"></div>
+        <div class="card-bd"><h3>成型车间</h3><p>Automated lasting & molding workshop with capacity for vulcanized and cemented shoes.</p></div>
+      </article>
+      <article class="card">
+        <div class="card-media"><img src="images/factory/assembly-2.jpg" alt="Assembly Workshop"></div>
+        <div class="card-bd"><h3>装配工序</h3><p>Integration of outsole and upper with advanced molding techniques.</p></div>
       </article>
     </div>
   </main>
 
   <script>
-    // 右上角“✕”：优先后退；没有历史则跳回首页 Expertise
     document.getElementById('btnClose').addEventListener('click', function(){
       if (history.length > 1) history.back();
       else location.href = 'index.html#expertise';
