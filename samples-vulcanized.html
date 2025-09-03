@@ -88,27 +88,47 @@
       border:none; padding:0; background:transparent; width:100%; max-width:none;
     }
     dialog::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
-    .lightbox-panel{
-      position:relative; margin:auto; width:min(1100px,92vw);
-      background:var(--card); border:1px solid var(--line); border-radius:16px;
-      padding:18px; box-shadow:0 30px 60px rgba(0,0,0,.35);
-    }
-    .lightbox-stage{
-      position:relative; border-radius:14px; overflow:hidden; aspect-ratio:4/3;
-      display:grid; place-items:center;
-      /* 与缩略图一致的明亮背景，确保风格统一 */
-      background: radial-gradient(
-        115% 150% at 50% 56%,
-        rgba(255,255,255,.92) 0%,
-        rgba(241,248,255,.78) 26%,
-        rgba(190,208,232,.50) 56%,
-        rgba(28,38,64,.86)   92%,
-        rgba(15,23,42,1)     100%
-      );
-    }
-    .lightbox-stage img{
-      max-width:95%; max-height:95%; object-fit:contain; mix-blend-mode:normal;
-    }
+
+/* 面板：稍减内边距，给舞台更多高度 */
+.lightbox-panel{
+  position:relative; margin:auto; width:min(1100px,92vw);
+  background:var(--card); border:1px solid var(--line); border-radius:16px;
+  padding:14px; /* 18px -> 14px */
+  box-shadow:0 30px 60px rgba(0,0,0,.35);
+}
+
+/* 舞台：按视口高度自适应，取消固定 4:3 和裁剪 */
+.lightbox-stage{
+  position:relative;
+  border-radius:14px;
+  /* overflow:hidden; */   /* ← 删除 */
+  /* aspect-ratio:4/3; */ /* ← 删除 */
+  display:flex; align-items:center; justify-content:center;
+
+  height: min(82vh, 92vw);
+  max-height: 82vh;
+  width: 100%;
+
+  background: radial-gradient(
+    115% 150% at 50% 56%,
+    rgba(255,255,255,.92) 0%,
+    rgba(241,248,255,.78) 26%,
+    rgba(190,208,232,.50) 56%,
+    rgba(28,38,64,.86)   92%,
+    rgba(15,23,42,1)     100%
+  );
+}
+
+/* 预览图：保持完整显示，不做位移 */
+.lightbox-stage img{
+  max-width: 98%;
+  max-height: 98%;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+  mix-blend-mode: normal;
+}
+    
 /* 右上角关闭按钮：更大的点击热区 */
 .lightbox-close{
   position:absolute; top:10px; right:12px;
