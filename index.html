@@ -329,11 +329,20 @@
   mix-blend-mode: normal;
 }
 
-/* Upper 图片个别居中+略缩，确保不被切边 */
+/* Upper：向上提一点，视觉居中 */
 .sample-card .ph img[alt="Upper"]{
-  object-position: center center; /* 双重保险 */
-  max-width:88%;
-  max-height:88%;
+  object-position: center center;
+  max-width:90%;
+  max-height:90%;
+  transform: translateY(-6%);   /* ← 往上提 6% */
+  will-change: transform;
+}
+
+/* 小屏略微减小提幅，避免被标题挤压 */
+@media (max-width: 640px){
+  .sample-card .ph img[alt="Upper"]{
+    transform: translateY(-4%);
+  }
 }
 
 /* 悬停时：亮区更大、更亮（而不是变暗） */
