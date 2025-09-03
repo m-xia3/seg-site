@@ -67,36 +67,31 @@
       transition: box-shadow .24s ease;
     }
 
-/* 基础：统一缩略图 */
-.thumb img{
-  max-width:92%;
-  max-height:92%;
-  object-fit:contain;
-  object-position:center;
-  transform: translateY(var(--shift-y,0)) scale(var(--scale,1)) !important;
-  mix-blend-mode:normal;
-  z-index:1;
-  transition: transform .25s ease;
-}
-
-/* 个别微调：第 1 / 4 / 7 张 → 缩小 + 下移 */
-.gallery .item:nth-child(1){ --scale:0.88; --shift-y:-10%; }
-.gallery .item:nth-child(4){ --scale:0.88; --shift-y:-20%; }
-.gallery .item:nth-child(7){ --scale:0.88; --shift-y:-10%; }
-
-/* 平板：适度放大回收，保持居中 */
-@media (max-width:1024px){
-  .gallery .item:nth-child(1){ --scale:0.9; --shift-y:3%; }
-  .gallery .item:nth-child(4){ --scale:0.9; --shift-y:4%; }
-  .gallery .item:nth-child(7){ --scale:0.9; --shift-y:3%; }
-}
-
-/* 手机：再放大一点点，避免过小 */
-@media (max-width:640px){
-  .gallery .item:nth-child(1){ --scale:0.92; --shift-y:2%; }
-  .gallery .item:nth-child(4){ --scale:0.92; --shift-y:3%; }
-  .gallery .item:nth-child(7){ --scale:0.92; --shift-y:2%; }
-}
+    /* 缩略图：基础 + 个别微调 */
+    .thumb img{
+      max-width:92%;
+      max-height:92%;
+      object-fit:contain;
+      object-position:center;
+      transform: translateY(var(--shift-y,0)) scale(var(--scale,1)) !important;
+      mix-blend-mode:normal;
+      z-index:1;
+      transition: transform .25s ease;
+    }
+    /* 1 / 4 / 7 缩小+下移（与你现有一致） */
+    .gallery .item:nth-child(1){ --scale:0.88; --shift-y:-10%; }
+    .gallery .item:nth-child(4){ --scale:0.88; --shift-y:-20%; }
+    .gallery .item:nth-child(7){ --scale:0.88; --shift-y:-10%; }
+    @media (max-width:1024px){
+      .gallery .item:nth-child(1){ --scale:0.9; --shift-y:3%; }
+      .gallery .item:nth-child(4){ --scale:0.9; --shift-y:4%; }
+      .gallery .item:nth-child(7){ --scale:0.9; --shift-y:3%; }
+    }
+    @media (max-width:640px){
+      .gallery .item:nth-child(1){ --scale:0.92; --shift-y:2%; }
+      .gallery .item:nth-child(4){ --scale:0.92; --shift-y:3%; }
+      .gallery .item:nth-child(7){ --scale:0.92; --shift-y:2%; }
+    }
 
     .thumb:hover .thumb-inner{
       background: radial-gradient(
@@ -111,17 +106,26 @@
     .thumb:hover .thumb-inner::before{ box-shadow: inset 0 0 90px 8px rgba(8,13,26,.10); }
     .cap{color:var(--muted);font-size:14px;margin-top:8px;padding:0 2px}
 
-    /* 放大预览 */
+    /* === 放大预览（与 sole 完全一致） === */
     dialog#lightbox{ border:none; padding:0; background:transparent; width:100%; max-width:none; }
     dialog::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
+
+    /* 面板：内边距 14px，给舞台更多高度（与 sole 相同） */
     .lightbox-panel{
       position:relative; margin:auto; width:min(1100px,92vw);
       background:var(--card); border:1px solid var(--line); border-radius:16px;
-      padding:18px; box-shadow:0 30px 60px rgba(0,0,0,.35);
+      padding:14px;
+      box-shadow:0 30px 60px rgba(0,0,0,.35);
     }
+
+    /* 舞台：用视口高度控制，不设 4:3，避免裁切（与 sole 相同） */
     .lightbox-stage{
-      position:relative; border-radius:14px; overflow:hidden; aspect-ratio:4/3;
-      display:grid; place-items:center;
+      position:relative;
+      border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+      height: min(82vh, 92vw);
+      max-height: 82vh;
+      width: 100%;
       background: radial-gradient(
         115% 150% at 50% 56%,
         rgba(255,255,255,.92) 0%,
@@ -132,15 +136,15 @@
       );
     }
 
-/* 预览大图：给更大的可视空间，并且不做任何位移/缩放，确保不被裁切 */
-.lightbox-stage img{
-  max-width:96%;
-  max-height:96%;
-  object-fit:contain;
-  object-position:center;
-  transform:none;
-  mix-blend-mode:normal;
-}
+    /* 预览大图：98%/98%，完整显示（与 sole 相同） */
+    .lightbox-stage img{
+      max-width: 98%;
+      max-height: 98%;
+      object-fit: contain;
+      object-position: center;
+      transform: none;
+      mix-blend-mode: normal;
+    }
 
     /* 关闭按钮 */
     .lightbox-close{
@@ -167,51 +171,15 @@
       <p class="lead">精选案例（点击图片可放大预览）。</p>
 
       <div class="gallery" id="gallery">
-        <figure class="item">
-          <div class="thumb" data-full="images/samples/upper/1.PNG">
-            <div class="thumb-inner"><img src="images/samples/upper/1.PNG" alt="upper 1"></div>
-          </div>
-        </figure>
-        <figure class="item">
-          <div class="thumb" data-full="images/samples/upper/2.PNG">
-            <div class="thumb-inner"><img src="images/samples/upper/2.PNG" alt="upper 2"></div>
-          </div>
-        </figure>
-        <figure class="item">
-          <div class="thumb" data-full="images/samples/upper/3.PNG">
-            <div class="thumb-inner"><img src="images/samples/upper/3.PNG" alt="upper 3"></div>
-          </div>
-        </figure>
-        <figure class="item">
-          <div class="thumb" data-full="images/samples/upper/4.PNG">
-            <div class="thumb-inner"><img src="images/samples/upper/4.PNG" alt="upper 4"></div>
-          </div>
-        </figure>
-        <figure class="item">
-          <div class="thumb" data-full="images/samples/upper/5.PNG">
-            <div class="thumb-inner"><img src="images/samples/upper/5.PNG" alt="upper 5"></div>
-          </div>
-        </figure>
-        <figure class="item">
-          <div class="thumb" data-full="images/samples/upper/6.PNG">
-            <div class="thumb-inner"><img src="images/samples/upper/6.PNG" alt="upper 6"></div>
-          </div>
-        </figure>
-        <figure class="item">
-          <div class="thumb" data-full="images/samples/upper/13.PNG">
-            <div class="thumb-inner"><img src="images/samples/upper/13.PNG" alt="upper 13"></div>
-          </div>
-        </figure>
-        <figure class="item">
-          <div class="thumb" data-full="images/samples/upper/14.PNG">
-            <div class="thumb-inner"><img src="images/samples/upper/14.PNG" alt="upper 14"></div>
-          </div>
-        </figure>
-        <figure class="item">
-          <div class="thumb" data-full="images/samples/upper/15.PNG">
-            <div class="thumb-inner"><img src="images/samples/upper/15.PNG" alt="upper 15"></div>
-          </div>
-        </figure>
+        <figure class="item"><div class="thumb" data-full="images/samples/upper/1.PNG"><div class="thumb-inner"><img src="images/samples/upper/1.PNG" alt="upper 1"></div></div></figure>
+        <figure class="item"><div class="thumb" data-full="images/samples/upper/2.PNG"><div class="thumb-inner"><img src="images/samples/upper/2.PNG" alt="upper 2"></div></div></figure>
+        <figure class="item"><div class="thumb" data-full="images/samples/upper/3.PNG"><div class="thumb-inner"><img src="images/samples/upper/3.PNG" alt="upper 3"></div></div></figure>
+        <figure class="item"><div class="thumb" data-full="images/samples/upper/4.PNG"><div class="thumb-inner"><img src="images/samples/upper/4.PNG" alt="upper 4"></div></div></figure>
+        <figure class="item"><div class="thumb" data-full="images/samples/upper/5.PNG"><div class="thumb-inner"><img src="images/samples/upper/5.PNG" alt="upper 5"></div></div></figure>
+        <figure class="item"><div class="thumb" data-full="images/samples/upper/6.PNG"><div class="thumb-inner"><img src="images/samples/upper/6.PNG" alt="upper 6"></div></div></figure>
+        <figure class="item"><div class="thumb" data-full="images/samples/upper/13.PNG"><div class="thumb-inner"><img src="images/samples/upper/13.PNG" alt="upper 13"></div></div></figure>
+        <figure class="item"><div class="thumb" data-full="images/samples/upper/14.PNG"><div class="thumb-inner"><img src="images/samples/upper/14.PNG" alt="upper 14"></div></div></figure>
+        <figure class="item"><div class="thumb" data-full="images/samples/upper/15.PNG"><div class="thumb-inner"><img src="images/samples/upper/15.PNG" alt="upper 15"></div></div></figure>
       </div>
 
       <div class="bar"></div>
