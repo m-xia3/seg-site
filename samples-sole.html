@@ -68,9 +68,28 @@
       box-shadow: inset 0 0 120px 14px rgba(8,13,26,.14);
       transition: box-shadow .24s ease;
     }
-    .thumb img{
-      max-width:92%; max-height:92%; object-fit:contain; mix-blend-mode:normal; z-index:1;
-    }
+
+/* 缩略图：稍微缩小并整体上移，避免视觉偏下 */
+.thumb img{
+  max-width:90%;
+  max-height:90%;
+  object-fit: contain;
+  object-position: center;
+  transform: translateY(-8%);   /* 桌面端上移 */
+  mix-blend-mode: normal;
+  z-index: 1;
+}
+
+/* 平板：上移幅度小一点 */
+@media (max-width: 1024px){
+  .thumb img{ transform: translateY(-6%); }
+}
+
+/* 手机：再小一点，避免被顶部裁切 */
+@media (max-width: 640px){
+  .thumb img{ transform: translateY(-4%); }
+}
+    
     .thumb:hover .thumb-inner{
       background: radial-gradient(
         125% 165% at 50% 56%,
@@ -107,9 +126,17 @@
         rgba(15,23,42,1)     100%
       );
     }
-    .lightbox-stage img{
-      max-width:95%; max-height:95%; object-fit:contain; mix-blend-mode:normal;
-    }
+
+/* 预览大图：轻微上移，保持与缩略图一致的观感 */
+.lightbox-stage img{
+  max-width:95%;
+  max-height:95%;
+  object-fit: contain;
+  object-position: center;
+  transform: translateY(-4%);
+  mix-blend-mode: normal;
+}
+    
 /* 右上角关闭按钮：更大的点击热区 */
 .lightbox-close{
   position:absolute; top:10px; right:12px;
