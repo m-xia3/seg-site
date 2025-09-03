@@ -68,9 +68,45 @@
       box-shadow: inset 0 0 120px 14px rgba(8,13,26,.14);
       transition: box-shadow .24s ease;
     }
-    .thumb img{
-      max-width:92%; max-height:92%; object-fit:contain; mix-blend-mode:normal; z-index:1;
-    }
+
+/* 基础：统一略缩并轻微上移，保证大多数图片视觉居中 */
+.thumb img{
+  max-width:92%;
+  max-height:92%;
+  object-fit:contain;
+  object-position:center;
+  transform: translateY(-2%); /* 基线微上移 */
+  mix-blend-mode:normal;
+  z-index:1;
+}
+
+/* ——个别微调：第 1 / 4 / 7 张向下挪一点，让它们回到正中 —— */
+.gallery .item:nth-child(1) .thumb img,
+.gallery .item:nth-child(4) .thumb img,
+.gallery .item:nth-child(7) .thumb img{
+  transform: translateY(6%);     /* 下移 6% */
+}
+
+/* 平板端：位移幅度稍减 */
+@media (max-width:1024px){
+  .thumb img{ transform: translateY(-1%); }
+  .gallery .item:nth-child(1) .thumb img,
+  .gallery .item:nth-child(4) .thumb img,
+  .gallery .item:nth-child(7) .thumb img{
+    transform: translateY(4%);
+  }
+}
+
+/* 手机端：再小一点，避免被上下裁切 */
+@media (max-width:640px){
+  .thumb img{ transform: none; }
+  .gallery .item:nth-child(1) .thumb img,
+  .gallery .item:nth-child(4) .thumb img,
+  .gallery .item:nth-child(7) .thumb img{
+    transform: translateY(2%);
+  }
+}
+    
     .thumb:hover .thumb-inner{
       background: radial-gradient(
         125% 165% at 50% 56%,
