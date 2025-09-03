@@ -42,7 +42,7 @@
     @media (max-width:1024px){ .gallery{grid-template-columns:repeat(2,1fr);} }
     @media (max-width:560px){ .gallery{grid-template-columns:1fr;} }
 
-    /* === 与首页 .sample-card 同款的“亮背景”缩略图容器 === */
+    /* === 亮背景缩略图容器 === */
     .thumb{
       position:relative; border-radius:16px; overflow:hidden; aspect-ratio:4/3;
       background: transparent; cursor: zoom-in;
@@ -50,7 +50,6 @@
     .thumb-inner{
       position:relative; inset:0; width:100%; height:100%;
       display:grid; place-items:center; overflow:hidden;
-      /* 首页同款大范围提亮 */
       background: radial-gradient(
         115% 150% at 50% 56%,
         rgba(255,255,255,.92) 0%,
@@ -83,20 +82,28 @@
     .thumb:hover .thumb-inner::before{ box-shadow: inset 0 0 90px 8px rgba(8,13,26,.10); }
     .cap{color:var(--muted);font-size:14px;margin-top:8px;padding:0 2px}
 
-    /* === 放大预览（原生 dialog 轻量实现）=== */
+    /* === 放大预览（与 sole 完全一致）=== */
     dialog#lightbox{
       border:none; padding:0; background:transparent; width:100%; max-width:none;
     }
     dialog::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
+
+    /* 面板：14px 内边距，给舞台更多高度 */
     .lightbox-panel{
       position:relative; margin:auto; width:min(1100px,92vw);
       background:var(--card); border:1px solid var(--line); border-radius:16px;
-      padding:18px; box-shadow:0 30px 60px rgba(0,0,0,.35);
+      padding:14px;
+      box-shadow:0 30px 60px rgba(0,0,0,.35);
     }
+
+    /* 舞台：用视口高度控制尺寸，避免裁切 */
     .lightbox-stage{
-      position:relative; border-radius:14px; overflow:hidden; aspect-ratio:4/3;
-      display:grid; place-items:center;
-      /* 与缩略图一致的明亮背景，确保风格统一 */
+      position:relative;
+      border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+      height: min(82vh, 92vw);
+      max-height: 82vh;
+      width: 100%;
       background: radial-gradient(
         115% 150% at 50% 56%,
         rgba(255,255,255,.92) 0%,
@@ -106,31 +113,37 @@
         rgba(15,23,42,1)     100%
       );
     }
-    .lightbox-stage img{
-      max-width:95%; max-height:95%; object-fit:contain; mix-blend-mode:normal;
-    }
-/* 右上角关闭按钮：更大的点击热区 */
-.lightbox-close{
-  position:absolute; top:10px; right:12px;
-  width:44px; height:44px;             /* ← 原来36×36 改成 44×44 */
-  display:grid; place-items:center;    /* 让“×”始终居中 */
-  border:1px solid var(--line);
-  border-radius:50%;
-  background:var(--ink);
-  color:var(--text);
-  font-size:22px;                      /* 稍微放大“×” */
-  line-height:1;
-  cursor:pointer;
-  z-index:5;
-}
 
-/* 在按钮周围额外扩展12px透明可点击区域 */
-.lightbox-close::after{
-  content:"";
-  position:absolute;
-  inset:-12px;        /* 上下左右各扩展 12px */
-  border-radius:50%; /* 仍保持圆形范围 */
-}
+    /* 预览大图：完整显示、不变形 */
+    .lightbox-stage img{
+      max-width:98%;
+      max-height:98%;
+      object-fit:contain;
+      object-position:center;
+      transform:none;
+      mix-blend-mode:normal;
+    }
+
+    /* 右上角关闭按钮：更大的点击热区 */
+    .lightbox-close{
+      position:absolute; top:10px; right:12px;
+      width:44px; height:44px;
+      display:grid; place-items:center;
+      border:1px solid var(--line);
+      border-radius:50%;
+      background:var(--ink);
+      color:var(--text);
+      font-size:22px;
+      line-height:1;
+      cursor:pointer;
+      z-index:5;
+    }
+    .lightbox-close::after{
+      content:"";
+      position:absolute;
+      inset:-12px;
+      border-radius:50%;
+    }
   </style>
 </head>
 <body>
@@ -168,7 +181,7 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/2.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/2.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/2.PNG" alt="Cold Cement 2">
             </div>
           </div>
         </figure>
@@ -176,7 +189,7 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/3.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/3.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/3.PNG" alt="Cold Cement 3">
             </div>
           </div>
         </figure>
@@ -184,7 +197,7 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/4.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/4.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/4.PNG" alt="Cold Cement 4">
             </div>
           </div>
         </figure>
@@ -192,7 +205,7 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/5.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/5.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/5.PNG" alt="Cold Cement 5">
             </div>
           </div>
         </figure>
@@ -200,7 +213,7 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/6.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/6.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/6.PNG" alt="Cold Cement 6">
             </div>
           </div>
         </figure>
@@ -208,7 +221,7 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/7.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/7.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/7.PNG" alt="Cold Cement 7">
             </div>
           </div>
         </figure>
@@ -216,7 +229,7 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/8.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/8.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/8.PNG" alt="Cold Cement 8">
             </div>
           </div>
         </figure>
@@ -224,7 +237,7 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/9.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/9.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/9.PNG" alt="Cold Cement 9">
             </div>
           </div>
         </figure>
@@ -232,7 +245,7 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/10.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/10.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/10.PNG" alt="Cold Cement 10">
             </div>
           </div>
         </figure>
@@ -240,7 +253,7 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/11.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/11.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/11.PNG" alt="Cold Cement 11">
             </div>
           </div>
         </figure>
@@ -248,7 +261,7 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/12.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/12.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/12.PNG" alt="Cold Cement 12">
             </div>
           </div>
         </figure>
@@ -256,7 +269,7 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/13.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/13.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/13.PNG" alt="Cold Cement 13">
             </div>
           </div>
         </figure>
@@ -264,7 +277,7 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/14.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/14.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/14.PNG" alt="Cold Cement 14">
             </div>
           </div>
         </figure>
@@ -272,12 +285,11 @@
         <figure class="item">
           <div class="thumb" data-full="images/samples/cold_cement/15.PNG">
             <div class="thumb-inner">
-              <img src="images/samples/cold_cement/15.PNG" alt="Cold Cement 1">
+              <img src="images/samples/cold_cement/15.PNG" alt="Cold Cement 15">
             </div>
           </div>
         </figure>
   
-        <!-- 按需继续添加 … 统一保持相同结构即可 -->
       </div>
 
       <div class="bar"></div>
