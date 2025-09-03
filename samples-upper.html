@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -16,7 +15,7 @@
     img{max-width:100%;height:auto;display:block}
     .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 
-    /* 顶部导航，与首页一致风格 */
+    /* 顶部导航 */
     .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(6px);
       background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
       border-bottom:1px solid var(--line);}
@@ -38,12 +37,12 @@
       padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);font-weight:700}
     .btn:hover{filter:brightness(1.08)}
 
-    /* === 画廊栅格 === */
+    /* 画廊栅格 */
     .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
     @media (max-width:1024px){ .gallery{grid-template-columns:repeat(2,1fr);} }
     @media (max-width:560px){ .gallery{grid-template-columns:1fr;} }
 
-    /* === 与首页 .sample-card 同款的“亮背景”缩略图容器 === */
+    /* 缩略图容器（亮背景） */
     .thumb{
       position:relative; border-radius:16px; overflow:hidden; aspect-ratio:4/3;
       background: transparent; cursor: zoom-in;
@@ -51,7 +50,6 @@
     .thumb-inner{
       position:relative; inset:0; width:100%; height:100%;
       display:grid; place-items:center; overflow:hidden;
-      /* 首页同款大范围提亮 */
       background: radial-gradient(
         115% 150% at 50% 56%,
         rgba(255,255,255,.92) 0%,
@@ -69,44 +67,37 @@
       transition: box-shadow .24s ease;
     }
 
-/* 基础：统一略缩并轻微上移，保证大多数图片视觉居中 */
-.thumb img{
-  max-width:92%;
-  max-height:92%;
-  object-fit:contain;
-  object-position:center;
-  transform: translateY(-2%); /* 基线微上移 */
-  mix-blend-mode:normal;
-  z-index:1;
-}
+    /* 图片：统一尺寸，不设默认位移；用变量 --shift-y 控制单张位置 */
+    .thumb img{
+      max-width:92%;
+      max-height:92%;
+      object-fit:contain;
+      object-position:center;
+      transform: translateY(var(--shift-y, 0)) !important;
+      mix-blend-mode:normal;
+      z-index:1;
+      transition: transform .2s ease;
+    }
 
-/* ——个别微调：第 1 / 4 / 7 张向下挪一点，让它们回到正中 —— */
-.gallery .item:nth-child(1) .thumb img,
-.gallery .item:nth-child(4) .thumb img,
-.gallery .item:nth-child(7) .thumb img{
-  transform: translateY(6%);     /* 下移 6% */
-}
+    /* ★ 个别微调：第 1 / 4 / 7 张向下挪，居中显示 */
+    .gallery .item:nth-child(1){ --shift-y: 10%; }
+    .gallery .item:nth-child(4){ --shift-y: 12%; }
+    .gallery .item:nth-child(7){ --shift-y: 9%; }
 
-/* 平板端：位移幅度稍减 */
-@media (max-width:1024px){
-  .thumb img{ transform: translateY(-1%); }
-  .gallery .item:nth-child(1) .thumb img,
-  .gallery .item:nth-child(4) .thumb img,
-  .gallery .item:nth-child(7) .thumb img{
-    transform: translateY(4%);
-  }
-}
+    /* 平板：收一点位移 */
+    @media (max-width:1024px){
+      .gallery .item:nth-child(1){ --shift-y: 8%; }
+      .gallery .item:nth-child(4){ --shift-y: 10%; }
+      .gallery .item:nth-child(7){ --shift-y: 7%; }
+    }
 
-/* 手机端：再小一点，避免被上下裁切 */
-@media (max-width:640px){
-  .thumb img{ transform: none; }
-  .gallery .item:nth-child(1) .thumb img,
-  .gallery .item:nth-child(4) .thumb img,
-  .gallery .item:nth-child(7) .thumb img{
-    transform: translateY(2%);
-  }
-}
-    
+    /* 手机：再收一点，避免裁切 */
+    @media (max-width:640px){
+      .gallery .item:nth-child(1){ --shift-y: 6%; }
+      .gallery .item:nth-child(4){ --shift-y: 8%; }
+      .gallery .item:nth-child(7){ --shift-y: 5%; }
+    }
+
     .thumb:hover .thumb-inner{
       background: radial-gradient(
         125% 165% at 50% 56%,
@@ -120,10 +111,8 @@
     .thumb:hover .thumb-inner::before{ box-shadow: inset 0 0 90px 8px rgba(8,13,26,.10); }
     .cap{color:var(--muted);font-size:14px;margin-top:8px;padding:0 2px}
 
-    /* === 放大预览（原生 dialog 轻量实现）=== */
-    dialog#lightbox{
-      border:none; padding:0; background:transparent; width:100%; max-width:none;
-    }
+    /* 放大预览 */
+    dialog#lightbox{ border:none; padding:0; background:transparent; width:100%; max-width:none; }
     dialog::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
     .lightbox-panel{
       position:relative; margin:auto; width:min(1100px,92vw);
@@ -133,7 +122,6 @@
     .lightbox-stage{
       position:relative; border-radius:14px; overflow:hidden; aspect-ratio:4/3;
       display:grid; place-items:center;
-      /* 与缩略图一致的明亮背景，确保风格统一 */
       background: radial-gradient(
         115% 150% at 50% 56%,
         rgba(255,255,255,.92) 0%,
@@ -143,31 +131,16 @@
         rgba(15,23,42,1)     100%
       );
     }
-    .lightbox-stage img{
-      max-width:95%; max-height:95%; object-fit:contain; mix-blend-mode:normal;
-    }
-/* 右上角关闭按钮：更大的点击热区 */
-.lightbox-close{
-  position:absolute; top:10px; right:12px;
-  width:44px; height:44px;             /* ← 原来36×36 改成 44×44 */
-  display:grid; place-items:center;    /* 让“×”始终居中 */
-  border:1px solid var(--line);
-  border-radius:50%;
-  background:var(--ink);
-  color:var(--text);
-  font-size:22px;                      /* 稍微放大“×” */
-  line-height:1;
-  cursor:pointer;
-  z-index:5;
-}
+    .lightbox-stage img{ max-width:95%; max-height:95%; object-fit:contain; mix-blend-mode:normal; }
 
-/* 在按钮周围额外扩展12px透明可点击区域 */
-.lightbox-close::after{
-  content:"";
-  position:absolute;
-  inset:-12px;        /* 上下左右各扩展 12px */
-  border-radius:50%; /* 仍保持圆形范围 */
-}
+    /* 关闭按钮 */
+    .lightbox-close{
+      position:absolute; top:10px; right:12px;
+      width:44px; height:44px; display:grid; place-items:center;
+      border:1px solid var(--line); border-radius:50%;
+      background:var(--ink); color:var(--text); font-size:22px; line-height:1; cursor:pointer; z-index:5;
+    }
+    .lightbox-close::after{ content:""; position:absolute; inset:-12px; border-radius:50%; }
   </style>
 </head>
 <body>
@@ -185,81 +158,51 @@
       <p class="lead">精选案例（点击图片可放大预览）。</p>
 
       <div class="gallery" id="gallery">
-        <!-- 每个条目：data-full 指向大图；src 用同图也可 -->
         <figure class="item">
           <div class="thumb" data-full="images/samples/upper/1.PNG">
-            <div class="thumb-inner">
-              <img src="images/samples/upper/1.PNG" alt="upper 1">
-            </div>
+            <div class="thumb-inner"><img src="images/samples/upper/1.PNG" alt="upper 1"></div>
           </div>
         </figure>
-        
         <figure class="item">
           <div class="thumb" data-full="images/samples/upper/2.PNG">
-            <div class="thumb-inner">
-              <img src="images/samples/upper/2.PNG" alt="upper 2">
-            </div>
+            <div class="thumb-inner"><img src="images/samples/upper/2.PNG" alt="upper 2"></div>
           </div>
         </figure>
-        
         <figure class="item">
           <div class="thumb" data-full="images/samples/upper/3.PNG">
-            <div class="thumb-inner">
-              <img src="images/samples/upper/3.PNG" alt="upper 3">
-            </div>
+            <div class="thumb-inner"><img src="images/samples/upper/3.PNG" alt="upper 3"></div>
           </div>
         </figure>
-
         <figure class="item">
           <div class="thumb" data-full="images/samples/upper/4.PNG">
-            <div class="thumb-inner">
-              <img src="images/samples/upper/4.PNG" alt="upper 4">
-            </div>
+            <div class="thumb-inner"><img src="images/samples/upper/4.PNG" alt="upper 4"></div>
           </div>
         </figure>
-
         <figure class="item">
           <div class="thumb" data-full="images/samples/upper/5.PNG">
-            <div class="thumb-inner">
-              <img src="images/samples/upper/5.PNG" alt="upper 5">
-            </div>
+            <div class="thumb-inner"><img src="images/samples/upper/5.PNG" alt="upper 5"></div>
           </div>
         </figure>
-
         <figure class="item">
           <div class="thumb" data-full="images/samples/upper/6.PNG">
-            <div class="thumb-inner">
-              <img src="images/samples/upper/6.PNG" alt="upper 6">
-            </div>
+            <div class="thumb-inner"><img src="images/samples/upper/6.PNG" alt="upper 6"></div>
           </div>
         </figure>
-
         <figure class="item">
           <div class="thumb" data-full="images/samples/upper/13.PNG">
-            <div class="thumb-inner">
-              <img src="images/samples/upper/13.PNG" alt="upper 13">
-            </div>
+            <div class="thumb-inner"><img src="images/samples/upper/13.PNG" alt="upper 13"></div>
           </div>
-        </figure>    
-
+        </figure>
         <figure class="item">
           <div class="thumb" data-full="images/samples/upper/14.PNG">
-            <div class="thumb-inner">
-              <img src="images/samples/upper/14.PNG" alt="upper 14">
-            </div>
+            <div class="thumb-inner"><img src="images/samples/upper/14.PNG" alt="upper 14"></div>
           </div>
-        </figure>   
-
+        </figure>
         <figure class="item">
           <div class="thumb" data-full="images/samples/upper/15.PNG">
-            <div class="thumb-inner">
-              <img src="images/samples/upper/15.PNG" alt="upper 15">
-            </div>
+            <div class="thumb-inner"><img src="images/samples/upper/15.PNG" alt="upper 15"></div>
           </div>
-        </figure>   
-
-        
-        <!-- 按需继续添加 … 统一保持相同结构即可 -->
+        </figure>
       </div>
 
       <div class="bar"></div>
@@ -271,58 +214,39 @@
   <dialog id="lightbox">
     <div class="lightbox-panel">
       <button class="lightbox-close" aria-label="Close">×</button>
-      <div class="lightbox-stage">
-        <img id="lightboxImg" src="" alt="">
-      </div>
+      <div class="lightbox-stage"><img id="lightboxImg" src="" alt=""></div>
     </div>
   </dialog>
 
-<script>
-(function(){
-  const dlg  = document.getElementById('lightbox');
-  const img  = document.getElementById('lightboxImg');
-  const panel = dlg.querySelector('.lightbox-panel');
-  const btnClose = dlg.querySelector('.lightbox-close');
+  <script>
+  (function(){
+    const dlg  = document.getElementById('lightbox');
+    const img  = document.getElementById('lightboxImg');
+    const panel = dlg.querySelector('.lightbox-panel');
+    const btnClose = dlg.querySelector('.lightbox-close');
 
-  function openDlg(url, alt){
-    img.src = url;
-    img.alt = alt || 'Preview';
-    if (typeof dlg.showModal === 'function') dlg.showModal();
-    else dlg.setAttribute('open','');
-  }
+    function openDlg(url, alt){
+      img.src = url; img.alt = alt || 'Preview';
+      if (typeof dlg.showModal === 'function') dlg.showModal();
+      else dlg.setAttribute('open','');
+    }
+    function closeDlg(){
+      img.src = '';
+      if (typeof dlg.close === 'function') dlg.close();
+      else dlg.removeAttribute('open');
+    }
 
-  function closeDlg(){
-    img.src = '';
-    if (typeof dlg.close === 'function') dlg.close();
-    else dlg.removeAttribute('open');
-  }
+    document.getElementById('gallery').addEventListener('click', (e)=>{
+      const thumb = e.target.closest('.thumb');
+      if(!thumb) return;
+      openDlg(thumb.getAttribute('data-full'), thumb.querySelector('img')?.alt);
+    });
 
-  // 点击缩略图打开
-  document.getElementById('gallery').addEventListener('click', (e)=>{
-    const thumb = e.target.closest('.thumb');
-    if(!thumb) return;
-    openDlg(thumb.getAttribute('data-full'), thumb.querySelector('img')?.alt);
-  });
-
-  // 点击黑色遮罩关闭
-  dlg.addEventListener('click', (e)=>{
-    if (e.target === dlg) closeDlg();
-  });
-
-  // 明确给按钮绑定关闭（避免某些冒泡问题）
-  btnClose.addEventListener('click', (e)=>{
-    e.stopPropagation();
-    closeDlg();
-  });
-
-  // 阻止点击面板内部时触发遮罩关闭
-  panel.addEventListener('click', (e)=> e.stopPropagation());
-
-  // Esc 关闭
-  document.addEventListener('keydown', (e)=>{
-    if(e.key === 'Escape' && (dlg.open || dlg.hasAttribute('open'))) closeDlg();
-  });
-})();
-</script>
+    dlg.addEventListener('click', (e)=>{ if (e.target === dlg) closeDlg(); });
+    btnClose.addEventListener('click', (e)=>{ e.stopPropagation(); closeDlg(); });
+    panel.addEventListener('click', (e)=> e.stopPropagation());
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && (dlg.open || dlg.hasAttribute('open'))) closeDlg(); });
+  })();
+  </script>
 </body>
 </html>
