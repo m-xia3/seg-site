@@ -1,1 +1,348 @@
 
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>样品 · 鞋楦 | SAIGE Footwear</title>
+  <style>
+    :root{
+      --bg:#0f172a; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
+      --card:#111827; --line:#1f2937; --accent:#e11d48; --accent-ink:#fff;
+      --surface:#0b1222; --container: 1200px;
+    }
+    html,body{margin:0;background:#0a0f1f;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+    .container{max-width:var(--container);margin:0 auto;padding:0 24px}
+
+    /* 顶部导航，与首页一致风格 */
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(6px);
+      background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
+      border-bottom:1px solid var(--line);}
+    .nav .row{display:flex;align-items:center;gap:16px;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+    .brand .logo{width:28px;height:28px;border-radius:6px;background:var(--accent);
+      display:grid;place-items:center;color:#fff;font-weight:800}
+    .menu{margin-left:auto}
+    .menu a{color:var(--muted);margin-left:14px}
+    .menu a:hover{color:var(--text)}
+
+    .section{padding:36px 0}
+    .h2{font-size:28px;margin:0 0 8px}
+    .lead{color:var(--muted);margin:0 0 8px}
+    .crumbs{color:var(--muted);font-size:14px;margin:10px 0 18px}
+    .crumbs a{color:var(--muted)} .crumbs a:hover{color:var(--text)}
+    .bar{height:1px;background:var(--line);margin:24px 0}
+    .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);
+      padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);font-weight:700}
+    .btn:hover{filter:brightness(1.08)}
+
+    /* === 画廊栅格 === */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
+    @media (max-width:1024px){ .gallery{grid-template-columns:repeat(2,1fr);} }
+    @media (max-width:560px){ .gallery{grid-template-columns:1fr;} }
+
+    /* === 与首页 .sample-card 同款的“亮背景”缩略图容器 === */
+    .thumb{
+      position:relative; border-radius:16px; overflow:hidden; aspect-ratio:4/3;
+      background: transparent; cursor: zoom-in;
+    }
+    .thumb-inner{
+      position:relative; inset:0; width:100%; height:100%;
+      display:grid; place-items:center; overflow:hidden;
+      /* 首页同款大范围提亮 */
+      background: radial-gradient(
+        115% 150% at 50% 56%,
+        rgba(255,255,255,.92) 0%,
+        rgba(241,248,255,.78) 26%,
+        rgba(190,208,232,.50) 56%,
+        rgba(28,38,64,.86)   92%,
+        rgba(15,23,42,1)     100%
+      );
+      transition: background .24s ease, box-shadow .24s ease;
+      border-radius:16px;
+    }
+    .thumb-inner::before{
+      content:""; position:absolute; inset:0; pointer-events:none; border-radius:16px;
+      box-shadow: inset 0 0 120px 14px rgba(8,13,26,.14);
+      transition: box-shadow .24s ease;
+    }
+    .thumb img{
+      max-width:92%; max-height:92%; object-fit:contain; mix-blend-mode:normal; z-index:1;
+    }
+    .thumb:hover .thumb-inner{
+      background: radial-gradient(
+        125% 165% at 50% 56%,
+        rgba(255,255,255,.98) 0%,
+        rgba(248,252,255,.90) 26%,
+        rgba(196,214,236,.56) 56%,
+        rgba(24,32,56,.82)   92%,
+        rgba(15,23,42,1)     100%
+      );
+    }
+    .thumb:hover .thumb-inner::before{ box-shadow: inset 0 0 90px 8px rgba(8,13,26,.10); }
+    .cap{color:var(--muted);font-size:14px;margin-top:8px;padding:0 2px}
+
+    /* === 放大预览（原生 dialog 轻量实现）=== */
+    dialog#lightbox{
+      border:none; padding:0; background:transparent; width:100%; max-width:none;
+    }
+    dialog::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
+    .lightbox-panel{
+      position:relative; margin:auto; width:min(1100px,92vw);
+      background:var(--card); border:1px solid var(--line); border-radius:16px;
+      padding:18px; box-shadow:0 30px 60px rgba(0,0,0,.35);
+    }
+    .lightbox-stage{
+      position:relative; border-radius:14px; overflow:hidden; aspect-ratio:4/3;
+      display:grid; place-items:center;
+      /* 与缩略图一致的明亮背景，确保风格统一 */
+      background: radial-gradient(
+        115% 150% at 50% 56%,
+        rgba(255,255,255,.92) 0%,
+        rgba(241,248,255,.78) 26%,
+        rgba(190,208,232,.50) 56%,
+        rgba(28,38,64,.86)   92%,
+        rgba(15,23,42,1)     100%
+      );
+    }
+    .lightbox-stage img{
+      max-width:95%; max-height:95%; object-fit:contain; mix-blend-mode:normal;
+    }
+/* 右上角关闭按钮：更大的点击热区 */
+.lightbox-close{
+  position:absolute; top:10px; right:12px;
+  width:44px; height:44px;             /* ← 原来36×36 改成 44×44 */
+  display:grid; place-items:center;    /* 让“×”始终居中 */
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:var(--ink);
+  color:var(--text);
+  font-size:22px;                      /* 稍微放大“×” */
+  line-height:1;
+  cursor:pointer;
+  z-index:5;
+}
+
+/* 在按钮周围额外扩展12px透明可点击区域 */
+.lightbox-close::after{
+  content:"";
+  position:absolute;
+  inset:-12px;        /* 上下左右各扩展 12px */
+  border-radius:50%; /* 仍保持圆形范围 */
+}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container row">
+      <div class="brand"><span class="logo">SG</span><span>SAIGE Footwear</span></div>
+      <div class="menu"><a href="index.html#samples">返回样品</a><a href="index.html">首页</a></div>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      <div class="crumbs"><a href="index.html">首页</a> › <a href="index.html#samples">样品</a> › 鞋楦</div>
+      <h2 class="h2">鞋楦 Vulcanized</h2>
+      <p class="lead">精选案例（点击图片可放大预览）。</p>
+
+      <div class="gallery" id="gallery">
+        <!-- 每个条目：data-full 指向大图；src 用同图也可 -->
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/page-licensed.PNG">
+            <div class="thumb-inner">
+              <img src="images/samples/licensed/page-licensed.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+        
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L1.PNG">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L1.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L2.PNG">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L2.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L3.PNG">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L3.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L4.png">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L4.png" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L5.PNG">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L5.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L6.png">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L6.png" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L7.PNG">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L7.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L8.PNG">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L8.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L9.PNG">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L9.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L10.PNG">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L10.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L11.PNG">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L11.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L12.PNG">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L12.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L13.PNG">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L13.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L14.PNG">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L14.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+
+        <figure class="item">
+          <div class="thumb" data-full="images/samples/licensed/L15.PNG">
+            <div class="thumb-inner">
+                <img src="images/samples/licensed/L15.PNG" alt="Licensed 1">
+            </div>
+          </div>
+        </figure>
+        
+        <!-- 按需继续添加 … 统一保持相同结构即可 -->
+      </div>
+
+      <div class="bar"></div>
+      <a class="btn" href="index.html#contact">联系打样 / 报价</a>
+    </div>
+  </section>
+
+  <!-- 预览弹窗 -->
+  <dialog id="lightbox">
+    <div class="lightbox-panel">
+      <button class="lightbox-close" aria-label="Close">×</button>
+      <div class="lightbox-stage">
+        <img id="lightboxImg" src="" alt="">
+      </div>
+    </div>
+  </dialog>
+
+<script>
+(function(){
+  const dlg  = document.getElementById('lightbox');
+  const img  = document.getElementById('lightboxImg');
+  const panel = dlg.querySelector('.lightbox-panel');
+  const btnClose = dlg.querySelector('.lightbox-close');
+
+  function openDlg(url, alt){
+    img.src = url;
+    img.alt = alt || 'Preview';
+    if (typeof dlg.showModal === 'function') dlg.showModal();
+    else dlg.setAttribute('open','');
+  }
+
+  function closeDlg(){
+    img.src = '';
+    if (typeof dlg.close === 'function') dlg.close();
+    else dlg.removeAttribute('open');
+  }
+
+  // 点击缩略图打开
+  document.getElementById('gallery').addEventListener('click', (e)=>{
+    const thumb = e.target.closest('.thumb');
+    if(!thumb) return;
+    openDlg(thumb.getAttribute('data-full'), thumb.querySelector('img')?.alt);
+  });
+
+  // 点击黑色遮罩关闭
+  dlg.addEventListener('click', (e)=>{
+    if (e.target === dlg) closeDlg();
+  });
+
+  // 明确给按钮绑定关闭（避免某些冒泡问题）
+  btnClose.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    closeDlg();
+  });
+
+  // 阻止点击面板内部时触发遮罩关闭
+  panel.addEventListener('click', (e)=> e.stopPropagation());
+
+  // Esc 关闭
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape' && (dlg.open || dlg.hasAttribute('open'))) closeDlg();
+  });
+})();
+</script>
+</body>
+</html>
+
