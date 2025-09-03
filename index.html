@@ -341,19 +341,25 @@
   box-shadow: inset 0 0 90px 8px rgba(8,13,26,.10);
 }
 
-/* 标题条保持不变 */
-.sample-meta{ padding: 12px 16px 16px; }
+/* 标题放到卡片下方（不再压在图上） */
+.sample-meta{
+  padding: 10px 0 0;
+  text-align: center;
+}
+
 .sample-tag{
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: static;         /* 取消绝对定位 */
+  transform: none;
+  display: inline-block;
+  margin-top: 6px;
+
+  /* 更简洁的样式（不必盖在图片上）*/
+  background: transparent;
   color: var(--text);
-  font-weight: 700;
-  background: rgba(0,0,0,0.4);
-  padding: 4px 10px;
-  border-radius: 6px;
-  z-index: 2;
+  font-weight: 800;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 /* === 五等分大矩形（TEAM / R&D / FACTORY / QC / STORE & SHIPPING）=== */
