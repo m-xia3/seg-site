@@ -69,25 +69,70 @@
       transition: box-shadow .24s ease;
     }
 
-/* 缩略图：稍微缩小并整体上移，避免视觉偏下 */
+/* 基础：统一略缩并小幅上移 */
 .thumb img{
   max-width:90%;
   max-height:90%;
-  object-fit: contain;
-  object-position: center;
-  transform: translateY(-8%);   /* 桌面端上移 */
-  mix-blend-mode: normal;
-  z-index: 1;
+  object-fit:contain;
+  object-position:center;
+  transform: translateY(-6%);
+  mix-blend-mode:normal;
+  z-index:1;
 }
 
-/* 平板：上移幅度小一点 */
-@media (max-width: 1024px){
-  .thumb img{ transform: translateY(-6%); }
+/* ——个别微调—— */
+/* 1、2、6 原本过高 → 少上移 */
+.gallery .item:nth-child(1) .thumb img,
+.gallery .item:nth-child(2) .thumb img,
+.gallery .item:nth-child(6) .thumb img{
+  transform: translateY(-2%);
 }
 
-/* 手机：再小一点，避免被顶部裁切 */
-@media (max-width: 640px){
-  .thumb img{ transform: translateY(-4%); }
+/* 3、4、5、7、8 原本偏低 → 多上移 */
+.gallery .item:nth-child(3) .thumb img,
+.gallery .item:nth-child(4) .thumb img,
+.gallery .item:nth-child(5) .thumb img,
+.gallery .item:nth-child(7) .thumb img,
+.gallery .item:nth-child(8) .thumb img{
+  transform: translateY(-10%);
+}
+
+/* 平板：整体提幅减一点，保持相对关系 */
+@media (max-width:1024px){
+  .thumb img{ transform: translateY(-5%); }
+
+  .gallery .item:nth-child(1) .thumb img,
+  .gallery .item:nth-child(2) .thumb img,
+  .gallery .item:nth-child(6) .thumb img{
+    transform: translateY(0%);
+  }
+
+  .gallery .item:nth-child(3) .thumb img,
+  .gallery .item:nth-child(4) .thumb img,
+  .gallery .item:nth-child(5) .thumb img,
+  .gallery .item:nth-child(7) .thumb img,
+  .gallery .item:nth-child(8) .thumb img{
+    transform: translateY(-8%);
+  }
+}
+
+/* 手机：再收一点，避免顶部被裁切 */
+@media (max-width:640px){
+  .thumb img{ transform: translateY(-3%); }
+
+  .gallery .item:nth-child(1) .thumb img,
+  .gallery .item:nth-child(2) .thumb img,
+  .gallery .item:nth-child(6) .thumb img{
+    transform: translateY(0%);
+  }
+
+  .gallery .item:nth-child(3) .thumb img,
+  .gallery .item:nth-child(4) .thumb img,
+  .gallery .item:nth-child(5) .thumb img,
+  .gallery .item:nth-child(7) .thumb img,
+  .gallery .item:nth-child(8) .thumb img{
+    transform: translateY(-6%);
+  }
 }
     
     .thumb:hover .thumb-inner{
