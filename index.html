@@ -316,14 +316,24 @@
 }
 
 /* 图片保持本色，四周留一点呼吸 */
+/* 图片保持本色，且强制以中心对齐 */
 .sample-card img{
   max-width:92%;
   max-height:92%;
-  object-fit:contain;
+  object-fit: contain;
+  object-position: center;   /* ← 关键：以中心对齐 */
   display:block;
+  margin:auto;
   position:relative;
   z-index:1;
-  mix-blend-mode:normal;
+  mix-blend-mode: normal;
+}
+
+/* Upper 图片个别居中+略缩，确保不被切边 */
+.sample-card .ph img[alt="Upper"]{
+  object-position: center center; /* 双重保险 */
+  max-width:88%;
+  max-height:88%;
 }
 
 /* 悬停时：亮区更大、更亮（而不是变暗） */
