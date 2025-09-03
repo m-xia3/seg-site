@@ -67,36 +67,36 @@
       transition: box-shadow .24s ease;
     }
 
-    /* 图片：统一尺寸，不设默认位移；用变量 --shift-y 控制单张位置 */
-    .thumb img{
-      max-width:92%;
-      max-height:92%;
-      object-fit:contain;
-      object-position:center;
-      transform: translateY(var(--shift-y, 0)) !important;
-      mix-blend-mode:normal;
-      z-index:1;
-      transition: transform .2s ease;
-    }
+/* 基础：统一缩略图 */
+.thumb img{
+  max-width:92%;
+  max-height:92%;
+  object-fit:contain;
+  object-position:center;
+  transform: translateY(var(--shift-y,0)) scale(var(--scale,1)) !important;
+  mix-blend-mode:normal;
+  z-index:1;
+  transition: transform .25s ease;
+}
 
-    /* ★ 个别微调：第 1 / 4 / 7 张向下挪，居中显示 */
-    .gallery .item:nth-child(1){ --shift-y: -10%; }
-    .gallery .item:nth-child(4){ --shift-y: -20%; }
-    .gallery .item:nth-child(7){ --shift-y: -15%; }
+/* 个别微调：第 1 / 4 / 7 张 → 缩小 + 下移 */
+.gallery .item:nth-child(1){ --scale:0.88; --shift-y:4%; }
+.gallery .item:nth-child(4){ --scale:0.88; --shift-y:6%; }
+.gallery .item:nth-child(7){ --scale:0.88; --shift-y:5%; }
 
-    /* 平板：收一点位移 */
-    @media (max-width:1024px){
-      .gallery .item:nth-child(1){ --shift-y: 8%; }
-      .gallery .item:nth-child(4){ --shift-y: 10%; }
-      .gallery .item:nth-child(7){ --shift-y: 7%; }
-    }
+/* 平板：适度放大回收，保持居中 */
+@media (max-width:1024px){
+  .gallery .item:nth-child(1){ --scale:0.9; --shift-y:3%; }
+  .gallery .item:nth-child(4){ --scale:0.9; --shift-y:4%; }
+  .gallery .item:nth-child(7){ --scale:0.9; --shift-y:3%; }
+}
 
-    /* 手机：再收一点，避免裁切 */
-    @media (max-width:640px){
-      .gallery .item:nth-child(1){ --shift-y: 6%; }
-      .gallery .item:nth-child(4){ --shift-y: 8%; }
-      .gallery .item:nth-child(7){ --shift-y: 5%; }
-    }
+/* 手机：再放大一点点，避免过小 */
+@media (max-width:640px){
+  .gallery .item:nth-child(1){ --scale:0.92; --shift-y:2%; }
+  .gallery .item:nth-child(4){ --scale:0.92; --shift-y:3%; }
+  .gallery .item:nth-child(7){ --scale:0.92; --shift-y:2%; }
+}
 
     .thumb:hover .thumb-inner{
       background: radial-gradient(
