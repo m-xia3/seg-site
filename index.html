@@ -275,25 +275,26 @@
 @media (max-width:1024px){ .sample-grid{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:600px){ .sample-grid{ grid-template-columns:1fr; } }
 
-/* 只负责框与比例，不上背景色，避免压暗 */
+/* 只负责容器布局，不再裁剪整卡片 */
 .sample-card{
   position: relative;
-  display: block;
+  display: flex;             /* 让图片块在上、标题在下 */
+  flex-direction: column;
+  gap: 8px;
   border-radius: 16px;
-  overflow: hidden;
-  aspect-ratio: 4/3;
   background: transparent;
+  /* 删掉旧代码里的 overflow 和 aspect-ratio 两行 */
 }
 
-/* 照片容器：默认就很亮，亮区很大（覆盖整只鞋） */
 .sample-card .ph{
   position: relative;
-  aspect-ratio: 4/3;
+  aspect-ratio: 4 / 3;       /* 4:3 放到图片容器 */
   display: grid;
   place-items: center;
-  overflow: hidden;
+  overflow: hidden;          /* 只裁剪图片区域，不裁标题 */
+  border-radius: 16px;
 
-  /* 大范围中心提亮，向四周柔和过渡到底色 */
+  /* 你的提亮背景保留 */
   background: radial-gradient(
     115% 150% at 50% 56%,
     rgba(255,255,255,.92) 0%,
@@ -302,7 +303,6 @@
     rgba(28,38,64,.86)   92%,
     rgba(15,23,42,1)     100%
   );
-
   transition: background .24s ease, box-shadow .24s ease;
 }
 
