@@ -329,19 +329,31 @@
   mix-blend-mode: normal;
 }
 
-/* Upper：向上提一点，视觉居中 */
-.sample-card .ph img[alt="Upper"]{
-  object-position: center center;
-  max-width:95%;
-  max-height:95%;
-  transform: translateY(-6%);   /* ← 往上提 6% */
+/* Upper：更大幅度上移，确保视觉居中 */
+/* 兼容：既匹配 alt="Upper"，又匹配链接中含 samples-upper 的卡片 */
+.sample-card .ph img[alt="Upper"],
+a[href*="samples-upper"] .ph img{
+  max-width:94%;
+  max-height:94%;
+  object-fit: contain;
+  object-position: center;      /* 居中对齐 */
+  transform: translateY(-12%);  /* ← 桌面端向上提 12% */
   will-change: transform;
 }
 
-/* 小屏略微减小提幅，避免被标题挤压 */
+/* 平板端略减小提幅 */
+@media (max-width: 1024px){
+  .sample-card .ph img[alt="Upper"],
+  a[href*="samples-upper"] .ph img{
+    transform: translateY(-10%);
+  }
+}
+
+/* 手机端再减小，避免被顶部裁切 */
 @media (max-width: 640px){
-  .sample-card .ph img[alt="Upper"]{
-    transform: translateY(-4%);
+  .sample-card .ph img[alt="Upper"],
+  a[href*="samples-upper"] .ph img{
+    transform: translateY(-6%);
   }
 }
 
