@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -16,6 +15,7 @@
     img{max-width:100%;display:block;margin:0 auto}
     .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 
+    /* 顶部栏 */
     .topbar{position:sticky;top:0;z-index:40;backdrop-filter:saturate(160%) blur(6px);
       background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));border-bottom:1px solid var(--line);}
     .topbar .row{display:flex;align-items:center;gap:12px;padding:12px 0}
@@ -32,6 +32,7 @@
 
     .bar{height:1px;background:var(--line);margin:28px 0}
 
+    /* 照片卡片 */
     .grid{display:grid;gap:18px;justify-content:center}
     .grid.s-2{grid-template-columns:repeat(2,1fr);max-width:960px;margin:0 auto}
     @media(max-width:880px){.grid.s-2{grid-template-columns:1fr}}
@@ -62,15 +63,15 @@
   <main class="container">
     <h2 class="title" style="font-size:30px;margin-bottom:20px">Quality Control Flow</h2>
 
-    <!-- ✅ 唯一的一份流程图 -->
-    <svg viewBox="0 0 1700 520" xmlns="http://www.w3.org/2000/svg"
+    <!-- 4 上 + 4 下，均匀分布；上排最后一个竖向连到下排第一个 -->
+    <svg viewBox="0 0 1600 520" xmlns="http://www.w3.org/2000/svg"
          role="img" aria-label="QC Flow"
          style="display:block;margin:0 auto;max-width:1280px">
       <style>
         .node{fill:var(--card);stroke:var(--line);stroke-width:1.6;rx:20;ry:20}
-        .text{font:600 22px system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;fill:var(--text);dominant-baseline:middle;text-anchor:middle}
-        .sub{font:16px system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;fill:var(--muted);dominant-baseline:middle;text-anchor:middle}
-        .arrow,.arrowL,.arrowV{stroke:var(--accent);stroke-width:2.2;marker-end:url(#arrowHead)}
+        .text{font:600 20px system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;fill:var(--text);text-anchor:middle;dominant-baseline:middle}
+        .sub{font:15px system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;fill:var(--muted);text-anchor:middle;dominant-baseline:middle}
+        .arrow{stroke:var(--accent);stroke-width:2;marker-end:url(#arrowHead)}
       </style>
       <defs>
         <marker id="arrowHead" markerWidth="14" markerHeight="14" refX="11" refY="6" orient="auto">
@@ -78,66 +79,63 @@
         </marker>
       </defs>
 
-      <!-- 顶部一行（向右） -->
-      <g transform="translate(80,160)">
+      <!-- 上排（均匀：x 80 / 460 / 840 / 1220，宽 300） -->
+      <g transform="translate(80,140)">
         <!-- Incoming -->
-        <rect class="node" width="260" height="96" />
-        <text class="text" x="130" y="40">Incoming Material</text>
-        <text class="sub"  x="130" y="70">Inspection (100% Check)</text>
-        <line class="arrow" x1="260" y1="48" x2="320" y2="48"/>
+        <rect class="node" width="300" height="96"/>
+        <text class="text" x="150" y="40">Incoming Material</text>
+        <text class="sub"  x="150" y="66">Inspection (100% Check)</text>
+        <line class="arrow" x1="300" y1="48" x2="380" y2="48"/>
 
         <!-- Cutting -->
-        <rect class="node" x="340" width="260" height="96"/>
-        <text class="text" x="470" y="48">Cutting Inspection</text>
-        <line class="arrow" x1="600" y1="48" x2="660" y2="48"/>
+        <rect class="node" x="380" width="300" height="96"/>
+        <text class="text" x="530" y="48">Cutting Inspection</text>
+        <line class="arrow" x1="680" y1="48" x2="760" y2="48"/>
 
         <!-- Upper 100% -->
-        <rect class="node" x="680" width="260" height="96"/>
-        <text class="text" x="810" y="48">Upper 100% Check</text>
-        <line class="arrow" x1="940" y1="48" x2="1000" y2="48"/>
+        <rect class="node" x="760" width="300" height="96"/>
+        <text class="text" x="910" y="48">Upper 100% Check</text>
+        <line class="arrow" x1="1060" y1="48" x2="1140" y2="48"/>
 
-        <!-- Upper WH Sampling -->
-        <rect class="node" x="1020" width="260" height="96"/>
-        <text class="text" x="1150" y="36">Upper Warehouse</text>
-        <text class="sub"  x="1150" y="66">Sampling</text>
-        <line class="arrow" x1="1280" y1="48" x2="1360" y2="48"/>
-
-        <!-- Assembly Full（放大到 320） -->
-        <rect class="node" x="1360" width="320" height="96"/>
-        <text class="text" x="1520" y="48">Assembly Line Full Inspection</text>
+        <!-- Upper Warehouse Sampling -->
+        <rect class="node" x="1140" width="300" height="96"/>
+        <text class="text" x="1290" y="40">Upper Warehouse</text>
+        <text class="sub"  x="1290" y="66">Sampling</text>
       </g>
 
-      <!-- 垂直箭头：全检 → 巡检 -->
-      <line class="arrowV" x1="1600" y1="256" x2="1600" y2="340"/>
+      <!-- 竖直箭头：上排最后一个 -> 下排第一个 -->
+      <!-- 上排 translateY 140，节点高 96 => y = 140 + 96 = 236；下排 translateY 320 => y = 320 -->
+      <!-- x 位置取上排最后卡片中心：80 + 1140 + 150 = 1370 -->
+      <line class="arrow" x1="1370" y1="236" x2="1370" y2="320"/>
 
-      <!-- 底部一行（从右向左） -->
-      <g transform="translate(80,340)">
-        <!-- Patrol（放大到 320） -->
-        <rect class="node" x="1280" width="320" height="96"/>
-        <text class="text" x="1440" y="48">Assembly Line Patrol Inspection</text>
-        <line class="arrowL" x1="1280" y1="48" x2="940"  y2="48"/>
+      <!-- 下排（均匀：x 80 / 460 / 840 / 1220，宽 300） -->
+      <g transform="translate(80,320)">
+        <!-- Assembly Line Full Inspection -->
+        <rect class="node" width="300" height="96"/>
+        <text class="text" x="150" y="48">Assembly Line Full Inspection</text>
+        <line class="arrow" x1="300" y1="48" x2="380" y2="48"/>
 
-        <!-- FG Sampling（放大到 320） -->
-        <rect class="node" x="940" width="320" height="96"/>
-        <text class="text" x="1100" y="36">Finished Goods Sampling</text>
-        <text class="sub"  x="1100" y="66">(Warehouse)</text>
-        <line class="arrowL" x1="940"  y1="48" x2="600"  y2="48"/>
+        <!-- Finished Goods Sampling -->
+        <rect class="node" x="380" width="300" height="96"/>
+        <text class="text" x="530" y="40">Finished Goods Sampling</text>
+        <text class="sub"  x="530" y="66">(Warehouse)</text>
+        <line class="arrow" x1="680" y1="48" x2="760" y2="48"/>
 
-        <!-- Final -->
-        <rect class="node" x="600" width="260" height="96"/>
-        <text class="text" x="730" y="36">Final Inspection</text>
-        <text class="sub"  x="730" y="66">(Pre-shipment / AQL)</text>
-        <line class="arrowL" x1="600" y1="48" x2="260" y2="48"/>
+        <!-- Final Inspection -->
+        <rect class="node" x="760" width="300" height="96"/>
+        <text class="text" x="910" y="40">Final Inspection</text>
+        <text class="sub"  x="910" y="66">(Pre-shipment / AQL)</text>
+        <line class="arrow" x1="1060" y1="48" x2="1140" y2="48"/>
 
-        <!-- Approved -->
-        <rect class="node" x="260" width="260" height="96"/>
-        <text class="text" x="390" y="48">Approved Shipment</text>
+        <!-- Approved Shipment -->
+        <rect class="node" x="1220" width="300" height="96"/>
+        <text class="text" x="1370" y="48">Approved Shipment</text>
       </g>
     </svg>
 
     <div class="bar"></div>
 
-    <!-- 照片 -->
+    <!-- 照片（居中、大小适中） -->
     <div class="grid s-2">
       <article class="card">
         <div class="card-media">
