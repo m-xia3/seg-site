@@ -184,13 +184,13 @@
       );
     }
 
-/* 预览大图：轻微上移，保持与缩略图一致的观感 */
+/* 预览大图：取消上移，给更多可视空间，避免被裁切 */
 .lightbox-stage img{
-  max-width:95%;
-  max-height:95%;
+  max-width:96%;
+  max-height:96%;
   object-fit: contain;
   object-position: center;
-  transform: translateY(-4%);
+  transform: none;         /* ← 去掉上移 */
   mix-blend-mode: normal;
 }
     
