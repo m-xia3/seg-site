@@ -83,11 +83,12 @@
 /* ——个别微调—— */
 /* 1、2、6 原本过高 → 少上移 */
 .gallery .item:nth-child(1) .thumb img,
-.gallery .item:nth-child(2) .thumb img{
+.gallery .item:nth-child(2) .thumb img,
+.gallery .item:nth-child(3) .thumb img{
   transform: translateY(-2%);
 }
 
-/* 5、6\7 原本偏低 → 多上移 */
+/* 5、6、7 原本偏低 → 多上移 */
 .gallery .item:nth-child(5) .thumb img{
   transform: translateY(10%);
 }
@@ -108,11 +109,6 @@
 /* 5 原本偏低 → 多上移 */
 .gallery .item:nth-child(5) .thumb img{
   transform: translateY(-11%);
-}
-
-/* 8 原本偏低 → 多上移 */
-.gallery .item:nth-child(8) .thumb img{
-  transform: translateY(-13%);
 }
 
 /* 平板：整体提幅减一点，保持相对关系 */
