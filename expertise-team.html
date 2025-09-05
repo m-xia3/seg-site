@@ -67,8 +67,8 @@
     .card-media img{width:100%;height:100%;object-fit:cover;object-position:center}
     .card-bd{padding:14px 16px;color:var(--muted)}
 
-    /* 特殊调整第二张照片：向上移露出人脸 */
-    .card-media.focus-up img{object-position:50% 30%}
+    /* 只调第二张：向上移，露出下边人脸 */
+    .card-media.focus-up img{object-position:50% 22%}
 
     /* Lightbox */
     dialog#lightbox{border:none;padding:0;background:transparent}
@@ -129,9 +129,10 @@
         <div class="card-bd">视频连线评审样品细节</div>
       </article>
 
+      <!-- 第二张：加 focus-up 类 -->
       <article class="card">
         <div class="card-media focus-up">
-          <img class="zoomable" src="images/samples/team/7.PNG" alt="跨国视频会议">
+          <img class="zoomable" src="images/samples/team/7.PNG" alt="多方视频会议 · 快速决策">
         </div>
         <div class="card-bd">多方视频会议 · 快速决策</div>
       </article>
@@ -145,7 +146,7 @@
 
       <article class="card">
         <div class="card-media">
-          <img class="zoomable" src="images/samples/team/4.PNG" alt="多款鞋型评审">
+          <img class="zoomable" src="images/samples/team/4.PNG" alt="多款鞋型并行评审">
         </div>
         <div class="card-bd">多款鞋型并行评审 · 提速上新</div>
       </article>
@@ -159,13 +160,14 @@
 
       <article class="card">
         <div class="card-media">
-          <img class="zoomable" src="images/samples/team/3.PNG" alt="客户聚会合影">
+          <img class="zoomable" src="images/samples/team/3.PNG" alt="项目之外的朋友关系">
         </div>
         <div class="card-bd">项目之外的朋友关系</div>
       </article>
     </div>
   </section>
 
+  <!-- 预览弹窗 -->
   <dialog id="lightbox">
     <div class="lightbox-panel">
       <button class="lightbox-close" aria-label="Close">×</button>
@@ -185,9 +187,12 @@
       const img=document.getElementById('lightboxImg');
       const panel=dlg.querySelector('.lightbox-panel');
       const btnClose=dlg.querySelector('.lightbox-close');
-      function openDlg(url,alt){img.src=url;img.alt=alt||'Preview';if(typeof dlg.showModal==='function')dlg.showModal();else dlg.setAttribute('open','');}
-      function closeDlg(){img.src='';if(typeof dlg.close==='function')dlg.close();else dlg.removeAttribute('open');}
-      document.addEventListener('click',(e)=>{const t=e.target.closest('.zoomable');if(!t)return;openDlg(t.getAttribute('src'),t.getAttribute('alt'));});
+      function openDlg(url,alt){img.src=url;img.alt=alt||'Preview';
+        if(typeof dlg.showModal==='function')dlg.showModal();else dlg.setAttribute('open','');}
+      function closeDlg(){img.src='';
+        if(typeof dlg.close==='function')dlg.close();else dlg.removeAttribute('open');}
+      document.addEventListener('click',(e)=>{const t=e.target.closest('.zoomable');if(!t)return;
+        openDlg(t.getAttribute('src'),t.getAttribute('alt'));});
       dlg.addEventListener('click',(e)=>{if(e.target===dlg)closeDlg();});
       btnClose.addEventListener('click',(e)=>{e.stopPropagation();closeDlg();});
       panel.addEventListener('click',(e)=>e.stopPropagation());
