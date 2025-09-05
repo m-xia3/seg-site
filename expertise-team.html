@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -88,9 +87,19 @@
     .card-media img{width:100%;height:100%;object-fit:cover}
     .card-bd{padding:14px 16px;color:var(--muted)}
 
-    /* —— 仅“真实协同 · 即刻响应”区：显示图片完整、不裁剪 —— */
-    #team-photos .card-media{aspect-ratio:auto;display:flex;align-items:center;justify-content:center}
-    #team-photos .card-media img{width:100%;height:auto;object-fit:contain}
+    /* —— 仅“真实协同 · 即刻响应”：固定统一比例与对焦 —— */
+    /* 统一 4:3，保证六张高度一致 */
+    #team-photos .card-media{aspect-ratio:4/3}
+    #team-photos .card-media img{
+      width:100%; height:100%;
+      object-fit:cover;           /* 填充裁切以统一尺寸 */
+      object-position:center;     /* 默认居中对焦 */
+    }
+    /* 可选对焦辅助类（若想单独微调） */
+    #team-photos .focus-top   { --y:35%; }
+    #team-photos .focus-left  { --x:35%; }
+    #team-photos .focus-top img  { object-position: 50% var(--y,35%); }
+    #team-photos .focus-left img { object-position: var(--x,35%) 50%; }
 
     /* 轻量放大预览（原生 dialog） */
     dialog#lightbox{border:none;padding:0;background:transparent}
@@ -113,7 +122,6 @@
     }
     .lightbox-close::after{content:"";position:absolute;inset:-12px;border-radius:50%}
 
-    /* 点击缩略图手势 */
     .zoomable{cursor:zoom-in}
   </style>
 </head>
@@ -133,11 +141,11 @@
       <h1 class="title">关于我们 · TEAM</h1>
       <p class="lead">
         网站名称更新为「香港泰玉贸易有限公司」，前端对接国际买手与品牌；背后由
-        「邯郸市保足鞋业有限公司」与「赛格鞋业」提供稳定制造能力，形成<span style="color:var(--accent);font-weight:700">工贸一体</span>的协同体系。
+        「邯郸市保足鞋业有限公司」与「赛格鞋业」提供稳定制造能力，形成
+        <span style="color:var(--accent);font-weight:700">工贸一体</span>的协同体系。
         我们懂产品、懂合规、懂交付，能把设计/QA 语言快速转化为可量产方案。
       </p>
 
-      <!-- KPI -->
       <div class="kpis">
         <div class="kpi"><b>4+2</b><small>硫化线 4 条 · 冷粘线 2 条</small></div>
         <div class="kpi"><b>900+</b><small>在职员工 · ERP 精益管理</small></div>
@@ -149,7 +157,7 @@
 
   <div class="bar"></div>
 
-  <!-- 时间轴（自适应 SVG） -->
+  <!-- 时间轴 -->
   <section class="container">
     <div class="timeline">
       <div class="tl-h"><span class="dot"></span><strong>企业发展历程</strong></div>
@@ -225,21 +233,22 @@
 
   <div class="bar"></div>
 
-  <!-- 实拍照片：会议 / 工厂 / 团建 —— 照片完整显示 -->
+  <!-- 实拍照片：会议 / 工厂 / 团建 —— 统一 4:3 尺寸 -->
   <section id="team-photos" class="container">
     <h2 style="margin:0 0 10px;font-size:28px">真实协同 · 即刻响应</h2>
     <p class="lead" style="margin-bottom:12px">以下均为与客户线上评审、线下拜访与工厂现场的真实照片。</p>
 
     <div class="grid s-3">
+      <!-- 如需微调对焦，可给 card-media 加 class "focus-top" 或 "focus-left"，或在 img 写 style="object-position: 50% 35%;" -->
       <article class="card">
-        <div class="card-media">
+        <div class="card-media focus-top">
           <img class="zoomable" src="images/samples/team/8.PNG" alt="视频评审样品">
         </div>
         <div class="card-bd">视频连线评审样品细节</div>
       </article>
 
       <article class="card">
-        <div class="card-media">
+        <div class="card-media focus-top">
           <img class="zoomable" src="images/samples/team/7.PNG" alt="跨国视频会议">
         </div>
         <div class="card-bd">多方视频会议 · 快速决策</div>
