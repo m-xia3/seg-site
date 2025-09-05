@@ -487,9 +487,8 @@ a[href*="samples-upper"] .ph img{
   z-index:1;
 }
 
-/* === team 扫描背景 + 宽中间透明，两侧渐隐 === */
+/* === team 宽中间透明，两侧渐隐 === */
 .slice.team{
-  /* 顶层做左右渐隐；中间 38%–62% 完全透明，图片清晰可见 */
   background-image:
     linear-gradient(to right,
       rgba(10,15,31,.95) 0%,
@@ -502,10 +501,12 @@ a[href*="samples-upper"] .ph img{
       rgba(10,15,31,.95) 100%
     ),
     url("images/samples/factory/Factory Overview1.png"); /* 注意：PNG 大写 */
-  background-position: center center, 70% 50%; /* 如需偏移主体，可把第2个 center 改成 52% 50% 等 */
+  background-position: center center, 30% 30%; /* 如需偏移主体，可把第2个 center 改成 52% 50% 等 */
   background-size: auto, cover;
   background-repeat: no-repeat;
 }
+.slice.qc      { background: linear-gradient(270deg, rgba(0,0,0,.05), transparent 65%); }
+.slice.store   { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02)); }
 
 /* === R&D：3D 扫描背景 + 宽中间透明，两侧渐隐 === */
 .slice.rd{
