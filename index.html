@@ -487,8 +487,25 @@ a[href*="samples-upper"] .ph img{
   z-index:1;
 }
 
-/* 常态轻微底纹（非常淡，增强区块感，可留可去） */
-.slice.team    { background: linear-gradient(90deg, rgba(0,0,0,.05), transparent 65%); }
+/* === team 扫描背景 + 宽中间透明，两侧渐隐 === */
+.slice.team{
+  /* 顶层做左右渐隐；中间 38%–62% 完全透明，图片清晰可见 */
+  background-image:
+    linear-gradient(to right,
+      rgba(10,15,31,.95) 0%,
+      rgba(10,15,31,.72) 10%,
+      rgba(10,15,31,.38) 22%,
+      rgba(10,15,31,0) 38%,
+      rgba(10,15,31,0) 62%,
+      rgba(10,15,31,.38) 78%,
+      rgba(10,15,31,.72) 90%,
+      rgba(10,15,31,.95) 100%
+    ),
+    url("images/samples/factory/Factory Overview1.png"); /* 注意：PNG 大写 */
+  background-position: center center, 70% 50%; /* 如需偏移主体，可把第2个 center 改成 52% 50% 等 */
+  background-size: auto, cover;
+  background-repeat: no-repeat;
+}
 
 /* === R&D：3D 扫描背景 + 宽中间透明，两侧渐隐 === */
 .slice.rd{
