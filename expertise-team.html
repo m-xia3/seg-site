@@ -73,8 +73,15 @@
     /* 照片画廊 */
     .grid{display:grid;gap:18px}
     .grid.s-3{grid-template-columns:repeat(3,1fr)}
-    @media (max-width:1024px){ .grid.s-3{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:640px){ .grid.s-3{grid-template-columns:1fr} }
+    /* 新增：2列网格（用于 Factory Overview 两张图） */
+    .grid.s-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width:1024px){
+      .grid.s-3{grid-template-columns:repeat(2,1fr)}
+      .grid.s-2{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:640px){
+      .grid.s-3,.grid.s-2{grid-template-columns:1fr}
+    }
 
     .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
     .card-media{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0c1426}
@@ -193,6 +200,32 @@
     </div>
   </section>
 
+  <!-- ★ 新增：Factory Overview 两张工厂全景图（从 factory 页面移来） -->
+  <section class="container" style="margin-top:14px">
+    <h2 style="margin:0 0 10px;font-size:28px">工厂概览 · Factory Overview</h2>
+    <p class="lead" style="margin-bottom:12px">
+      厂区全景与主厂房外观，体现制造规模与园区环境。
+    </p>
+    <div class="grid s-2">
+      <article class="card">
+        <div class="card-media">
+          <img class="zoomable" loading="lazy" decoding="async"
+               src="images/samples/factory/Factory%20Overview1.png"
+               alt="Factory Overview · 厂区全景 1">
+        </div>
+        <div class="card-bd">厂区全景（一区）</div>
+      </article>
+      <article class="card">
+        <div class="card-media">
+          <img class="zoomable" loading="lazy" decoding="async"
+               src="images/samples/factory/Factory%20Overview2.png"
+               alt="Factory Overview · 厂区全景 2">
+        </div>
+        <div class="card-bd">厂区全景（二区）</div>
+      </article>
+    </div>
+  </section>
+
   <div class="bar"></div>
 
   <!-- 我们的方式（项目制 / 跨时区 / 合规） -->
@@ -238,7 +271,6 @@
     <p class="lead" style="margin-bottom:12px">以下均为与客户线上评审、线下拜访与工厂现场的真实照片。</p>
 
     <div class="grid s-3">
-      <!-- 请把图片放到你的 images/team/ 目录；文件名可与下方一致或替换 -->
       <article class="card">
         <div class="card-media"><img class="zoomable" src="images/team/IMG_1845.JPG" alt="视频评审样品"></div>
         <div class="card-bd">视频连线评审样品细节</div>
