@@ -116,6 +116,61 @@
 
   <div class="bar"></div>
 
+  <!-- 企业发展历程（补回） -->
+  <section class="container">
+    <div class="timeline">
+      <div class="tl-h"><span class="dot"></span><strong>企业发展历程</strong></div>
+      <p class="tl-sub">从 1994 创业到 2015 工贸一体：品牌服务能力与制造规模并进。</p>
+
+      <!-- 响应式 SVG 时间轴 -->
+      <svg viewBox="0 0 1100 360" width="100%" height="auto" role="img" aria-label="企业发展历程">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1">
+            <stop offset="0" stop-color="#93c5fd" stop-opacity=".8"/>
+            <stop offset="1" stop-color="#fda4af" stop-opacity=".9"/>
+          </linearGradient>
+          <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity=".35"/>
+          </filter>
+        </defs>
+        <path d="M40,300 C360,60 740,60 1060,300" fill="none" stroke="url(#g1)" stroke-width="4" filter="url(#shadow)"/>
+        <polygon points="1060,300 1048,294 1052,306" fill="#fda4af"/>
+
+        <!-- 1994 山东赛格鞋业有限公司 -->
+        <circle cx="180" cy="230" r="8" fill="#e11d48"/>
+        <rect x="70" y="120" rx="14" ry="14" width="220" height="70" fill="#a7f3d0" stroke="#0e2a47" stroke-width="3"/>
+        <text x="180" y="150" text-anchor="middle" fill="#0e2a47" font-weight="700">山东赛格鞋业有限公司</text>
+        <text x="180" y="170" text-anchor="middle" fill="#0e2a47">创立 · 1994</text>
+
+        <!-- 2001 青州保足鞋业有限公司 -->
+        <circle cx="430" cy="170" r="8" fill="#e11d48"/>
+        <rect x="350" y="60" rx="14" ry="14" width="220" height="70" fill="#bbf7d0" stroke="#0e2a47" stroke-width="3"/>
+        <text x="460" y="90" text-anchor="middle" fill="#0e2a47" font-weight="700">青州保足鞋业有限公司</text>
+        <text x="460" y="110" text-anchor="middle" fill="#0e2a47">成立 · 2001</text>
+
+        <!-- 2015 香港泰玉贸易有限公司 -->
+        <circle cx="680" cy="170" r="8" fill="#e11d48"/>
+        <rect x="600" y="60" rx="14" ry="14" width="220" height="70" fill="#a7f3d0" stroke="#0e2a47" stroke-width="3"/>
+        <text x="710" y="90" text-anchor="middle" fill="#0e2a47" font-weight="700">香港泰玉贸易有限公司</text>
+        <text x="710" y="110" text-anchor="middle" fill="#0e2a47">成立 · 2015</text>
+
+        <!-- 2015 邯郸市保足鞋业有限公司 -->
+        <circle cx="900" cy="230" r="8" fill="#e11d48"/>
+        <rect x="800" y="120" rx="14" ry="14" width="240" height="70" fill="#bbf7d0" stroke="#0e2a47" stroke-width="3"/>
+        <text x="920" y="150" text-anchor="middle" fill="#0e2a47" font-weight="700">邯郸市保足鞋业有限公司</text>
+        <text x="920" y="170" text-anchor="middle" fill="#0e2a47">成立 · 2015</text>
+      </svg>
+
+      <p class="tl-sub" style="margin-top:8px">
+        目前保足占地 <b>65,000㎡</b>、厂房 <b>45,000㎡</b>；赛格占地 <b>80,000㎡</b>、厂房 <b>60,000㎡</b>。
+        服务 H&amp;M、Inditex（Zara / Pull&bear / Bershka）及意大利 SUGI（CIRCA）等，
+        产品销往欧美等 <b>40+</b> 国家与地区。
+      </p>
+    </div>
+  </section>
+
+  <div class="bar"></div>
+
   <!-- 实拍照片 -->
   <section id="team-photos" class="container">
     <h2 style="margin:0 0 10px;font-size:28px">真实协同 · 即刻响应</h2>
@@ -129,7 +184,7 @@
         <div class="card-bd">视频连线评审样品细节</div>
       </article>
 
-      <!-- 第二张：加 focus-up 类 -->
+      <!-- 第二张：加 focus-up 类（向上对焦） -->
       <article class="card">
         <div class="card-media focus-up">
           <img class="zoomable" src="images/samples/team/7.PNG" alt="多方视频会议 · 快速决策">
