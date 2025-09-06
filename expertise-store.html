@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TEAM · 我们的团队 | SAIGE Footwear</title>
+  <title>仓储与出货 · 香港泰玉贸易有限公司（工贸一体） | SAIGE / 保足鞋业</title>
   <style>
     :root{
       --bg:#0a0f1f; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
@@ -15,7 +15,7 @@
     img{max-width:100%;display:block}
     .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 
-    /* 顶部返回栏 + 右上角关闭 */
+    /* 顶部返回栏 */
     .topbar{
       position:sticky; top:0; z-index:40;
       backdrop-filter:saturate(160%) blur(6px);
@@ -31,7 +31,14 @@
       font-size:18px; cursor:pointer;
     }
     .close:hover{filter:brightness(1.08)}
+    .back{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--line); border-radius:10px; padding:8px 12px;
+      background:#0b1222; color:var(--text); font-weight:600;
+    }
+    .back:hover{filter:brightness(1.06)}
 
+    /* Hero */
     .hero{
       padding:42px 0 22px;
       background:
@@ -39,83 +46,259 @@
         radial-gradient(600px 320px at 10% -5%, rgba(59,130,246,.10), transparent 60%);
     }
     .title{font-size:40px;line-height:1.15;margin:0 0 10px}
-    .lead{color:var(--muted);max-width:68ch;margin:0}
+    .lead{color:var(--muted);max-width:72ch;margin:0}
+    @media (max-width:720px){ .title{font-size:32px} }
 
     .bar{height:1px;background:var(--line);margin:26px 0}
 
-    /* 复用首页相同的卡片风格 */
+    /* 网格与卡片 */
     .grid{display:grid;gap:18px}
     .grid.s-3{grid-template-columns:repeat(3,1fr)}
-    @media (max-width:1024px){ .grid.s-3{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:640px){ .grid.s-3{grid-template-columns:1fr} }
+    .grid.s-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width:1024px){
+      .grid.s-3{grid-template-columns:repeat(2,1fr)}
+      .grid.s-2{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:640px){
+      .grid.s-3,.grid.s-2{grid-template-columns:1fr}
+    }
 
     .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-    .card-media{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0c1426}
-    .card-media img{width:100%;height:100%;object-fit:cover}
+    .card-media{position:relative;aspect-ratio:4/3;overflow:hidden;background:#0c1426}
+    .card-media img{width:100%;height:100%;object-fit:cover;object-position:center}
     .card-bd{padding:14px 16px;color:var(--muted)}
+    .card-bd h3{margin:0 0 6px;color:var(--text);font-size:18px}
+    .meta{display:flex;gap:10px;flex-wrap:wrap}
 
-    /* 返回首页按钮（移动端也好点按） */
-    .back{
-      display:inline-flex;align-items:center;gap:8px;
-      border:1px solid var(--line); border-radius:10px; padding:8px 12px;
-      background:#0b1222; color:var(--text); font-weight:600;
+    /* 抽湿机纵图：不裁剪，完整展示 */
+    .card-media.contain img{object-fit:contain;background:#0c1426}
+
+    /* Shipping 模块：步骤与要点 */
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    @media (max-width:960px){ .steps{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:560px){ .steps{grid-template-columns:1fr} }
+    .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+    .step h4{margin:0 0 6px;font-size:16px}
+    .badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px;color:var(--muted)}
+    .ok{color:#86efac;border-color:#14532d}
+
+    /* 轻量 Lightbox（通用） */
+    dialog#lightbox{border:none;padding:0;background:transparent}
+    dialog::backdrop{background:rgba(0,0,0,.55);backdrop-filter:blur(2px)}
+    .lightbox-panel{
+      position:relative;margin:auto;width:min(1100px,92vw);
+      background:var(--card);border:1px solid var(--line);border-radius:16px;
+      padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.35);
     }
-    .back:hover{filter:brightness(1.06)}
+    .lightbox-stage{
+      position:relative;border-radius:14px;display:flex;align-items:center;justify-content:center;
+      height:min(82vh,92vw);max-height:82vh;width:100%;
+      background:radial-gradient(115% 150% at 50% 56%,rgba(255,255,255,.92) 0%,rgba(241,248,255,.78) 26%,rgba(190,208,232,.50) 56%,rgba(28,38,64,.86) 92%,rgba(15,23,42,1) 100%);
+    }
+    .lightbox-stage img{max-width:98%;max-height:98%;object-fit:contain}
+    .lightbox-close{
+      position:absolute;top:10px;right:12px;width:44px;height:44px;display:grid;place-items:center;
+      border:1px solid var(--line);border-radius:50%;background:var(--ink);color:var(--text);
+      font-size:22px;line-height:1;cursor:pointer;z-index:5;
+    }
+    .lightbox-close::after{content:"";position:absolute;inset:-12px;border-radius:50%}
+
+    .zoomable{cursor:zoom-in}
   </style>
 </head>
 <body>
-  <!-- 顶部条：左侧返回首页锚点，右侧“✕”关闭（后退或跳首页#expertise） -->
+  <!-- 顶部条 -->
   <header class="topbar">
     <div class="container row">
       <a class="back" href="index.html#expertise">← Back</a>
-      <div class="brand">SAIGE Footwear</div>
+      <div class="brand">香港泰玉贸易有限公司 · 邯郸保足鞋业（工贸一体）</div>
       <button class="close" aria-label="Close" id="btnClose">×</button>
     </div>
   </header>
 
+  <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <h1 class="title">TEAM · 我们的团队</h1>
-      <p class="lead">我们不是中转型贸易。具备鞋类工艺与合规背景，能把买手/设计/QA 的语言迅速转换为可量产方案；CN/EU/US 三时区覆盖，加速沟通闭环。</p>
+      <h1 class="title">仓储与出货 · Store & Shipping</h1>
+      <p class="lead">
+        我们把“稳定与可追溯”放在第一位：仓储区布局规整、动线清晰，湿度控制与成品防护做在前面；
+        出货端长期服务 H&amp;M 与 Inditex（Zara / Pull&amp;Bear / Bershka）等客户，流程与单证按品牌标准执行。
+      </p>
     </div>
   </section>
 
   <div class="bar"></div>
 
-  <main class="container">
+  <!-- Store · 仓储环境与防护 -->
+  <section class="container">
+    <h2 style="margin:0 0 10px;font-size:28px">仓储 · Store</h2>
+    <p class="lead" style="margin-bottom:12px">
+      仓库采用整托管理与分区定位，库内走道宽阔、货位标签清晰；抽湿、通风与防尘措施常态化，
+      减少纸箱受潮、鞋面回潮等风险，保障大货静置与装柜品质。
+    </p>
+
     <div class="grid s-3">
-      <!-- 照片 + 文案段落，按需增删 -->
+      <!-- 抽湿机：纵图完整显示 -->
       <article class="card">
-        <div class="card-media">
-          <img src="images/expertise/team-1.jpg" alt="项目管理与买手对接">
+        <div class="card-media contain">
+          <!-- 放置：images/store/dehumidifier.jpg  （你上传的第一张抽湿机图） -->
+          <img class="zoomable" src="images/store/dehumidifier.jpg" alt="仓库抽湿机 · 保持干燥稳定">
         </div>
         <div class="card-bd">
-          <h3 style="margin:0 0 6px">项目制管理</h3>
-          <p style="margin:0">一对一项目制，从 Tech Pack、BOM 到量产排程全链路透明，版本/物料/变更留痕。</p>
+          <h3>抽湿机常态运行</h3>
+          <p>设备虽低调朴素，但维护良好、状态稳定；通过持续除湿，降低成品与纸箱受潮概率。</p>
+          <div class="meta"><span class="badge ok">干燥</span><span class="badge">巡检记录</span></div>
         </div>
       </article>
 
       <article class="card">
         <div class="card-media">
-          <img src="images/expertise/team-2.jpg" alt="跨时区协作">
+          <!-- 放置：images/store/warehouse-1.jpg  （你上传的超宽仓库图其一） -->
+          <img class="zoomable" src="images/store/warehouse-1.jpg" alt="成品区整托码放 · 动线清晰">
         </div>
         <div class="card-bd">
-          <h3 style="margin:0 0 6px">跨时区响应</h3>
-          <p style="margin:0">CN/EU/US 三时区覆盖，缩短样品确认周期与问题闭环时间。</p>
+          <h3>整托码放 · 动线清晰</h3>
+          <p>蓝色托盘统一归一，货道宽阔，按区域/订单管理，便于盘点与快速调用。</p>
+          <div class="meta"><span class="badge ok">整洁</span><span class="badge">整托</span></div>
         </div>
       </article>
 
       <article class="card">
         <div class="card-media">
-          <img src="images/expertise/team-3.jpg" alt="合规文档与测试">
+          <!-- 放置：images/store/warehouse-2.jpg -->
+          <img class="zoomable" src="images/store/warehouse-2.jpg" alt="大货静置与待装区">
         </div>
         <div class="card-bd">
-          <h3 style="margin:0 0 6px">合规熟练</h3>
-          <p style="margin:0">REACH / CPSIA / RSL 文档与测试流程前置把控，降低复检与退货风险。</p>
+          <h3>静置与待装区</h3>
+          <p>大货分区静置，减少搬运频次；装柜前做抽检与外观复核，降低出货异常风险。</p>
+          <div class="meta"><span class="badge">抽检</span><span class="badge">复核</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-media">
+          <!-- 放置：images/store/warehouse-3.jpg -->
+          <img class="zoomable" src="images/store/warehouse-3.jpg" alt="立柱分区标识与照明">
+        </div>
+        <div class="card-bd">
+          <h3>分区标识与照明</h3>
+          <p>立柱与墙面设置标识/编号，照明均匀，便于快速定位单号与成品托。</p>
+          <div class="meta"><span class="badge">标识</span><span class="badge">安全</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-media">
+          <!-- 放置：images/store/warehouse-4.jpg -->
+          <img class="zoomable" src="images/store/warehouse-4.jpg" alt="前区成品堆码 · 地坪整洁">
+        </div>
+        <div class="card-bd">
+          <h3>地坪维护 · 清洁度高</h3>
+          <p>地坪定期保养与清洁，保持干爽，减少灰尘与潮汽带来的二次污染。</p>
+          <div class="meta"><span class="badge ok">清洁</span><span class="badge">保养</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-media">
+          <!-- 放置：images/store/warehouse-5.jpg  （带叉车作业图） -->
+          <img class="zoomable" src="images/store/warehouse-5.jpg" alt="叉车规范作业 · 先进先出">
+        </div>
+        <div class="card-bd">
+          <h3>叉车规范作业</h3>
+          <p>按先进先出原则调度托盘，作业通道与安全线清晰，提升周转效率。</p>
+          <div class="meta"><span class="badge">FIFO</span><span class="badge">安全线</span></div>
         </div>
       </article>
     </div>
-  </main>
+  </section>
+
+  <div class="bar"></div>
+
+  <!-- Shipping · 出货管理（无图，用流程/要点呈现） -->
+  <section class="container">
+    <h2 style="margin:0 0 10px;font-size:28px">出货 · Shipping</h2>
+    <p class="lead" style="margin-bottom:14px">
+      长期服务 H&amp;M 与 Inditex（Zara / Pull&amp;Bear / Bershka）等国际客户，熟悉品牌出货标准与合规要求。
+      从装箱规格、外箱唛头到预约订舱、单证与 ASN/EDI，我们均可按品牌 SOP 高质量执行。
+    </p>
+
+    <!-- 四步骤卡片：打包 → 装箱 → 订舱/单证 → 可追溯 -->
+    <div class="steps" style="margin-bottom:14px">
+      <div class="step">
+        <h4>01 · 打包与防护</h4>
+        <p>外箱/内盒按品牌规范执行；对潮湿敏感产品使用内衬袋与干燥包，防压测试与跌落测试按批次抽检。</p>
+        <span class="badge ok">品牌规范</span>
+      </div>
+      <div class="step">
+        <h4>02 · 装箱与托盘</h4>
+        <p>装柜前复核装箱单与唛头；托盘化/绑带/缠膜加固，合理分配重量与重心，减少运输损耗。</p>
+        <span class="badge ok">加固</span>
+      </div>
+      <div class="step">
+        <h4>03 · 订舱与单证</h4>
+        <p>配合客户/货代进行订舱、报关与提单确认；支持商检、产地证、合规资质文件齐备与归档。</p>
+        <span class="badge ok">单证完整</span>
+      </div>
+      <div class="step">
+        <h4>04 · EDI / ASN & 追踪</h4>
+        <p>按客户要求推送 ASN/EDI；关键节点（出厂/装柜/到港）留痕记录，可追溯，异常即时反馈。</p>
+        <span class="badge ok">可追溯</span>
+      </div>
+    </div>
+
+    <!-- 要点列表 -->
+    <div class="grid s-2">
+      <article class="card">
+        <div class="card-bd">
+          <h3 style="margin:0 0 6px">我们能为品牌做的细节</h3>
+          <ul style="margin:0 0 6px 18px">
+            <li>外箱唛头、条码与尺码/颜色信息按 PO 自动生成与校对</li>
+            <li>多地址分拨与多 PO 混柜方案规划（清单与托盘层级标签）</li>
+            <li>标准化装柜照片归档：货位、加固、柜封号等关键视角</li>
+            <li>异常快速闭环：数量/外观/标签/潮湿等问题即刻复核</li>
+          </ul>
+          <div class="meta"><span class="badge">装柜影像</span><span class="badge">分拨方案</span><span class="badge">快速闭环</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-bd">
+          <h3 style="margin:0 0 6px">与买手/货代的协作方式</h3>
+          <ul style="margin:0 0 6px 18px">
+            <li>时区覆盖 CN/EU/US，订舱 & ETD/ETA 变更及时同步</li>
+            <li>提供装箱单、箱唛 PDF、装柜照与 ASN 文件一键打包</li>
+            <li>按品牌 RSL/包装规范执行，所需文件提前准备、减少返工</li>
+            <li>固定窗口装柜，配合高峰季快速排柜</li>
+          </ul>
+          <div class="meta"><span class="badge">跨时区</span><span class="badge">一键打包</span><span class="badge">高峰保障</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 预览弹窗（通用） -->
+  <dialog id="lightbox">
+    <div class="lightbox-panel">
+      <button class="lightbox-close" aria-label="Close">×</button>
+      <div class="lightbox-stage">
+        <img id="lightboxImg" src="" alt="">
+      </div>
+    </div>
+  </dialog>
+
+  <div class="bar"></div>
+
+  <!-- 简短结语 -->
+  <section class="container" style="margin-bottom:24px">
+    <div class="card" style="padding:16px">
+      <h3 style="margin:0 0 8px">稳定交付，从仓到柜一体化</h3>
+      <p class="lead" style="margin:0">
+        我们用朴实但有效的设施和标准化流程，兜住“仓内防护—装柜加固—单证合规—可追溯”全链路，
+        让大货从库内到港口的每一步更稳、更可控。
+      </p>
+    </div>
+  </section>
 
   <script>
     // 右上角“✕”：优先后退；没有历史则跳回首页 Expertise
@@ -123,6 +306,36 @@
       if (history.length > 1) history.back();
       else location.href = 'index.html#expertise';
     });
+
+    // Lightbox：点击任何 .zoomable 放大
+    (function(){
+      const dlg  = document.getElementById('lightbox');
+      const img  = document.getElementById('lightboxImg');
+      const panel = dlg.querySelector('.lightbox-panel');
+      const btnClose = dlg.querySelector('.lightbox-close');
+
+      function openDlg(url, alt){
+        img.src = url; img.alt = alt || 'Preview';
+        if (typeof dlg.showModal === 'function') dlg.showModal();
+        else dlg.setAttribute('open','');
+      }
+      function closeDlg(){
+        img.src = '';
+        if (typeof dlg.close === 'function') dlg.close();
+        else dlg.removeAttribute('open');
+      }
+
+      document.addEventListener('click', (e)=>{
+        const target = e.target.closest('.zoomable');
+        if(!target) return;
+        openDlg(target.getAttribute('src'), target.getAttribute('alt'));
+      });
+
+      dlg.addEventListener('click', (e)=>{ if (e.target === dlg) closeDlg(); });
+      btnClose.addEventListener('click', (e)=>{ e.stopPropagation(); closeDlg(); });
+      panel.addEventListener('click', (e)=> e.stopPropagation());
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'&&(dlg.open||dlg.hasAttribute('open'))) closeDlg(); });
+    })();
   </script>
 </body>
 </html>
