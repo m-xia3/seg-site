@@ -401,6 +401,51 @@
       cursor:zoom-in;
     }
     #responsibility .cert-grid .resp-card:hover .cert-media img{ transform:none; }
+
+/* === Certifications：三张证书统一尺寸（最终覆盖） === */
+#responsibility .cert-grid .resp-media{
+  /* 彻底取消通用 4:3 约束 */
+  aspect-ratio: unset !important;   /* 或 initial/unset 都可以 */
+  height: 420px !important;         /* 桌面端等高，可按需改 360/400 */
+  padding: 10px !important;
+  background: #0b1222 !important;
+
+  /* 用 flex 把证书图像完美居中 */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* 证书图片：完整显示不裁切，不缩放动画 */
+#responsibility .cert-grid .resp-media img{
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  transform: none !important;
+  cursor: zoom-in;
+}
+
+/* 关闭卡片 hover 时对证书图的缩放 */
+#responsibility .cert-grid .resp-card:hover .resp-media img{
+  transform: none !important;
+}
+
+/* 响应式等高（按需要微调） */
+@media (max-width:1200px){
+  #responsibility .cert-grid .resp-media{ height: 360px !important; }
+}
+@media (max-width:900px){
+  #responsibility .cert-grid .resp-media{ height: 300px !important; }
+}
+@media (max-width:600px){
+  #responsibility .cert-grid .resp-media{ height: 240px !important; }
+}
+    
   </style>
 
   <!-- ============ 预览弹窗（与 who we are 一致） ============ -->
