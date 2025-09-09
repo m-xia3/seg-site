@@ -851,6 +851,24 @@ a[href*="samples-upper"] .ph img{
   }
   #responsibility .resp-card:hover .resp-media img{ transform: scale(1.03); }
   #responsibility .resp-bd{ padding:12px 14px; color:var(--muted); }
+
+/* === 证书栅格专属样式：竖版完整显示 === */
+#responsibility .cert-grid .resp-media{
+  aspect-ratio: 5 / 7;          /* 改为证书常见纵向比例 */
+  background:#0b1222;
+  padding: 6px;                 /* 给证书四周留一点呼吸 */
+  box-sizing: border-box;
+}
+#responsibility .cert-grid .resp-media img{
+  width:100%;
+  height:100%;
+  object-fit: contain !important;  /* 关键：不裁切，完整显示 */
+  transform: none !important;      /* 关闭缩放，避免被边框裁掉 */
+  cursor: zoom-in;
+}
+/* 覆盖证书卡片的 hover 缩放 */
+#responsibility .cert-grid .resp-card:hover .resp-media img{ transform:none; }
+  
 </style>
 
 <!-- ============ 预览弹窗（与 who we are 一致） ============ -->
