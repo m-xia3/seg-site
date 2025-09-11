@@ -459,77 +459,95 @@
 
   <div class="bar container"></div>
 
-  <!-- ================= 合作品牌（比例统一 5:3，透明背景更协调） ================= -->
+  <!-- ================= 合作品牌（统一画布 + 视觉等权） ================= -->
   <section id="partners" class="section">
     <div class="container">
       <h2 class="h2">合作品牌 Brands</h2>
       <p class="lead">我们已与多家国际品牌建立合作，完成授权鞋款生产与交付。</p>
 
       <div class="brand-grid" style="margin-top:18px;">
-        <a class="brand-card" href="#" aria-label="H&M">
+        <!-- H&M = 基准，无需调节 -->
+        <a class="brand-card" data-brand="hm" href="#" aria-label="H&M">
           <div class="ph"><img loading="lazy" src="images/samples/brand/1.PNG" alt="H&M"></div>
         </a>
-        <a class="brand-card" href="#" aria-label="Pull&Bear / PB">
-          <div class="ph"><img loading="lazy" src="images/samples/brand/2.PNG" alt="PB"></div>
-        </a>
-        <a class="brand-card" href="#" aria-label="ZARA">
+        <!-- ZARA 偏小 → 略放大 -->
+        <a class="brand-card" data-brand="zara" href="#" aria-label="ZARA">
           <div class="ph"><img loading="lazy" src="images/samples/brand/3.PNG" alt="ZARA"></div>
         </a>
-        <a class="brand-card" href="#" aria-label="Keds">
+        <!-- PB 偏大 → 略缩小 -->
+        <a class="brand-card" data-brand="pb" href="#" aria-label="Pull&Bear / PB">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/2.PNG" alt="PB"></div>
+        </a>
+        <!-- Keds 偏小 → 略放大 -->
+        <a class="brand-card" data-brand="keds" href="#" aria-label="Keds">
           <div class="ph"><img loading="lazy" src="images/samples/brand/4.PNG" alt="Keds"></div>
         </a>
-        <a class="brand-card" href="#" aria-label="Sperry">
+        <!-- Sperry 偏小 → 略放大 -->
+        <a class="brand-card" data-brand="sperry" href="#" aria-label="Sperry">
           <div class="ph"><img loading="lazy" src="images/samples/brand/5.PNG" alt="Sperry"></div>
         </a>
-        <a class="brand-card" href="#" aria-label="DC Shoes">
+        <!-- DC 偏大 → 略缩小 -->
+        <a class="brand-card" data-brand="dc" href="#" aria-label="DC Shoes">
           <div class="ph"><img loading="lazy" src="images/samples/brand/6.PNG" alt="DC Shoes"></div>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- 合作品牌样式（比例统一/留白统一/自适应） -->
+  <!-- 合作品牌样式（关键：用 CSS 变量做“视觉等权”） -->
   <style>
     /* 栅格：桌面 6 列，Pad 3 列，手机 2 列 */
-    #partners .brand-grid{
-      display:grid; gap:16px; grid-template-columns:repeat(6,1fr);
-      align-items:stretch;
-    }
-    @media (max-width:1024px){ #partners .brand-grid{ grid-template-columns:repeat(3,1fr);} }
-    @media (max-width:520px){  #partners .brand-grid{ grid-template-columns:repeat(2,1fr);} }
+    #partners .brand-grid{ display:grid; gap:16px; grid-template-columns:repeat(6,1fr); align-items:stretch }
+    @media (max-width:1024px){ #partners .brand-grid{ grid-template-columns:repeat(3,1fr) } }
+    @media (max-width:520px){  #partners .brand-grid{ grid-template-columns:repeat(2,1fr) } }
 
-    /* 卡片外观 */
     #partners .brand-card{
       position:relative; display:block; border-radius:16px; overflow:hidden;
-      transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+      transition:transform .22s ease, box-shadow .22s ease, filter .22s ease;
       border:none; background:transparent;
+      /* 基准值（H&M）：可统一在此调整整体“留白” */
+      --mw:86%;   /* max-width */
+      --mh:86%;   /* max-height */
     }
-    #partners .brand-card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 12px 30px rgba(0,0,0,.28);
-    }
+    #partners .brand-card:hover{ transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,.28) }
 
-    /* 统一“画布”比例 5:3，统一安全留白（自适应），logo contain 放置 */
+    /* 统一画布：5:3，留白自适应 */
     #partners .brand-card .ph{
-      position:relative;
-      aspect-ratio:5/3;
-      display:grid; place-items:center;
-      overflow:hidden; border-radius:16px;
-      background:transparent;
-      padding: clamp(10px, 9%, 18px);
+      position:relative; aspect-ratio:5/3; display:grid; place-items:center;
+      overflow:hidden; border-radius:16px; background:transparent;
+      padding:clamp(10px,8.5%,18px);
     }
+    /* 关键：用 max-* + 变量 做“视觉权重”而非 transform 放大，避免裁切 */
     #partners .brand-card img{
-      width:100%; height:100%;
-      object-fit:contain;
-      display:block; margin:auto;
+      max-width:var(--mw); max-height:var(--mh);
+      object-fit:contain; margin:auto; display:block;
       filter:saturate(.9) contrast(1);
-      transition: transform .22s ease, filter .22s ease, opacity .22s ease;
+      transition:filter .22s ease, transform .22s ease;
     }
-    #partners .brand-card:hover img{
-      transform:scale(1.04);
-      filter:saturate(1) contrast(1.02);
-    }
+    #partners .brand-card:hover img{ filter:saturate(1) contrast(1.02); transform:scale(1.035) }
+
+    /* —— 单个品牌的微调（按你的反馈校准） —— */
+    /* H&M：基准（沿用默认 --mw/--mh = 86%） */
+    #partners .brand-card[data-brand="hm"]{ --mw:86%; --mh:86% }
+
+    /* ZARA：偏小 → 放大一些（细字） */
+    #partners .brand-card[data-brand="zara"]{ --mw:94%; --mh:94% }
+
+    /* PB：偏大 → 缩小 */
+    #partners .brand-card[data-brand="pb"]{ --mw:78%; --mh:78% }
+
+    /* Keds：偏小 → 放大 */
+    #partners .brand-card[data-brand="keds"]{ --mw:92%; --mh:92% }
+
+    /* Sperry：偏小（长条字标+船帆）→ 放大 */
+    #partners .brand-card[data-brand="sperry"]{ --mw:94%; --mh:94% }
+
+    /* DC：偏大（粗重方形）→ 缩小 */
+    #partners .brand-card[data-brand="dc"]{ --mw:76%; --mh:76% }
+
+    /* 如需继续微调：把百分比 +-2% 即可 */
   </style>
+
 
   <div class="bar container"></div>
 
