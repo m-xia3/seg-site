@@ -201,6 +201,30 @@
         url("images/samples/storage/3.PNG");
       background-position:center center, 20% 50%; background-size:auto, cover; background-repeat:no-repeat;
     }
+
+/* === 响应缩放的分割线（替代 .bar container） === */
+:root{
+  /* 线条上下留白（可按需调）： */
+  --sepY: clamp(24px, 4vw, 42px);
+}
+
+/* 隐藏原来的分割线占位元素 */
+.bar{ display:none !important; }
+
+/* 在每个 section（除了第一个）顶部画线，宽度与 .container 保持一致 */
+.section{ position: relative; }
+.section:not(:first-of-type)::before{
+  content:"";
+  display:block;
+  height:1px;
+  background:var(--line);
+  /* 与 .container 同宽：max 1200px；同时考虑左右 24px 内边距 */
+  width:min(var(--container), calc(100% - 48px));
+  margin: var(--sepY) auto var(--sepY);
+  /* 避免 Safari/Retina 缩放时的亚像素抖动 */
+  transform: translateZ(0);
+}
+    
   </style>
 </head>
 <body>
@@ -550,7 +574,7 @@
   </script>
 
   <div class="bar container"></div>
-
+  
   <section id="info" class="section">
     <div class="container">
       <h2 class="h2">基本信息（占位）</h2>
