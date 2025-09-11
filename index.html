@@ -169,7 +169,6 @@
     .slice.factory{ left:40%; right:40%;}
     .slice.qc{ left:60%; right:20%;}
     .slice.store{ left:80%; right:0;}
-    .slice.team::after,.slice.rd::after,.slice.factory::after,.slice.qc::after{ content:""; position:absolute; top:0; bottom:0; right:0; width:1px; background:rgba(255,255,255,.28); z-index:1;}
     .slice.team{
       background-image:
         linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
@@ -201,13 +200,6 @@
         linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
         url("images/samples/storage/3.PNG");
       background-position:center center, 20% 50%; background-size:auto, cover; background-repeat:no-repeat;
-    }
-    @media (max-width:760px){
-      .tri-slab{ height:auto;}
-      .tri-track{ position:static; display:grid; grid-template-rows:repeat(5, min(36vw, 180px)); gap:10px; padding:10px;}
-      .slice{ position:relative; left:auto; right:auto; border:1px solid var(--line); border-radius:14px; overflow:hidden;}
-      .slice::after{ display:none;}
-      .slice > span{ position:static; transform:none;}
     }
   </style>
 </head>
@@ -467,7 +459,7 @@
 
   <div class="bar container"></div>
 
-  <!-- ================= 合作品牌：图片卡片版（与 Samples 同风格） ================= -->
+  <!-- ================= 合作品牌（比例统一 5:3，透明背景更协调） ================= -->
   <section id="partners" class="section">
     <div class="container">
       <h2 class="h2">合作品牌 Brands</h2>
@@ -475,64 +467,67 @@
 
       <div class="brand-grid" style="margin-top:18px;">
         <a class="brand-card" href="#" aria-label="H&M">
-          <div class="ph"><img src="images/samples/brand/1.PNG" alt="H&M"></div>
+          <div class="ph"><img loading="lazy" src="images/samples/brand/1.PNG" alt="H&M"></div>
         </a>
-        <a class="brand-card" href="#" aria-label="Pull&Bear">
-          <div class="ph"><img src="images/samples/brand/2.PNG" alt="Pull&Bear"></div>
+        <a class="brand-card" href="#" aria-label="Pull&Bear / PB">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/2.PNG" alt="PB"></div>
         </a>
         <a class="brand-card" href="#" aria-label="ZARA">
-          <div class="ph"><img src="images/samples/brand/3.PNG" alt="ZARA"></div>
+          <div class="ph"><img loading="lazy" src="images/samples/brand/3.PNG" alt="ZARA"></div>
         </a>
         <a class="brand-card" href="#" aria-label="Keds">
-          <div class="ph"><img src="images/samples/brand/4.PNG" alt="Keds"></div>
+          <div class="ph"><img loading="lazy" src="images/samples/brand/4.PNG" alt="Keds"></div>
         </a>
         <a class="brand-card" href="#" aria-label="Sperry">
-          <div class="ph"><img src="images/samples/brand/5.PNG" alt="Sperry"></div>
+          <div class="ph"><img loading="lazy" src="images/samples/brand/5.PNG" alt="Sperry"></div>
         </a>
         <a class="brand-card" href="#" aria-label="DC Shoes">
-          <div class="ph"><img src="images/samples/brand/6.PNG" alt="DC Shoes"></div>
+          <div class="ph"><img loading="lazy" src="images/samples/brand/6.PNG" alt="DC Shoes"></div>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- 合作品牌样式（复用 Samples 的卡片视觉） -->
+  <!-- 合作品牌样式（比例统一/留白统一/自适应） -->
   <style>
+    /* 栅格：桌面 6 列，Pad 3 列，手机 2 列 */
     #partners .brand-grid{
       display:grid; gap:16px; grid-template-columns:repeat(6,1fr);
+      align-items:stretch;
     }
     @media (max-width:1024px){ #partners .brand-grid{ grid-template-columns:repeat(3,1fr);} }
     @media (max-width:520px){  #partners .brand-grid{ grid-template-columns:repeat(2,1fr);} }
 
+    /* 卡片外观 */
     #partners .brand-card{
       position:relative; display:block; border-radius:16px; overflow:hidden;
       transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
-      border:none !important;                 /* ← 取消卡片外边框 */
-      background:transparent;
+      border:none; background:transparent;
     }
     #partners .brand-card:hover{
       transform:translateY(-4px);
       box-shadow:0 12px 30px rgba(0,0,0,.28);
     }
 
-    /* 背景板保持透明 */
+    /* 统一“画布”比例 5:3，统一安全留白（自适应），logo contain 放置 */
     #partners .brand-card .ph{
-      position:relative; aspect-ratio:5/3; display:grid; place-items:center; overflow:hidden; border-radius:16px;
-      background: transparent !important;
-      transition: transform .22s ease, opacity .22s ease;
+      position:relative;
+      aspect-ratio:5/3;
+      display:grid; place-items:center;
+      overflow:hidden; border-radius:16px;
+      background:transparent;
+      padding: clamp(10px, 9%, 18px);
     }
-    #partners .brand-card .ph::before{ content:none !important; }
-    #partners .brand-card:hover .ph{ background: transparent !important; }
-
     #partners .brand-card img{
-      max-width:78%; max-height:72%; object-fit:contain; display:block; margin:auto;
-      filter: saturate(.8) contrast(.98);
-      transform: translateZ(0) scale(1);
+      width:100%; height:100%;
+      object-fit:contain;
+      display:block; margin:auto;
+      filter:saturate(.9) contrast(1);
       transition: transform .22s ease, filter .22s ease, opacity .22s ease;
     }
     #partners .brand-card:hover img{
-      filter: saturate(1) contrast(1);
-      transform: translateZ(0) scale(1.04);
+      transform:scale(1.04);
+      filter:saturate(1) contrast(1.02);
     }
   </style>
 
