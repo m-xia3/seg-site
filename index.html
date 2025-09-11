@@ -117,13 +117,18 @@
     .bar.container{ margin:16px 0 !important;}
 
     .hero{ position:relative; overflow:hidden;}
-    .hero-art{ position:absolute; right:clamp(220px,18vw,400px); top:40px; display:grid; gap:clamp(14px,2.2vw,26px); pointer-events:none;}
+    .hero-art{position:absolute;/* 固定到 .container 的右内边：边距 = 两侧留白 + 容器 padding(24px) */right: calc((100vw - min(100vw, var(--container))) / 2 + 24px);
+  top:40px;
+  display:grid;
+  gap:clamp(14px,2.2vw,26px);
+  pointer-events:none;
+}
     .hero-art img{ width:min(20vw,240px); height:auto; opacity:.95; filter:drop-shadow(0 10px 28px rgba(0,0,0,.35));}
     .hero-art img:nth-child(1){ width:min(18vw,220px);}
     .hero-art img:nth-child(2){ width:min(19vw,230px);}
     .hero-art img:nth-child(3){ width:min(20vw,240px);}
     @media (min-width:1400px){ .hero-art img{ max-width:340px; } }
-    @media (max-width:1200px){ .hero-art{ top:80px; right:28px;} .hero-art img{ width:min(36vw,300px);} }
+    @media (max-width:1200px){ .hero-art{ top:80px; } } .hero-art img{ width:min(36vw,300px);} }
     @media (max-width:960px){ .hero-art{ opacity:.12;} }
     @media (max-width:720px){ .hero-art{ display:none;} }
 
