@@ -79,22 +79,22 @@
       transition: transform .25s ease;
     }
 
-    /* 1 / 4 / 7 原本缩小；第4张再额外缩小一些，且取消大幅上移 */
+    /* 1 / 4 / 7：第4张再单独调 —— 稍微小一点并上移 6% */
     .gallery .item:nth-child(1){ --scale:0.88; --shift-y:-10%; }
-    .gallery .item:nth-child(4){ --scale:0.80; --shift-y:0%; }   /* 关键调整：让第4张更小、更居中 */
+    .gallery .item:nth-child(4){ --scale:0.82; --shift-y:-6%; }  /* 关键：抬高 */
     .gallery .item:nth-child(7){ --scale:0.88; --shift-y:-10%; }
 
-    /* 响应式：平板端继续略缩 */
+    /* 平板端：位移回到 0，仍略小于其它 */
     @media (max-width:1024px){
       .gallery .item:nth-child(1){ --scale:0.90; --shift-y:3%; }
-      .gallery .item:nth-child(4){ --scale:0.86; --shift-y:2%; }  /* 比其它图更小一点 */
+      .gallery .item:nth-child(4){ --scale:0.86; --shift-y:0%; }
       .gallery .item:nth-child(7){ --scale:0.90; --shift-y:3%; }
     }
 
-    /* 手机端：维持轻度缩小，保证统一观感 */
+    /* 手机端：统一视觉，轻度缩小即可 */
     @media (max-width:640px){
       .gallery .item:nth-child(1){ --scale:0.92; --shift-y:2%; }
-      .gallery .item:nth-child(4){ --scale:0.90; --shift-y:2%; }
+      .gallery .item:nth-child(4){ --scale:0.90; --shift-y:0%; }
       .gallery .item:nth-child(7){ --scale:0.92; --shift-y:2%; }
     }
 
@@ -111,7 +111,7 @@
     .thumb:hover .thumb-inner::before{ box-shadow: inset 0 0 90px 8px rgba(8,13,26,.10); }
     .cap{color:var(--muted);font-size:14px;margin-top:8px;padding:0 2px}
 
-    /* === 放大预览（与 sole 一致） === */
+    /* === 放大预览 === */
     dialog#lightbox{ border:none; padding:0; background:transparent; width:100%; max-width:none; }
     dialog::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
 
