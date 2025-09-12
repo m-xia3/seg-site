@@ -7,20 +7,33 @@
 
   <style>
     :root{
-      --bg:#0f172a; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
-      --card:#111827; --line:#1f2937; --accent:#e11d48; --accent-ink:#fff;
-      --surface:#0b1222; --container:1200px; --sepY:clamp(24px,4vw,42px);
+      --bg:#0f172a;
+      --ink:#0b1020;
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+      --card:#111827;
+      --line:#1f2937;
+      --accent:#e11d48;
+      --accent-ink:#ffffff;
+      --surface:#0b1222;
+      --container: 1200px;
+
+      /* 响应缩放的分割线（替代 .bar container） */
+      --sepY: clamp(24px, 4vw, 42px);
     }
 
     html,body{margin:0;background:#0a0f1f;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;height:auto;display:block}
     .container{max-width:var(--container);margin:0 auto;padding:0 24px}
-    section{scroll-margin-top:80px}
 
     /* 顶部导航 */
-    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(6px);
-      background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));border-bottom:1px solid var(--line)}
+    .nav{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:saturate(160%) blur(6px);
+      background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
+      border-bottom:1px solid var(--line);
+    }
     .nav .row{display:flex;align-items:center;gap:20px;padding:14px 0}
     .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.5px}
     .brand .logo{width:28px;height:28px;border-radius:6px;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink);font-weight:800}
@@ -28,151 +41,212 @@
     .menu a{color:var(--muted);font-weight:500}
     .menu a:hover{color:var(--text)}
     .cta{margin-left:auto}
-    .btn{background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.12);font-weight:700}
+    .btn{
+      background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:10px;
+      border:1px solid rgba(255,255,255,.12);font-weight:700
+    }
     .btn:hover{filter:brightness(1.08)}
+    section{scroll-margin-top:80px}
 
     /* HERO */
-    .hero{padding:110px 0 72px;background:
+    .hero{
+      padding:110px 0 72px;
+      background:
         radial-gradient(1000px 500px at 70% -10%, rgba(225,29,72,.15), transparent 55%),
-        radial-gradient(800px 400px at 10% -5%, rgba(59,130,246,.12), transparent 60%),var(--surface);
-      position:relative;overflow:hidden}
+        radial-gradient(800px 400px at 10% -5%, rgba(59,130,246,.12), transparent 60%),
+        var(--surface);
+      position:relative; overflow:hidden;
+    }
     .title{font-size:40px;line-height:1.15;margin:0 0 12px}
     .lead{color:var(--muted);max-width:800px}
-    .hero-art{right:calc((100vw - min(100vw,var(--container))) / 2 + 24px + 40px);position:absolute;top:40px;display:grid;gap:clamp(14px,2.2vw,26px);pointer-events:none}
-    .hero-art img{width:clamp(120px,19vw,240px);height:auto;opacity:.95;filter:drop-shadow(0 10px 28px rgba(0,0,0,.35))}
-    .hero-art img:nth-child(1){width:clamp(110px,18vw,220px)}
-    .hero-art img:nth-child(2){width:clamp(115px,19vw,230px)}
-    .hero-art img:nth-child(3){width:clamp(120px,20vw,240px)}
-    @media (min-width:1400px){ .hero-art img{max-width:340px} }
-    @media (max-width:1200px){ .hero-art{top:80px} }
-    @media (max-width:960px){ .hero-art{opacity:.12} }
-    @media (max-width:720px){ .hero-art{display:none} }
 
-    /* 通用块 */
-    .h2{font-size:28px;margin:0 0 8px}
-    .h3{font-size:18px;margin:0 0 4px}
+    /* 固定在 container 右内边的鞋子组（缩放不跑位） */
+    .hero-art{
+      right: calc((100vw - min(100vw, var(--container))) / 2 + 24px + 40px); /* ← 整体向左移 36px */
+      position:absolute;
+      top:40px;
+      display:grid;
+      gap:clamp(14px,2.2vw,26px);
+      pointer-events:none;
+    }
+    .hero-art img{
+      width: clamp(120px, 19vw, 240px);
+      height:auto;
+      opacity:.95;
+      filter: drop-shadow(0 10px 28px rgba(0,0,0,.35));
+    }
+    .hero-art img:nth-child(1){ width: clamp(110px, 18vw, 220px); }
+    .hero-art img:nth-child(2){ width: clamp(115px, 19vw, 230px); }
+    .hero-art img:nth-child(3){ width: clamp(120px, 20vw, 240px); }
+    @media (min-width:1400px){ .hero-art img{ width:auto; max-width:340px; } }
+    @media (max-width:1200px){ .hero-art{ top:80px; } }
+    @media (max-width:960px){ .hero-art{ opacity:.12; } }
+    @media (max-width:720px){ .hero-art{ display:none; } }
+
+    /* 其它通用块 */
+    .bar{height:1px;background:var(--line);margin:42px 0}
     .grid{display:grid;gap:16px}
     .grid.s-3{grid-template-columns:repeat(3,1fr)}
     .grid.s-4{grid-template-columns:repeat(4,1fr)}
     .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-    .bar{display:none!important}
-    .section{position:relative}
-    .section:not(:first-of-type)::before{content:"";display:block;height:1px;background:var(--line);
-      width:min(var(--container),calc(100% - 48px));margin:var(--sepY) auto var(--sepY);transform:translateZ(0)}
-
-    /* Partners */
-    #partners .brand-grid{display:grid;gap:16px;grid-template-columns:repeat(6,1fr);align-items:stretch}
-    @media (max-width:1024px){ #partners .brand-grid{grid-template-columns:repeat(3,1fr)} }
-    @media (max-width:520px){  #partners .brand-grid{grid-template-columns:repeat(2,1fr)} }
-    #partners .brand-card{position:relative;display:block;border-radius:16px;overflow:hidden;border:none;background:transparent;
-      transition:transform .22s ease,box-shadow .22s ease,filter .22s ease;--mw:86%;--mh:86%}
-    #partners .brand-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.28)}
-    #partners .brand-card .ph{position:relative;aspect-ratio:5/3;display:grid;place-items:center;overflow:hidden;border-radius:16px;background:transparent;padding:clamp(10px,8.5%,18px)}
-    #partners .brand-card img{max-width:var(--mw);max-height:var(--mh);object-fit:contain;margin:auto;display:block;filter:saturate(.9) contrast(1);transition:filter .22s ease,transform .22s ease}
-    #partners .brand-card:hover img{filter:saturate(1) contrast(1.02);transform:scale(1.035)}
-    #partners .brand-card[data-brand="zara"]{--mw:94%;--mh:94%}
-    #partners .brand-card[data-brand="pb"]{--mw:75%;--mh:75%}
-    #partners .brand-card[data-brand="keds"]{--mw:95%;--mh:95%}
-    #partners .brand-card[data-brand="sperry"]{--mw:110%;--mh:110%}
-    #partners .brand-card[data-brand="dc"]{--mw:74%;--mh:74%}
-
-    /* Samples */
-    .sample-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-    @media (max-width:1024px){ .sample-grid{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:600px){ .sample-grid{grid-template-columns:1fr} }
-    .sample-card{display:flex;flex-direction:column;gap:8px;border-radius:16px;background:transparent}
-    .sample-card .ph{position:relative;aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden;border-radius:16px;
-      background:radial-gradient(115% 150% at 50% 56%,rgba(255,255,255,.92) 0%,rgba(241,248,255,.78) 26%,rgba(190,208,232,.50) 56%,rgba(28,38,64,.86) 92%,rgba(15,23,42,1) 100%);transition:background .24s ease,box-shadow .24s ease}
-    .sample-card .ph::before{content:"";position:absolute;inset:0;box-shadow:inset 0 0 120px 14px rgba(8,13,26,.14);pointer-events:none;transition:box-shadow .24s ease}
-    .sample-card img{max-width:92%;max-height:92%;object-fit:contain;object-position:center;margin:auto;position:relative;z-index:1}
-    .sample-card .ph img[alt="Upper"],a[href*="samples-upper"] .ph img{max-width:86%;max-height:86%;transform:translateY(-15%)}
-    @media (max-width:1024px){ .sample-card .ph img[alt="Upper"],a[href*="samples-upper"] .ph img{transform:translateY(-8%)} }
-    @media (max-width:640px){ .sample-card .ph img[alt="Upper"],a[href*="samples-upper"] .ph img{transform:translateY(-5%)} }
-    .sample-card:hover .ph{background:radial-gradient(125% 165% at 50% 56%,rgba(255,255,255,.98) 0%,rgba(248,252,255,.90) 26%,rgba(196,214,236,.56) 56%,rgba(24,32,56,.82) 92%,rgba(15,23,42,1) 100%)}
-    .sample-meta{padding:10px 0 0;text-align:center}
-    .sample-tag{font-weight:800}
-
-    /* Expertise 五等分矩形 */
-    .tri-slab{position:relative;border-radius:16px;border:1px solid var(--line);background:var(--card);overflow:hidden;height:clamp(260px,38vw,520px)}
-    .tri-slab::before{content:"";position:absolute;inset:0;background:radial-gradient(115% 150% at 50% 56%,rgba(255,255,255,.82) 0%,rgba(241,248,255,.68) 26%,rgba(190,208,232,.42) 56%,rgba(28,38,64,.84) 92%,rgba(15,23,42,1) 100%);pointer-events:none}
-    .tri-track{position:absolute;inset:0}
-    .slice{position:absolute;top:0;bottom:0;display:grid;place-items:center;color:var(--text);transition:transform .18s ease,filter .18s ease}
-    .slice>span{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-weight:800;letter-spacing:.6px;padding:6px 12px;border-radius:8px;background:rgba(0,0,0,.35);box-shadow:0 4px 12px rgba(0,0,0,.25)}
-    .slice:is(:hover,:focus-visible){transform:translateY(-2px);filter:brightness(1.03)}
-    .slice.team{left:0;right:80%}
-    .slice.rd{left:20%;right:60%}
-    .slice.factory{left:40%;right:40%}
-    .slice.qc{left:60%;right:20%}
-    .slice.store{left:80%;right:0}
-    .slice.team{background-image:
-      linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
-      url("images/samples/factory/Factory Overview1.png");background-position:center center,30% 30%;background-size:auto,cover;background-repeat:no-repeat}
-    .slice.rd{background-image:
-      linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
-      url("images/samples/rd/3D-scaner.PNG");background-position:center center,70% 50%;background-size:auto,cover;background-repeat:no-repeat}
-    .slice.factory{background-image:
-      linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
-      url("images/samples/factory/Lasting & Assembly Workshop1.jpg");background-position:center center,42% 40%;background-size:auto,cover;background-repeat:no-repeat}
-    .slice.qc{background-image:
-      linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
-      url("images/samples/qs/QS1.jpg");background-position:center center,40% 50%;background-size:auto,cover;background-repeat:no-repeat}
-    .slice.store{background-image:
-      linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
-      url("images/samples/storage/3.PNG");background-position:center center,20% 50%;background-size:auto,cover;background-repeat:no-repeat}
-
-    /* Responsibility（园区环境） */
-    #responsibility .resp-grid{display:grid;gap:16px;grid-template-columns:repeat(4,1fr)}
-    @media (max-width:1024px){ #responsibility .resp-grid{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:600px){  #responsibility .resp-grid{grid-template-columns:1fr} }
-    #responsibility .resp-card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-    #responsibility .resp-media{position:relative;aspect-ratio:4/3;background:#0c1426;overflow:hidden}
-    #responsibility .resp-media img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease;cursor:zoom-in}
-    #responsibility .resp-card:hover .resp-media img{transform:scale(1.03)}
-    #responsibility .resp-bd{padding:12px 14px;color:var(--muted)}
-
-    /* Certifications（徽章墙） */
-    #certs .badge-wall{display:grid;gap:16px;grid-template-columns:repeat(3,1fr)}
-    @media (max-width:1024px){ #certs .badge-wall{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:560px){  #certs .badge-wall{grid-template-columns:1fr} }
-    #certs .badge{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;background:var(--card);border:1px solid var(--line);
-      transition:transform .18s ease,filter .18s ease,box-shadow .18s ease}
-    #certs .badge:hover{transform:translateY(-2px);filter:brightness(1.03);box-shadow:0 10px 24px rgba(0,0,0,.25)}
-    #certs .logo-wrap{width:64px;height:64px;border-radius:12px;background:#0c1426;display:grid;place-items:center;flex:0 0 64px;border:1px solid #23314f}
-    #certs .logo-wrap img{max-width:80%;max-height:80%;object-fit:contain}
-    #certs .txt{display:flex;flex-direction:column;gap:2px}
-    #certs .t{font-weight:800;color:var(--text);line-height:1.2}
-    #certs .s{color:var(--muted);font-size:13px}
-
-    /* Info & footer */
+    .card .ph{aspect-ratio:4/3;background:linear-gradient(135deg,#1b2436,#0f1629)}
+    .card .bd{padding:14px 16px;color:var(--muted)}
+    .h2{font-size:28px;margin:0 0 8px}
+    .h3{font-size:18px;margin:0 0 4px}
+    details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+    details+details{margin-top:12px}
+    summary{cursor:pointer;font-weight:700}
+    .logo-wall{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+    .logo{background:#0c1426;border:1px dashed #23314f;border-radius:12px;aspect-ratio:7/3;display:grid;place-items:center;color:#2b3b5f;font-weight:700}
+    .cert{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
     .info{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px}
-    @media (max-width:1024px){ .info{grid-template-columns:1fr} }
     footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;margin-top:40px}
 
-    /* 合规徽章簇（右下角） */
-    .compliance-fab{
-      position:fixed;right:max(12px,env(safe-area-inset-right));bottom:calc(max(12px,env(safe-area-inset-bottom)) + 8px);
-      z-index:40;display:flex;align-items:center;gap:14px;padding:10px 14px;background:rgba(12,18,34,.86);
-      border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 28px rgba(0,0,0,.35);
-      backdrop-filter:saturate(140%) blur(6px);text-decoration:none;color:var(--text);transform:translateZ(0);
-      transition:transform .18s ease,box-shadow .18s ease,filter .18s ease
+    @media (max-width:1024px){
+      .grid.s-3{grid-template-columns:repeat(2,1fr)}
+      .grid.s-4{grid-template-columns:repeat(2,1fr)}
+      .logo-wall{grid-template-columns:repeat(3,1fr)}
+      .info{grid-template-columns:1fr}
+      .title{font-size:32px}
     }
-    .compliance-fab:hover{transform:translateY(-2px);filter:brightness(1.03);box-shadow:0 14px 34px rgba(0,0,0,.4)}
-    .compliance-fab::after{content:"";position:absolute;inset:-6px;border-radius:inherit;border:2px solid rgba(225,29,72,.45);
-      opacity:0;transform:translate(0,0);transition:transform .22s ease,opacity .14s ease;pointer-events:none}
-    .compliance-fab:hover::after{opacity:1;transform:translate(4px,4px)}
-    .compliance-fab .logo{width:64px;height:48px;display:grid;place-items:center;border-radius:12px;background:#0c1426;border:1px solid #23314f;overflow:hidden}
-    .compliance-fab .logo img{max-width:80%;max-height:80%;object-fit:contain;filter:saturate(.96) contrast(1.02)}
-    .compliance-fab .tag{font-weight:800;letter-spacing:.4px;white-space:nowrap}
-    @media (max-width:900px){ .compliance-fab{padding:8px 10px;gap:10px}.compliance-fab .logo{width:56px;height:40px}.compliance-fab .tag{font-size:14px} }
-    @media (max-width:640px){ .compliance-fab{display:none} }
-    @media (prefers-reduced-motion:reduce){ .compliance-fab,.compliance-fab::after{transition:none!important} }
+    @media (max-width:520px){
+      .grid.s-3,.grid.s-4{grid-template-columns:1fr}
+      .logo-wall{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* 红色外边框右下滑出的按钮效果 */
+    .btn-contact{position:relative;z-index:1;border-radius:16px;overflow:visible}
+    .btn-contact::after{
+      content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid #ff3055;opacity:0;transform:translate(0,0);
+      transition:transform .22s ease,opacity .12s ease,border-color .2s ease;z-index:-1}
+    .btn-contact:hover::after{opacity:1;transform:translate(8px,8px)}
+
+    /* Modal */
+    .modal.hidden{ display: none; }
+    .modal{ position: fixed; inset: 0; z-index: 1000; }
+    .modal__backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter: blur(2px);}
+    .modal__panel{ position:relative; margin:8vh auto 0; width:min(920px,92vw); background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px; color:var(--text); box-shadow:0 30px 60px rgba(0,0,0,.35);}
+    .modal__close{ position:absolute; top:12px; right:14px; width:36px; height:36px; border:1px solid var(--line); border-radius:50%; background:var(--ink); color:var(--text); font-size:20px; cursor:pointer;}
+    .modal__grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:28px}
+    .modal__left h2{ font-size:32px; margin:0 0 10px; color:var(--text); }
+    .modal__left p{ color:var(--muted); margin:0; }
+    .modal__form label{ display:block; margin:0 0 14px; font-weight:600; }
+    .modal__form input,.modal__form textarea{ width:100%; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin-top:6px; background:#e5e7eb; color:#0b1020; outline:none;}
+    .modal__form textarea{ min-height:140px; resize:vertical; }
+    .btn-contact.btn-submit{ width:100%; margin-top:6px; }
+    .form-msg{ margin-top:10px; min-height:1.2em; color:var(--muted); }
+    @media (max-width: 860px){ .modal__grid{ grid-template-columns: 1fr; } }
+
+    /* About 文字块微调 */
+    #about.hero{ min-height:auto !important; padding:72px 0 48px !important;}
+    #about .copy{ max-width:56% !important; margin-left:4vw !important;}
+    #about .title{ font-size:clamp(34px,5vw,60px) !important; line-height:1.18 !important; margin:0 0 14px !important;}
+    #about .lead{ font-size:clamp(15px,1.5vw,18px) !important; line-height:1.6 !important; max-width:44ch !important;}
+    @media (max-width:900px){
+      #about.hero{ padding:90px 0 70px !important;}
+      #about .copy{ max-width:100% !important; margin-left:0 !important;}
+      #about .title{ font-size:clamp(28px,6.2vw,44px) !important;}
+      #about .lead{ font-size:clamp(15px,3.4vw,18px) !important;}
+    }
+    #about.hero{ padding-bottom:28px !important;}
+    .bar.container{ margin:16px 0 !important;}
+
+    /* philosophy 卡片图片样式 */
+    .grid-photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+    .card-media{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:12px}
+    .card-media img{width:100%;height:100%;object-fit:cover;display:block}
+    .card-media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.10), transparent)}
+    .card-media::before{content:"";position:absolute;inset:0;border-radius:12px;background:radial-gradient(circle at center, rgba(15,23,42,0) 70%, rgba(15,23,42,0.85) 100%);pointer-events:none;z-index:1}
+    .card-caption{margin-top:10px;color:var(--muted);font-size:14px}
+
+    /* Samples 栅格与卡片 */
+    .sample-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+    @media (max-width:1024px){ .sample-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:600px){ .sample-grid{ grid-template-columns:1fr; } }
+    .sample-card{ position:relative; display:flex; flex-direction:column; gap:8px; border-radius:16px; background:transparent;}
+    .sample-card .ph{ position:relative; aspect-ratio:4/3; display:grid; place-items:center; overflow:hidden; border-radius:16px;
+      background: radial-gradient(115% 150% at 50% 56%, rgba(255,255,255,.92) 0%, rgba(241,248,255,.78) 26%, rgba(190,208,232,.50) 56%, rgba(28,38,64,.86) 92%, rgba(15,23,42,1) 100%);
+      transition: background .24s ease, box-shadow .24s ease; }
+    .sample-card .ph::before{ content:""; position:absolute; inset:0; box-shadow: inset 0 0 120px 14px rgba(8,13,26,.14); pointer-events:none; transition: box-shadow .24s ease;}
+    .sample-card img{ max-width:92%; max-height:92%; object-fit:contain; object-position:center; display:block; margin:auto; position:relative; z-index:1; mix-blend-mode:normal;}
+    .sample-card .ph img[alt="Upper"],a[href*="samples-upper"] .ph img{ max-width:86%; max-height:86%; transform:translateY(-15%);}
+    @media (max-width:1024px){ .sample-card .ph img[alt="Upper"],a[href*="samples-upper"] .ph img{ transform:translateY(-8%);} }
+    @media (max-width:640px){ .sample-card .ph img[alt="Upper"],a[href*="samples-upper"] .ph img{ transform:translateY(-5%);} }
+    .sample-card:hover .ph{ background: radial-gradient(125% 165% at 50% 56%, rgba(255,255,255,.98) 0%, rgba(248,252,255,.90) 26%, rgba(196,214,236,.56) 56%, rgba(24,32,56,.82) 92%, rgba(15,23,42,1) 100%);}
+    .sample-card:hover .ph::before{ box-shadow: inset 0 0 90px 8px rgba(8,13,26,.10);}
+    .sample-meta{ padding:10px 0 0; text-align:center;}
+    .sample-tag{ position:static; transform:none; display:inline-block; margin-top:6px; background:transparent; color:var(--text); font-weight:800; padding:0; border-radius:0; box-shadow:none;}
+
+    /* Expertise 五等分矩形 */
+    .tri-slab{ position:relative; border-radius:16px; border:1px solid var(--line); background:var(--card); overflow:hidden; height:clamp(260px,38vw,520px);}
+    .tri-slab::before{ content:""; position:absolute; inset:0; background: radial-gradient(115% 150% at 50% 56%, rgba(255,255,255,.82) 0%, rgba(241,248,255,.68) 26%, rgba(190,208,232,.42) 56%, rgba(28,38,64,.84) 92%, rgba(15,23,42,1) 100%); pointer-events:none;}
+    .tri-track{ position:absolute; inset:0;}
+    .slice{ position:absolute; top:0; bottom:0; display:grid; place-items:center; cursor:pointer; user-select:none; color:var(--text); text-align:center; outline:none; border:none; background:none; transition: transform .18s ease, filter .18s ease;}
+    .slice > span{ position:absolute; bottom:12px; left:50%; transform:translateX(-50%); font-weight:800; letter-spacing:.6px; padding:6px 12px; border-radius:8px; background:rgba(0,0,0,.35); box-shadow:0 4px 12px rgba(0,0,0,.25); pointer-events:none; line-height:1.2;}
+    .slice::before{ content:""; position:absolute; inset:-1px; pointer-events:none; opacity:0; transition:opacity .22s ease, transform .22s ease;
+      background: radial-gradient(120% 160% at 50% 56%, rgba(255,255,255,.40) 0%, rgba(240,246,255,.28) 26%, rgba(190,208,232,.18) 56%, rgba(24,32,56,.14) 92%, rgba(15,23,42,.16) 100%); box-shadow: inset 0 0 70px 8px rgba(8,13,26,.08); z-index:0;}
+    .slice:is(:hover,:focus-visible)::before{ opacity:1;}
+    .slice:is(:hover,:focus-visible){ transform:translateY(-2px); filter:brightness(1.03);}
+    .slice.team{ left:0; right:80%; }
+    .slice.rd{ left:20%; right:60%;}
+    .slice.factory{ left:40%; right:40%;}
+    .slice.qc{ left:60%; right:20%;}
+    .slice.store{ left:80%; right:0;}
+    .slice.team{
+      background-image:
+        linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
+        url("images/samples/factory/Factory Overview1.png");
+      background-position:center center, 30% 30%; background-size:auto, cover; background-repeat:no-repeat;
+    }
+    .slice.qc{ background: linear-gradient(270deg, rgba(0,0,0,.05), transparent 65%); }
+    .slice.store{ background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02)); }
+    .slice.rd{
+      background-image:
+        linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
+        url("images/samples/rd/3D-scaner.PNG");
+      background-position:center center, 70% 50%; background-size:auto, cover; background-repeat:no-repeat;
+    }
+    .slice.factory{
+      background-image:
+        linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
+        url("images/samples/factory/Lasting & Assembly Workshop1.jpg");
+      background-position:center center, 42% 40%; background-size:auto, cover; background-repeat:no-repeat;
+    }
+    .slice.qc{
+      background-image:
+        linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
+        url("images/samples/qs/QS1.jpg");
+      background-position:center center, 40% 50%; background-size:auto, cover; background-repeat:no-repeat;
+    }
+    .slice.store{
+      background-image:
+        linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
+        url("images/samples/storage/3.PNG");
+      background-position:center center, 20% 50%; background-size:auto, cover; background-repeat:no-repeat;
+    }
+
+    /* —— 自适应分割线：隐藏旧 .bar，给每个 .section 顶部画线 —— */
+    .bar{ display:none !important; }
+    .section{ position: relative; }
+    .section:not(:first-of-type)::before{
+      content:"";
+      display:block;
+      height:1px;
+      background:var(--line);
+      width:min(var(--container), calc(100% - 48px));
+      margin: var(--sepY) auto var(--sepY);
+      transform: translateZ(0);
+    }
   </style>
 </head>
 
 <body>
   <nav class="nav">
     <div class="container row">
-      <div class="brand"><span class="logo">SG</span><span>赛格鞋业 SAIGE Footwear</span></div>
+      <div class="brand">
+        <span class="logo">SG</span>
+        <span>赛格鞋业 SAIGE Footwear</span>
+      </div>
       <div class="menu">
         <a href="#about">Who We Are</a>
         <a href="#samples">Samples</a>
@@ -182,7 +256,9 @@
         <a href="#certs">Certifications</a>
         <a href="#info">Info</a>
       </div>
-      <div class="cta"><a class="btn btn-contact" href="/contact.html">GET IN TOUCH</a></div>
+      <div class="cta">
+        <a class="btn btn-contact" href="/contact.html">GET IN TOUCH</a>
+      </div>
     </div>
   </nav>
 
@@ -190,30 +266,92 @@
   <section id="about" class="hero">
     <div class="container">
       <div class="copy">
-        <h1 class="title">Shoes that last — made with care, shared with the world.<br><span style="color:var(--accent);font-weight:700;">Every Step Counts.</span></h1>
-        <p class="lead">We are defined by high craftsmanship, proven compliance, and true flexibility — a manufacturing partner that delivers quality with responsibility, and adapts to every brand’s vision.</p>
+        <h1 class="title">
+          Shoes that last — made with care, shared with the world.<br>
+          <span style="color:var(--accent);font-weight:700;">Every Step Counts.</span>
+        </h1>
+        <p class="lead">
+          We are defined by high craftsmanship, proven compliance, and true flexibility —
+          a manufacturing partner that delivers quality with responsibility,
+          and adapts to every brand’s vision.
+        </p>
       </div>
       <div class="hero-art" aria-hidden="true">
-        <img src="images/shoe1.png" alt=""><img src="images/shoe2.png" alt=""><img src="images/shoe3.png" alt="">
+        <img src="images/shoe1.png" alt="">
+        <img src="images/shoe2.png" alt="">
+        <img src="images/shoe3.png" alt="">
       </div>
     </div>
   </section>
 
-  <!-- Partners -->
+  <div class="bar container"></div>
+
+  <!-- 合作品牌（统一画布 + 视觉等权） -->
   <section id="partners" class="section">
     <div class="container">
       <h2 class="h2">合作品牌 Brands</h2>
       <p class="lead">我们已与多家国际品牌建立合作，完成授权鞋款生产与交付。</p>
+
       <div class="brand-grid" style="margin-top:18px;">
-        <a class="brand-card" data-brand="hm" href="#" aria-label="H&M"><div class="ph"><img loading="lazy" src="images/samples/brand/1.PNG" alt="H&M"></div></a>
-        <a class="brand-card" data-brand="zara" href="#" aria-label="ZARA"><div class="ph"><img loading="lazy" src="images/samples/brand/2.PNG" alt="ZARA"></div></a>
-        <a class="brand-card" data-brand="pb" href="#" aria-label="Pull&Bear / PB"><div class="ph"><img loading="lazy" src="images/samples/brand/3.PNG" alt="PB"></div></a>
-        <a class="brand-card" data-brand="keds" href="#" aria-label="Keds"><div class="ph"><img loading="lazy" src="images/samples/brand/4.PNG" alt="Keds"></div></a>
-        <a class="brand-card" data-brand="sperry" href="#" aria-label="Sperry"><div class="ph"><img loading="lazy" src="images/samples/brand/5.PNG" alt="Sperry"></div></a>
-        <a class="brand-card" data-brand="dc" href="#" aria-label="DC Shoes"><div class="ph"><img loading="lazy" src="images/samples/brand/6.PNG" alt="DC Shoes"></div></a>
+        <a class="brand-card" data-brand="hm" href="#" aria-label="H&M">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/1.PNG" alt="H&M"></div>
+        </a>
+        <a class="brand-card" data-brand="zara" href="#" aria-label="ZARA">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/2.PNG" alt="ZARA"></div>
+        </a>
+        <a class="brand-card" data-brand="pb" href="#" aria-label="Pull&Bear / PB">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/3.PNG" alt="PB"></div>
+        </a>
+        <a class="brand-card" data-brand="keds" href="#" aria-label="Keds">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/4.PNG" alt="Keds"></div>
+        </a>
+        <a class="brand-card" data-brand="sperry" href="#" aria-label="Sperry">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/5.PNG" alt="Sperry"></div>
+        </a>
+        <a class="brand-card" data-brand="dc" href="#" aria-label="DC Shoes">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/6.PNG" alt="DC Shoes"></div>
+        </a>
       </div>
     </div>
   </section>
+
+  <!-- 合作品牌样式（比例统一/留白统一/自适应 + 视觉等权微调） -->
+  <style>
+    #partners .brand-grid{ display:grid; gap:16px; grid-template-columns:repeat(6,1fr); align-items:stretch }
+    @media (max-width:1024px){ #partners .brand-grid{ grid-template-columns:repeat(3,1fr) } }
+    @media (max-width:520px){  #partners .brand-grid{ grid-template-columns:repeat(2,1fr) } }
+
+    #partners .brand-card{
+      position:relative; display:block; border-radius:16px; overflow:hidden;
+      transition:transform .22s ease, box-shadow .22s ease, filter .22s ease;
+      border:none; background:transparent;
+      --mw:86%; --mh:86%; /* 基准（H&M） */
+    }
+    #partners .brand-card:hover{ transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,.28) }
+
+    #partners .brand-card .ph{
+      position:relative; aspect-ratio:5/3; display:grid; place-items:center;
+      overflow:hidden; border-radius:16px; background:transparent;
+      padding:clamp(10px,8.5%,18px);
+    }
+    #partners .brand-card img{
+      max-width:var(--mw); max-height:var(--mh);
+      object-fit:contain; margin:auto; display:block;
+      filter:saturate(.9) contrast(1);
+      transition:filter .22s ease, transform .22s ease;
+    }
+    #partners .brand-card:hover img{ filter:saturate(1) contrast(1.02); transform:scale(1.035) }
+
+    /* 视觉等权微调（按你反馈） */
+    #partners .brand-card[data-brand="hm"]{ --mw:86%; --mh:86% }     /* 基准 */
+    #partners .brand-card[data-brand="zara"]{ --mw:94%; --mh:94% }   /* 偏小→放大 */
+    #partners .brand-card[data-brand="pb"]{ --mw:75%; --mh:75% }     /* 偏大→缩小 */
+    #partners .brand-card[data-brand="keds"]{ --mw:95%; --mh:95% }   /* 偏小→放大 */
+    #partners .brand-card[data-brand="sperry"]{ --mw:110%; --mh:110% } /* 偏小→放大 */
+    #partners .brand-card[data-brand="dc"]{ --mw:74%; --mh:74% }     /* 偏大→缩小 */
+  </style>
+
+  <div class="bar container"></div>
 
   <!-- Samples -->
   <section id="samples" class="section">
@@ -222,91 +360,236 @@
       <p class="lead">按品类浏览：硫化鞋 · 冷粘鞋 · 授权合作款。</p>
 
       <div class="sample-grid" style="margin-top:18px;">
-        <a class="sample-card" href="samples-vulcanized.html"><div class="ph"><img src="images/samples/vulcanized/page-vulcanized.PNG" alt="Vulcanized"></div><div class="sample-meta"><span class="sample-tag">Vulcanized</span></div></a>
-        <a class="sample-card" href="samples-coldcement.html"><div class="ph"><img src="images/samples/cold_cement/page-cement.PNG" alt="Cold_Cement"></div><div class="sample-meta"><span class="sample-tag">Cold Cement</span></div></a>
-        <a class="sample-card" href="samples-licensed.html"><div class="ph"><img src="images/samples/licensed/page-licensed.PNG" alt="Licensed"></div><div class="sample-meta"><span class="sample-tag">Licensed</span></div></a>
-        <a class="sample-card" href="samples-shoe lasts.html"><div class="ph"><img src="images/samples/lasts/1.PNG" alt="Shoe Lasts"></div><div class="sample-meta"><span class="sample-tag">Shoe Lasts</span></div></a>
-        <a class="sample-card" href="samples-sole.html"><div class="ph"><img src="images/samples/sole/1.PNG" alt="Sole"></div><div class="sample-meta"><span class="sample-tag">Sole</span></div></a>
-        <a class="sample-card" href="samples-upper.html"><div class="ph"><img src="images/samples/upper/upper.PNG" alt="Upper"></div><div class="sample-meta"><span class="sample-tag">Upper</span></div></a>
+        <a class="sample-card" href="samples-vulcanized.html" aria-label="硫化鞋">
+          <div class="ph"><img src="images/samples/vulcanized/page-vulcanized.PNG" alt="Vulcanized"></div>
+          <div class="sample-meta"><span class="sample-tag">Vulcanized</span></div>
+        </a>
+        <a class="sample-card" href="samples-coldcement.html" aria-label="冷粘鞋">
+          <div class="ph"><img src="images/samples/cold_cement/page-cement.PNG" alt="Cold_Cement"></div>
+          <div class="sample-meta"><span class="sample-tag">Cold Cement</span></div>
+        </a>
+        <a class="sample-card" href="samples-licensed.html" aria-label="授权合作款">
+          <div class="ph"><img src="images/samples/licensed/page-licensed.PNG" alt="Licensed"></div>
+          <div class="sample-meta"><span class="sample-tag">Licensed</span></div>
+        </a>
+        <a class="sample-card" href="samples-shoe lasts.html" aria-label="鞋楦">
+          <div class="ph"><img src="images/samples/lasts/1.PNG" alt="Shoe Lasts"></div>
+          <div class="sample-meta"><span class="sample-tag">Shoe Lasts</span></div>
+        </a>
+        <a class="sample-card" href="samples-sole.html" aria-label="大底">
+          <div class="ph"><img src="images/samples/sole/1.PNG" alt="Sole"></div>
+          <div class="sample-meta"><span class="sample-tag">Sole</span></div>
+        </a>
+        <a class="sample-card" href="samples-upper.html" aria-label="帮面">
+          <div class="ph"><img src="images/samples/upper/upper.PNG" alt="Upper"></div>
+          <div class="sample-meta"><span class="sample-tag">Upper</span></div>
+        </a>
       </div>
     </div>
   </section>
+
+  <div class="bar container"></div>
 
   <!-- Expertise -->
   <section id="expertise" class="section">
     <div class="container">
       <h2 class="h2">我们的专业性 Expertise</h2>
       <p class="lead">懂产品的国际团队作前台 · 研发为核心 · 稳定产能做背书。点击任一板块了解详情。</p>
+
       <div class="tri-slab" style="margin-top:16px;">
         <div class="tri-track">
-          <a class="slice team"    href="expertise-team.html"><span>WHO WE ARE</span></a>
-          <a class="slice rd"      href="expertise-rd.html"><span>R&amp;D</span></a>
-          <a class="slice factory" href="expertise-factory.html"><span>FACTORY</span></a>
-          <a class="slice qc"      href="expertise-qc.html"><span>QC</span></a>
-          <a class="slice store"   href="expertise-store.html"><span>STORE &amp; SHIPPING</span></a>
+          <a class="slice team"    href="expertise-team.html"     aria-label="关于我们"><span>WHO WE ARE</span></a>
+          <a class="slice rd"      href="expertise-rd.html"       aria-label="研发中心"><span>R&amp;D</span></a>
+          <a class="slice factory" href="expertise-factory.html"  aria-label="工厂与制造"><span>FACTORY</span></a>
+          <a class="slice qc"      href="expertise-qc.html"       aria-label="质量控制"><span>QC</span></a>
+          <a class="slice store"   href="expertise-store.html"    aria-label="仓储与物流"><span>STORE &amp; SHIPPING</span></a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Responsibility（仅环境与员工关怀） -->
-  <section id="responsibility" class="section">
-    <div class="container">
-      <h2 class="h2">Responsibility · 可持续与合规</h2>
-      <p class="lead">我们以环保与员工关怀为核心，保持整洁有序的园区环境，并通过第三方审核与机制持续改进。</p>
+  <div class="bar container"></div>
 
-      <div class="resp-grid" style="margin-top:16px">
-        <article class="resp-card"><div class="resp-media"><img class="zoomable" src="images/samples/landscape/1.PNG" alt="Tree-lined Avenue · Factory Campus"></div><div class="resp-bd">Tree-lined Avenue · 厂区绿化</div></article>
-        <article class="resp-card"><div class="resp-media"><img class="zoomable" src="images/samples/landscape/2.PNG" alt="Campus Road & Landscape"></div><div class="resp-bd">Campus Road · 景观与通透采光</div></article>
-        <article class="resp-card"><div class="resp-media"><img class="zoomable" src="images/samples/landscape/4.PNG" alt="Landscape & Green Belts"></div><div class="resp-bd">Landscape · 绿篱与景观石</div></article>
-        <article class="resp-card"><div class="resp-media"><img class="zoomable" src="images/samples/landscape/5.PNG" alt="Environmental Equipment"></div><div class="resp-bd">Landscape · 环保设备</div></article>
+<!-- Responsibility · 可持续与合规（仅环境与员工关怀） -->
+<section id="responsibility" class="section">
+  <div class="container">
+    <h2 class="h2">Responsibility · 可持续与合规</h2>
+    <p class="lead">我们以环保与员工关怀为核心，保持整洁有序的园区环境，并通过第三方审核与机制持续改进。</p>
+
+    <!-- 园区环境 / 设施 -->
+    <div class="resp-grid" style="margin-top:16px">
+      <article class="resp-card">
+        <div class="resp-media"><img class="zoomable" src="images/samples/landscape/1.PNG" alt="Tree-lined Avenue · Factory Campus"></div>
+        <div class="resp-bd">Tree-lined Avenue · 厂区绿化</div>
+      </article>
+      <article class="resp-card">
+        <div class="resp-media"><img class="zoomable" src="images/samples/landscape/2.PNG" alt="Campus Road & Landscape"></div>
+        <div class="resp-bd">Campus Road · 景观与通透采光</div>
+      </article>
+      <article class="resp-card">
+        <div class="resp-media"><img class="zoomable" src="images/samples/landscape/4.PNG" alt="Landscape & Green Belts"></div>
+        <div class="resp-bd">Landscape · 绿篱与景观石</div>
+      </article>
+      <article class="resp-card">
+        <div class="resp-media"><img class="zoomable" src="images/samples/landscape/5.PNG" alt="Environmental Equipment"></div>
+        <div class="resp-bd">Landscape · 环保设备</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 只影响本区块的轻量样式 -->
+<style>
+  #responsibility .resp-grid{ display:grid; gap:16px; grid-template-columns:repeat(4,1fr); }
+  @media (max-width:1024px){ #responsibility .resp-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){  #responsibility .resp-grid{ grid-template-columns:1fr; } }
+
+  #responsibility .resp-card{ background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  #responsibility .resp-media{ position:relative; aspect-ratio:4/3; background:#0c1426; overflow:hidden; }
+  #responsibility .resp-media img{ width:100%; height:100%; object-fit:cover; display:block; transition: transform .35s ease; cursor:zoom-in; }
+  #responsibility .resp-card:hover .resp-media img{ transform: scale(1.03); }
+  #responsibility .resp-bd{ padding:12px 14px; color:var(--muted); }
+</style>
+
+<!-- 预览弹窗（用于上面的园区图） -->
+<dialog id="respLightbox" style="border:none;padding:0;background:transparent">
+  <div class="lb-panel" style="position:relative;margin:auto;width:min(1100px,92vw);background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.35);">
+    <button class="lb-close" aria-label="Close" style="position:absolute;top:10px;right:12px;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:var(--ink);color:var(--text);font-size:22px;line-height:1;cursor:pointer;z-index:5;">×</button>
+    <div class="lb-stage" style="position:relative;border-radius:14px;display:flex;align-items:center;justify-content:center;height:min(82vh,92vw);width:100%;background:radial-gradient(115% 150% at 50% 56%,rgba(255,255,255,.92) 0%,rgba(241,248,255,.78) 26%,rgba(190,208,232,.50) 56%,rgba(28,38,64,.86) 92%,rgba(15,23,42,1) 100%);">
+      <img id="respLightboxImg" src="" alt="" style="max-width:98%;max-height:98%;object-fit:contain">
+    </div>
+  </div>
+</dialog>
+<style> dialog#respLightbox::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); } </style>
+<script>
+  (function(){
+    const dlg = document.getElementById('respLightbox');
+    const img = document.getElementById('respLightboxImg');
+    const btnClose = dlg.querySelector('.lb-close');
+
+    function openDlg(url, alt){
+      img.src = url; img.alt = alt || 'Preview';
+      if (typeof dlg.showModal === 'function') dlg.showModal();
+      else dlg.setAttribute('open','');
+    }
+    function closeDlg(){
+      img.src = '';
+      if (typeof dlg.close === 'function') dlg.close();
+      else dlg.removeAttribute('open');
+    }
+    document.addEventListener('click', (e)=>{
+      const t = e.target.closest('#responsibility .zoomable');
+      if (!t) return;
+      e.preventDefault();
+      openDlg(t.getAttribute('src'), t.getAttribute('alt'));
+    });
+    dlg.addEventListener('click', (e)=>{ if (e.target === dlg) closeDlg(); });
+    btnClose.addEventListener('click', (e)=>{ e.stopPropagation(); closeDlg(); });
+    document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape' && (dlg.open || dlg.hasAttribute('open'))) closeDlg(); });
+  })();
+</script>
+
+
+
+  <!-- Certifications · 核心认证（徽章墙样式 / 无大图证书） -->
+<section id="certs" class="section">
+  <div class="container">
+    <h2 class="h2">Certifications · 核心认证</h2>
+    <p class="lead">遵循主流国际标准与审计体系，以下为我们已建立并可复核的合规要点（示例，支持替换为你自有 Logo）。</p>
+
+    <div class="badge-wall" style="margin-top:14px">
+      <!-- Higg FSLM -->
+      <div class="badge">
+        <div class="logo-wrap"><img src="images/badges/higg-index.svg" alt="Higg Index"></div>
+        <div class="txt">
+          <div class="t">Higg FSLM · Verified</div>
+          <div class="s">社会与劳工管理（Intertek）</div>
+        </div>
+      </div>
+
+      <!-- RCS Scope -->
+      <div class="badge">
+        <div class="logo-wrap"><img src="images/badges/rcs.svg" alt="RCS"></div>
+        <div class="txt">
+          <div class="t">RCS Scope</div>
+          <div class="s">再生含量链条覆盖（Footwear；BV）</div>
+        </div>
+      </div>
+
+      <!-- ISO 9001 -->
+      <div class="badge">
+        <div class="logo-wrap"><img src="images/badges/iso9001.svg" alt="ISO 9001:2015"></div>
+        <div class="txt">
+          <div class="t">ISO 9001:2015</div>
+          <div class="s">质量管理体系</div>
+        </div>
+      </div>
+
+      <!-- Higg FEM（可选） -->
+      <div class="badge">
+        <div class="logo-wrap"><img src="images/badges/higg-fem.svg" alt="Higg FEM"></div>
+        <div class="txt">
+          <div class="t">Higg FEM</div>
+          <div class="s">环境模块（按项目年度更新）</div>
+        </div>
+      </div>
+
+      <!-- Fair Trade（示例，占位） -->
+      <div class="badge">
+        <div class="logo-wrap"><img src="images/badges/fair-trade.svg" alt="Fair Trade"></div>
+        <div class="txt">
+          <div class="t">Fair Trade</div>
+          <div class="s">按品牌项目对接</div>
+        </div>
+      </div>
+
+      <!-- GRS（示例，占位） -->
+      <div class="badge">
+        <div class="logo-wrap"><img src="images/badges/grs.svg" alt="GRS"></div>
+        <div class="txt">
+          <div class="t">GRS · Statement</div>
+          <div class="s">按供应链闭环配合</div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- 预览弹窗（园区图） -->
-  <dialog id="respLightbox" style="border:none;padding:0;background:transparent">
-    <div class="lb-panel" style="position:relative;margin:auto;width:min(1100px,92vw);background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.35);">
-      <button class="lb-close" aria-label="Close" style="position:absolute;top:10px;right:12px;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:var(--ink);color:var(--text);font-size:22px;line-height:1;cursor:pointer;z-index:5;">×</button>
-      <div class="lb-stage" style="position:relative;border-radius:14px;display:flex;align-items:center;justify-content:center;height:min(82vh,92vw);width:100%;
-        background:radial-gradient(115% 150% at 50% 56%,rgba(255,255,255,.92) 0%,rgba(241,248,255,.78) 26%,rgba(190,208,232,.50) 56%,rgba(28,38,64,.86) 92%,rgba(15,23,42,1) 100%);">
-        <img id="respLightboxImg" src="" alt="" style="max-width:98%;max-height:98%;object-fit:contain">
-      </div>
+    <div style="margin-top:12px">
+      <a class="btn btn-contact" href="contact.html">Request Compliance Pack →</a>
     </div>
-  </dialog>
-  <style> dialog#respLightbox::backdrop{background:rgba(0,0,0,.55);backdrop-filter:blur(2px)} </style>
-  <script>
-    (function(){
-      const dlg=document.getElementById('respLightbox');
-      const img=document.getElementById('respLightboxImg');
-      const btnClose=dlg.querySelector('.lb-close');
-      function openDlg(url,alt){ img.src=url; img.alt=alt||'Preview'; if(typeof dlg.showModal==='function') dlg.showModal(); else dlg.setAttribute('open',''); }
-      function closeDlg(){ img.src=''; if(typeof dlg.close==='function') dlg.close(); else dlg.removeAttribute('open'); }
-      document.addEventListener('click',(e)=>{ const t=e.target.closest('#responsibility .zoomable'); if(!t) return; e.preventDefault(); openDlg(t.src,t.alt); });
-      dlg.addEventListener('click',(e)=>{ if(e.target===dlg) closeDlg(); });
-      btnClose.addEventListener('click',(e)=>{ e.stopPropagation(); closeDlg(); });
-      document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'&&(dlg.open||dlg.hasAttribute('open'))) closeDlg(); });
-    })();
-  </script>
+  </div>
+</section>
 
-  <!-- Certifications · 核心认证（徽章墙样式） -->
-  <section id="certs" class="section">
-    <div class="container">
-      <h2 class="h2">Certifications · 核心认证</h2>
-      <p class="lead">遵循主流国际标准与审计体系，以下为我们已建立并可复核的合规要点（示例，支持替换为你自有 Logo）。</p>
+<!-- 样式：徽章墙（参考 charminggroup 右下角“合规”风格） -->
+<style>
+  #certs .badge-wall{
+    display:grid; gap:16px;
+    grid-template-columns:repeat(3,1fr);
+  }
+  @media (max-width:1024px){ #certs .badge-wall{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){  #certs .badge-wall{ grid-template-columns:1fr; } }
 
-      <div class="badge-wall" style="margin-top:14px">
-        <div class="badge"><div class="logo-wrap"><img src="images/badges/higg-index.svg" alt="Higg Index"></div><div class="txt"><div class="t">Higg FSLM · Verified</div><div class="s">社会与劳工管理（Intertek）</div></div></div>
-        <div class="badge"><div class="logo-wrap"><img src="images/badges/rcs.svg" alt="RCS"></div><div class="txt"><div class="t">RCS Scope</div><div class="s">再生含量链条覆盖（Footwear；BV）</div></div></div>
-        <div class="badge"><div class="logo-wrap"><img src="images/badges/iso9001.svg" alt="ISO 9001"></div><div class="txt"><div class="t">ISO 9001:2015</div><div class="s">质量管理体系</div></div></div>
-        <div class="badge"><div class="logo-wrap"><img src="images/badges/higg-fem.svg" alt="Higg FEM"></div><div class="txt"><div class="t">Higg FEM</div><div class="s">环境模块（按项目年度更新）</div></div></div>
-        <div class="badge"><div class="logo-wrap"><img src="images/badges/fair-trade.svg" alt="Fair Trade"></div><div class="txt"><div class="t">Fair Trade</div><div class="s">按品牌项目对接</div></div></div>
-        <div class="badge"><div class="logo-wrap"><img src="images/badges/grs.svg" alt="GRS"></div><div class="txt"><div class="t">GRS · Statement</div><div class="s">按供应链闭环配合</div></div></div>
-      </div>
+  #certs .badge{
+    display:flex; align-items:center; gap:14px;
+    padding:14px 16px; border-radius:14px;
+    background:var(--card); border:1px solid var(--line);
+    transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+  }
+  #certs .badge:hover{ transform:translateY(-2px); filter:brightness(1.03); box-shadow:0 10px 24px rgba(0,0,0,.25); }
 
-      <div style="margin-top:12px"><a class="btn btn-contact" href="contact.html">Request Compliance Pack →</a></div>
-    </div>
-  </section>
+  #certs .logo-wrap{
+    width:64px; height:64px; border-radius:12px;
+    background:#0c1426; display:grid; place-items:center; flex:0 0 64px;
+    border:1px solid #23314f;
+  }
+  #certs .logo-wrap img{ max-width:80%; max-height:80%; object-fit:contain; display:block; }
+
+  #certs .txt{ display:flex; flex-direction:column; gap:2px; }
+  #certs .t{ font-weight:800; color:var(--text); line-height:1.2; }
+  #certs .s{ color:var(--muted); font-size:13px; }
+</style>
+
+
+  
 
   <!-- Info -->
   <section id="info" class="section">
@@ -330,18 +613,81 @@
     </div>
   </section>
 
-  <footer><div class="container">© <span id="y"></span> SAIGE Footwear · All rights reserved.</div></footer>
+  <footer>
+    <div class="container">© <span id="y"></span> SAIGE Footwear · All rights reserved.</div>
+  </footer>
 
-  <!-- 右下角 · 合规徽章簇（点击跳到 #certs） -->
-  <a class="compliance-fab" href="#certs" aria-label="查看我们的合规体系（Higg / Fair Trade / ISO 等）">
-    <span class="logo" aria-hidden="true"><img src="images/badges/higg-index.svg" alt="Higg Index"></span>
-    <span class="logo" aria-hidden="true"><img src="images/badges/fair-trade.svg" alt="Fair Trade Certified"></span>
-    <span class="tag">Compliant Manufacturing</span>
-  </a>
+  <!-- Contact Modal（占位逻辑，可接入表单服务） -->
+  <div id="contactModal" class="modal hidden" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+      <button class="modal__close" aria-label="Close" data-close>×</button>
+      <div class="modal__grid">
+        <div class="modal__left">
+          <h2 id="contactTitle">Get In Touch</h2>
+          <p>We’d love to discuss your production needs and answer your questions.</p>
+        </div>
+        <form id="contactForm" class="modal__form" novalidate>
+          <label>Full Name (Required)
+            <input type="text" name="name" required />
+          </label>
+          <label>Email (Required)
+            <input type="email" name="email" required />
+          </label>
+          <label>Message (Required)
+            <textarea name="message" required></textarea>
+          </label>
+          <button type="submit" class="btn btn-contact btn-submit">CONTACT US</button>
+          <p id="formMsg" class="form-msg" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <script>
-    // 年份
-    document.getElementById('y').textContent = new Date().getFullYear();
+    (function(){
+      const btn = document.getElementById('contactBtn');
+      const modal = document.getElementById('contactModal');
+      const form = document.getElementById('contactForm');
+      const msg = document.getElementById('formMsg');
+
+      function openModal(){ modal.classList.remove('hidden'); document.body.style.overflow='hidden'; }
+      function closeModal(){ modal.classList.add('hidden'); document.body.style.overflow=''; }
+
+      btn?.addEventListener('click', function(e){ e.preventDefault(); openModal(); });
+      modal?.addEventListener('click', (e)=>{ if (e.target.hasAttribute('data-close')) closeModal(); });
+      document.addEventListener('keydown',(e)=>{ if (e.key==='Escape' && !modal.classList.contains('hidden')) closeModal(); });
+
+      const ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_YOURS';
+      form?.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const payload = {
+          name: form.name.value.trim(),
+          email: form.email.value.trim(),
+          message: form.message.value.trim()
+        };
+        if(!payload.name || !payload.email || !payload.message){
+          msg.textContent = 'Please fill in all required fields.'; return;
+        }
+        msg.textContent = 'Sending...';
+        try{
+          const res = await fetch(ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if(!res.ok) throw new Error('Network error');
+          msg.textContent = 'Thanks! Your message has been sent.';
+          form.reset();
+          setTimeout(closeModal, 900);
+        }catch(err){
+          console.error(err);
+          msg.textContent = 'Send failed. Please try again.';
+        }
+      });
+    })();
+
+    document.getElementById('y').textContent = new Date().getFullYear()
   </script>
 </body>
 </html>
