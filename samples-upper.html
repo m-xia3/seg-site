@@ -81,20 +81,20 @@
 
     /* 1 / 4 / 7：第4张再单独调 —— 稍微小一点并上移 6% */
     .gallery .item:nth-child(1){ --scale:0.88; --shift-y:-10%; }
-    .gallery .item:nth-child(4){ --scale:0.82; --shift-y:-6%; }  /* 关键：抬高 */
+    .gallery .item:nth-child(4){ --scale:0.82; --shift-y:-14%; }  /* 关键：抬高 */
     .gallery .item:nth-child(7){ --scale:0.88; --shift-y:-10%; }
 
     /* 平板端：位移回到 0，仍略小于其它 */
     @media (max-width:1024px){
       .gallery .item:nth-child(1){ --scale:0.90; --shift-y:3%; }
-      .gallery .item:nth-child(4){ --scale:0.86; --shift-y:0%; }
+      .gallery .item:nth-child(4){ --scale:0.86; --shift-y:-6%; }
       .gallery .item:nth-child(7){ --scale:0.90; --shift-y:3%; }
     }
 
     /* 手机端：统一视觉，轻度缩小即可 */
     @media (max-width:640px){
       .gallery .item:nth-child(1){ --scale:0.92; --shift-y:2%; }
-      .gallery .item:nth-child(4){ --scale:0.90; --shift-y:0%; }
+      .gallery .item:nth-child(4){ --scale:0.90; --shift-y:-6%; }
       .gallery .item:nth-child(7){ --scale:0.92; --shift-y:2%; }
     }
 
