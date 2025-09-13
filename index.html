@@ -411,96 +411,23 @@
 
   <div class="bar container"></div>
 
-<!-- Responsibility · 可持续与合规（仅环境与员工关怀） -->
-<section id="responsibility" class="section">
+<!-- What We Care · 我们在乎的事（合并：环境/工作环境/认证，以徽章表达） -->
+<section id="care" class="section">
   <div class="container">
-    <h2 class="h2">Responsibility · 可持续与合规</h2>
-    <p class="lead">我们以环保与员工关怀为核心，保持整洁有序的园区环境，并通过第三方审核与机制持续改进。</p>
+    <h2 class="h2">What We Care · 我们在乎的事</h2>
+    <p class="lead">Environment（环境） · Workplace（工作环境） · Compliance（认证与审核）。用数据与第三方标准，而不是“口号”。</p>
 
-    <!-- 园区环境 / 设施 -->
-    <div class="resp-grid" style="margin-top:16px">
-      <article class="resp-card">
-        <div class="resp-media"><img class="zoomable" src="images/samples/landscape/1.PNG" alt="Tree-lined Avenue · Factory Campus"></div>
-        <div class="resp-bd">Tree-lined Avenue · 厂区绿化</div>
-      </article>
-      <article class="resp-card">
-        <div class="resp-media"><img class="zoomable" src="images/samples/landscape/2.PNG" alt="Campus Road & Landscape"></div>
-        <div class="resp-bd">Campus Road · 景观与通透采光</div>
-      </article>
-      <article class="resp-card">
-        <div class="resp-media"><img class="zoomable" src="images/samples/landscape/4.PNG" alt="Landscape & Green Belts"></div>
-        <div class="resp-bd">Landscape · 绿篱与景观石</div>
-      </article>
-      <article class="resp-card">
-        <div class="resp-media"><img class="zoomable" src="images/samples/landscape/5.PNG" alt="Environmental Equipment"></div>
-        <div class="resp-bd">Landscape · 环保设备</div>
-      </article>
+    <!-- 顶部三类“胶囊”：环境 / 工作环境 / 认证 -->
+    <div class="care-pills" style="margin-top:10px">
+      <span class="pill">Environment</span>
+      <span class="pill">Workplace</span>
+      <span class="pill">Compliance</span>
     </div>
-  </div>
-</section>
 
-<!-- 只影响本区块的轻量样式 -->
-<style>
-  #responsibility .resp-grid{ display:grid; gap:16px; grid-template-columns:repeat(4,1fr); }
-  @media (max-width:1024px){ #responsibility .resp-grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:600px){  #responsibility .resp-grid{ grid-template-columns:1fr; } }
-
-  #responsibility .resp-card{ background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
-  #responsibility .resp-media{ position:relative; aspect-ratio:4/3; background:#0c1426; overflow:hidden; }
-  #responsibility .resp-media img{ width:100%; height:100%; object-fit:cover; display:block; transition: transform .35s ease; cursor:zoom-in; }
-  #responsibility .resp-card:hover .resp-media img{ transform: scale(1.03); }
-  #responsibility .resp-bd{ padding:12px 14px; color:var(--muted); }
-</style>
-
-<!-- 预览弹窗（用于上面的园区图） -->
-<dialog id="respLightbox" style="border:none;padding:0;background:transparent">
-  <div class="lb-panel" style="position:relative;margin:auto;width:min(1100px,92vw);background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.35);">
-    <button class="lb-close" aria-label="Close" style="position:absolute;top:10px;right:12px;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:var(--ink);color:var(--text);font-size:22px;line-height:1;cursor:pointer;z-index:5;">×</button>
-    <div class="lb-stage" style="position:relative;border-radius:14px;display:flex;align-items:center;justify-content:center;height:min(82vh,92vw);width:100%;background:radial-gradient(115% 150% at 50% 56%,rgba(255,255,255,.92) 0%,rgba(241,248,255,.78) 26%,rgba(190,208,232,.50) 56%,rgba(28,38,64,.86) 92%,rgba(15,23,42,1) 100%);">
-      <img id="respLightboxImg" src="" alt="" style="max-width:98%;max-height:98%;object-fit:contain">
-    </div>
-  </div>
-</dialog>
-<style> dialog#respLightbox::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); } </style>
-<script>
-  (function(){
-    const dlg = document.getElementById('respLightbox');
-    const img = document.getElementById('respLightboxImg');
-    const btnClose = dlg.querySelector('.lb-close');
-
-    function openDlg(url, alt){
-      img.src = url; img.alt = alt || 'Preview';
-      if (typeof dlg.showModal === 'function') dlg.showModal();
-      else dlg.setAttribute('open','');
-    }
-    function closeDlg(){
-      img.src = '';
-      if (typeof dlg.close === 'function') dlg.close();
-      else dlg.removeAttribute('open');
-    }
-    document.addEventListener('click', (e)=>{
-      const t = e.target.closest('#responsibility .zoomable');
-      if (!t) return;
-      e.preventDefault();
-      openDlg(t.getAttribute('src'), t.getAttribute('alt'));
-    });
-    dlg.addEventListener('click', (e)=>{ if (e.target === dlg) closeDlg(); });
-    btnClose.addEventListener('click', (e)=>{ e.stopPropagation(); closeDlg(); });
-    document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape' && (dlg.open || dlg.hasAttribute('open'))) closeDlg(); });
-  })();
-</script>
-
-
-
-  <!-- Certifications · 核心认证（徽章墙样式 / 无大图证书） -->
-<section id="certs" class="section">
-  <div class="container">
-    <h2 class="h2">Certifications · 核心认证</h2>
-    <p class="lead">遵循主流国际标准与审计体系，以下为我们已建立并可复核的合规要点（示例，支持替换为你自有 Logo）。</p>
-
-    <div class="badge-wall" style="margin-top:14px">
+    <!-- 认证徽章墙（直接复用你原先的徽章资源） -->
+    <div class="care-badge-wall" style="margin-top:16px">
       <!-- Higg FSLM -->
-      <div class="badge">
+      <div class="care-badge">
         <div class="logo-wrap"><img src="images/badges/higg-index.svg" alt="Higg Index"></div>
         <div class="txt">
           <div class="t">Higg FSLM · Verified</div>
@@ -509,7 +436,7 @@
       </div>
 
       <!-- RCS Scope -->
-      <div class="badge">
+      <div class="care-badge">
         <div class="logo-wrap"><img src="images/badges/rcs.svg" alt="RCS"></div>
         <div class="txt">
           <div class="t">RCS Scope</div>
@@ -518,77 +445,79 @@
       </div>
 
       <!-- ISO 9001 -->
-      <div class="badge">
+      <div class="care-badge">
         <div class="logo-wrap"><img src="images/badges/iso9001.svg" alt="ISO 9001:2015"></div>
         <div class="txt">
           <div class="t">ISO 9001:2015</div>
-          <div class="s">质量管理体系</div>
+          <div class="s">质量管理体系（设计与生产）</div>
         </div>
       </div>
 
       <!-- Higg FEM（可选） -->
-      <div class="badge">
+      <div class="care-badge">
         <div class="logo-wrap"><img src="images/badges/higg-fem.svg" alt="Higg FEM"></div>
         <div class="txt">
           <div class="t">Higg FEM</div>
-          <div class="s">环境模块（按项目年度更新）</div>
+          <div class="s">环境模块（年度项目）</div>
         </div>
       </div>
 
-      <!-- Fair Trade（示例，占位） -->
-      <div class="badge">
-        <div class="logo-wrap"><img src="images/badges/fair-trade.svg" alt="Fair Trade"></div>
-        <div class="txt">
-          <div class="t">Fair Trade</div>
-          <div class="s">按品牌项目对接</div>
-        </div>
-      </div>
-
-      <!-- GRS（示例，占位） -->
-      <div class="badge">
+      <!-- 你还可继续添加其他徽章（GRS / Fair Trade / 品牌年审等） -->
+      <div class="care-badge">
         <div class="logo-wrap"><img src="images/badges/grs.svg" alt="GRS"></div>
         <div class="txt">
           <div class="t">GRS · Statement</div>
-          <div class="s">按供应链闭环配合</div>
+          <div class="s">按供应链闭环配合（示例）</div>
         </div>
       </div>
     </div>
 
+    <!-- CTA：需要合规资料包 -->
     <div style="margin-top:12px">
       <a class="btn btn-contact" href="contact.html">Request Compliance Pack →</a>
     </div>
   </div>
 </section>
 
-<!-- 样式：徽章墙（参考 charminggroup 右下角“合规”风格） -->
+<!-- 只影响 #care 的样式 -->
 <style>
-  #certs .badge-wall{
+  /* 胶囊（Environment / Workplace / Compliance） */
+  #care .care-pills{ display:flex; flex-wrap:wrap; gap:8px; }
+  #care .care-pills .pill{
+    padding:6px 10px; border:1px solid var(--line); background:var(--card);
+    border-radius:999px; font-weight:800; color:var(--text);
+  }
+
+  /* 徽章墙（3列→2列→1列响应式） */
+  #care .care-badge-wall{
     display:grid; gap:16px;
     grid-template-columns:repeat(3,1fr);
   }
-  @media (max-width:1024px){ #certs .badge-wall{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:560px){  #certs .badge-wall{ grid-template-columns:1fr; } }
+  @media (max-width:1024px){ #care .care-badge-wall{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){  #care .care-badge-wall{ grid-template-columns:1fr; } }
 
-  #certs .badge{
+  /* 单个徽章卡 */
+  #care .care-badge{
     display:flex; align-items:center; gap:14px;
     padding:14px 16px; border-radius:14px;
     background:var(--card); border:1px solid var(--line);
     transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
   }
-  #certs .badge:hover{ transform:translateY(-2px); filter:brightness(1.03); box-shadow:0 10px 24px rgba(0,0,0,.25); }
+  #care .care-badge:hover{ transform:translateY(-2px); filter:brightness(1.03); box-shadow:0 10px 24px rgba(0,0,0,.25); }
 
-  #certs .logo-wrap{
+  /* 徽章左侧小图标容器 */
+  #care .logo-wrap{
     width:64px; height:64px; border-radius:12px;
     background:#0c1426; display:grid; place-items:center; flex:0 0 64px;
     border:1px solid #23314f;
   }
-  #certs .logo-wrap img{ max-width:80%; max-height:80%; object-fit:contain; display:block; }
+  #care .logo-wrap img{ max-width:80%; max-height:80%; object-fit:contain; display:block; }
 
-  #certs .txt{ display:flex; flex-direction:column; gap:2px; }
-  #certs .t{ font-weight:800; color:var(--text); line-height:1.2; }
-  #certs .s{ color:var(--muted); font-size:13px; }
+  /* 徽章文字 */
+  #care .txt{ display:flex; flex-direction:column; gap:2px; }
+  #care .txt .t{ font-weight:800; color:var(--text); line-height:1.2; }
+  #care .txt .s{ color:var(--muted); font-size:13px; }
 </style>
-
 
   
 
