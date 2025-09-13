@@ -411,116 +411,157 @@
 
   <div class="bar container"></div>
 
-<!-- What We Care · 我们在乎的事（合并：环境/工作环境/认证，以徽章表达） -->
+<!-- What We Care · 我们在乎的事（3 个动态徽章版） -->
 <section id="care" class="section">
   <div class="container">
     <h2 class="h2">What We Care · 我们在乎的事</h2>
-    <p class="lead">Environment（环境） · Workplace（工作环境） · Compliance（认证与审核）。用数据与第三方标准，而不是“口号”。</p>
+    <p class="lead">People · Plant · Proof。以人为本、以厂为本、以可验证的合规为本。</p>
 
-    <!-- 顶部三类“胶囊”：环境 / 工作环境 / 认证 -->
-    <div class="care-pills" style="margin-top:10px">
-      <span class="pill">Environment</span>
-      <span class="pill">Workplace</span>
-      <span class="pill">Compliance</span>
+    <div class="care-tiles" style="margin-top:16px">
+      <!-- Our People -->
+      <a class="care-badge-xl" href="care-people.html" aria-label="Our People">
+        <div class="ico">
+          <!-- 动画：三个人像轻微上下浮动 + 光环呼吸 -->
+          <svg viewBox="0 0 120 120" width="84" height="84" aria-hidden="true">
+            <defs>
+              <linearGradient id="g-peo" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#60a5fa"/>
+                <stop offset="1" stop-color="#a78bfa"/>
+              </linearGradient>
+            </defs>
+            <!-- 背景光环 -->
+            <circle cx="60" cy="60" r="46" fill="none" stroke="url(#g-peo)" stroke-width="2" opacity=".28">
+              <animate attributeName="r" values="42;46;42" dur="3.2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values=".18;.28;.18" dur="3.2s" repeatCount="indefinite"/>
+            </circle>
+            <!-- 三个头像 -->
+            <g style="transform-origin:60px 60px; animation: floatY 3s ease-in-out infinite;">
+              <circle cx="40" cy="52" r="10" fill="url(#g-peo)"/>
+              <rect x="31" y="62" rx="8" ry="8" width="18" height="16" fill="url(#g-peo)"/>
+              <circle cx="80" cy="52" r="10" fill="url(#g-peo)"/>
+              <rect x="71" y="62" rx="8" ry="8" width="18" height="16" fill="url(#g-peo)"/>
+              <circle cx="60" cy="44" r="12" fill="url(#g-peo)"/>
+              <rect x="48" y="56" rx="10" ry="10" width="24" height="22" fill="url(#g-peo)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="txt">
+          <div class="t">Our People</div>
+          <div class="s">安全 · 尊重 · 高效沟通与快速响应</div>
+        </div>
+      </a>
+
+      <!-- Our Plant -->
+      <a class="care-badge-xl" href="care-plant.html" aria-label="Our Plant">
+        <div class="ico">
+          <!-- 动画：叶片轻微左右摆动 + 齿轮缓慢旋转 -->
+          <svg viewBox="0 0 120 120" width="84" height="84" aria-hidden="true">
+            <defs>
+              <linearGradient id="g-plant" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#34d399"/>
+                <stop offset="1" stop-color="#22d3ee"/>
+              </linearGradient>
+            </defs>
+            <!-- 地面 -->
+            <rect x="18" y="84" width="84" height="8" rx="4" fill="url(#g-plant)" opacity=".5"/>
+            <!-- 叶子 -->
+            <g style="transform-origin:60px 70px; animation: leaf 3.2s ease-in-out infinite;">
+              <path d="M60 80 C58 64, 46 54, 38 50 C46 66, 52 74, 60 80 Z" fill="url(#g-plant)"/>
+              <path d="M60 80 C62 62, 76 52, 84 48 C76 66, 68 74, 60 80 Z" fill="url(#g-plant)"/>
+              <rect x="58" y="72" width="4" height="12" fill="url(#g-plant)"/>
+            </g>
+            <!-- 齿轮 -->
+            <g style="transform-origin:92px 88px; animation: spin 6s linear infinite;">
+              <circle cx="92" cy="88" r="10" fill="none" stroke="url(#g-plant)" stroke-width="3"/>
+              <g stroke="url(#g-plant)" stroke-width="3">
+                <line x1="92" y1="76" x2="92" y2="80"/>
+                <line x1="92" y1="96" x2="92" y2="100"/>
+                <line x1="80" y1="88" x2="84" y2="88"/>
+                <line x1="100" y1="88" x2="104" y2="88"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="txt">
+          <div class="t">Our Plant</div>
+          <div class="s">整洁园区 · 环保设备 · 稳定产能</div>
+        </div>
+      </a>
+
+      <!-- Certifiable Excellence -->
+      <a class="care-badge-xl" href="care-compliance.html" aria-label="Certifiable Excellence">
+        <div class="ico">
+          <!-- 动画：认证章外环旋转 + 对勾描边出现 -->
+          <svg viewBox="0 0 120 120" width="84" height="84" aria-hidden="true">
+            <defs>
+              <linearGradient id="g-cert" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#f472b6"/>
+                <stop offset="1" stop-color="#fb923c"/>
+              </linearGradient>
+            </defs>
+            <!-- 外环 -->
+            <circle cx="60" cy="60" r="38" fill="none" stroke="url(#g-cert)" stroke-width="6" opacity=".4"
+                    style="transform-origin:60px 60px; animation: spin 9s linear infinite;"/>
+            <!-- 内对勾（描边动画） -->
+            <path d="M42 62 L56 74 L80 48"
+                  fill="none" stroke="url(#g-cert)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"
+                  style="stroke-dasharray: 120; stroke-dashoffset: 120; animation: draw 1.8s ease forwards .2s;"/>
+          </svg>
+        </div>
+        <div class="txt">
+          <div class="t">Certifiable Excellence</div>
+          <div class="s">Higg / ISO / RCS 等第三方可核验</div>
+        </div>
+      </a>
     </div>
 
-    <!-- 认证徽章墙（直接复用你原先的徽章资源） -->
-    <div class="care-badge-wall" style="margin-top:16px">
-      <!-- Higg FSLM -->
-      <div class="care-badge">
-        <div class="logo-wrap"><img src="images/badges/higg-index.svg" alt="Higg Index"></div>
-        <div class="txt">
-          <div class="t">Higg FSLM · Verified</div>
-          <div class="s">社会与劳工管理（Intertek）</div>
-        </div>
-      </div>
-
-      <!-- RCS Scope -->
-      <div class="care-badge">
-        <div class="logo-wrap"><img src="images/badges/rcs.svg" alt="RCS"></div>
-        <div class="txt">
-          <div class="t">RCS Scope</div>
-          <div class="s">再生含量链条覆盖（Footwear；BV）</div>
-        </div>
-      </div>
-
-      <!-- ISO 9001 -->
-      <div class="care-badge">
-        <div class="logo-wrap"><img src="images/badges/iso9001.svg" alt="ISO 9001:2015"></div>
-        <div class="txt">
-          <div class="t">ISO 9001:2015</div>
-          <div class="s">质量管理体系（设计与生产）</div>
-        </div>
-      </div>
-
-      <!-- Higg FEM（可选） -->
-      <div class="care-badge">
-        <div class="logo-wrap"><img src="images/badges/higg-fem.svg" alt="Higg FEM"></div>
-        <div class="txt">
-          <div class="t">Higg FEM</div>
-          <div class="s">环境模块（年度项目）</div>
-        </div>
-      </div>
-
-      <!-- 你还可继续添加其他徽章（GRS / Fair Trade / 品牌年审等） -->
-      <div class="care-badge">
-        <div class="logo-wrap"><img src="images/badges/grs.svg" alt="GRS"></div>
-        <div class="txt">
-          <div class="t">GRS · Statement</div>
-          <div class="s">按供应链闭环配合（示例）</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CTA：需要合规资料包 -->
     <div style="margin-top:12px">
       <a class="btn btn-contact" href="contact.html">Request Compliance Pack →</a>
     </div>
   </div>
 </section>
 
-<!-- 只影响 #care 的样式 -->
+<!-- 只影响 #care 的样式（沿用你站点的设计变量） -->
 <style>
-  /* 胶囊（Environment / Workplace / Compliance） */
-  #care .care-pills{ display:flex; flex-wrap:wrap; gap:8px; }
-  #care .care-pills .pill{
-    padding:6px 10px; border:1px solid var(--line); background:var(--card);
-    border-radius:999px; font-weight:800; color:var(--text);
-  }
-
-  /* 徽章墙（3列→2列→1列响应式） */
-  #care .care-badge-wall{
-    display:grid; gap:16px;
+  #care .care-tiles{
+    display:grid; gap:18px;
     grid-template-columns:repeat(3,1fr);
   }
-  @media (max-width:1024px){ #care .care-badge-wall{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:560px){  #care .care-badge-wall{ grid-template-columns:1fr; } }
+  @media (max-width:1024px){ #care .care-tiles{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:640px){  #care .care-tiles{ grid-template-columns:1fr; } }
 
-  /* 单个徽章卡 */
-  #care .care-badge{
-    display:flex; align-items:center; gap:14px;
-    padding:14px 16px; border-radius:14px;
+  /* 大徽章卡片 */
+  #care .care-badge-xl{
+    display:flex; align-items:center; gap:16px;
+    padding:16px 18px; border-radius:16px;
     background:var(--card); border:1px solid var(--line);
-    transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+    text-decoration:none; color:inherit;
+    transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
   }
-  #care .care-badge:hover{ transform:translateY(-2px); filter:brightness(1.03); box-shadow:0 10px 24px rgba(0,0,0,.25); }
+  #care .care-badge-xl:hover{
+    transform: translateY(-3px);
+    filter: brightness(1.03);
+    box-shadow: 0 12px 28px rgba(0,0,0,.28);
+  }
 
-  /* 徽章左侧小图标容器 */
-  #care .logo-wrap{
-    width:64px; height:64px; border-radius:12px;
-    background:#0c1426; display:grid; place-items:center; flex:0 0 64px;
+  /* 动画图标容器（与原徽章的方形图一致但更大） */
+  #care .ico{
+    width:88px; height:88px; flex:0 0 88px;
+    display:grid; place-items:center;
+    border-radius:14px; background:#0c1426;
     border:1px solid #23314f;
   }
-  #care .logo-wrap img{ max-width:80%; max-height:80%; object-fit:contain; display:block; }
 
-  /* 徽章文字 */
-  #care .txt{ display:flex; flex-direction:column; gap:2px; }
-  #care .txt .t{ font-weight:800; color:var(--text); line-height:1.2; }
-  #care .txt .s{ color:var(--muted); font-size:13px; }
+  #care .txt{ display:flex; flex-direction:column; gap:4px; }
+  #care .txt .t{ font-weight:800; font-size:18px; color:var(--text); line-height:1.2; }
+  #care .txt .s{ color:var(--muted); font-size:13.5px; }
+
+  /* SVG 小动效 */
+  @keyframes floatY { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-3px) } }
+  @keyframes leaf   { 0%,100%{ transform: rotate(-3deg) } 50%{ transform: rotate(3deg) } }
+  @keyframes spin   { to{ transform: rotate(360deg) } }
+  @keyframes draw   { to{ stroke-dashoffset: 0 } }
 </style>
-
-  
-
   <!-- Info -->
   <section id="info" class="section">
     <div class="container">
