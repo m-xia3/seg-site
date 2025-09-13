@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>赛格鞋业 · OEM/ODM 展示站（框架版）</title>
+  <title>赛格鞋业 · OEM/ODM 展示站（首页）</title>
 
   <style>
     :root{
@@ -17,8 +17,6 @@
       --accent-ink:#ffffff;
       --surface:#0b1222;
       --container: 1200px;
-
-      /* 响应缩放的分割线（替代 .bar container） */
       --sepY: clamp(24px, 4vw, 42px);
     }
 
@@ -48,6 +46,42 @@
     .btn:hover{filter:brightness(1.08)}
     section{scroll-margin-top:80px}
 
+    /* 通用元素 */
+    .bar{height:1px;background:var(--line);margin:42px 0}
+    .grid{display:grid;gap:16px}
+    .grid.s-2{grid-template-columns:repeat(2,1fr)}
+    .grid.s-3{grid-template-columns:repeat(3,1fr)}
+    .grid.s-4{grid-template-columns:repeat(4,1fr)}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+    .card .ph{aspect-ratio:4/3;background:linear-gradient(135deg,#1b2436,#0f1629)}
+    .card .bd{padding:14px 16px;color:var(--muted)}
+    .h2{font-size:28px;margin:0 0 8px}
+    .h3{font-size:18px;margin:0 0 4px}
+    .logo-wall{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+    .logo{background:#0c1426;border:1px dashed #23314f;border-radius:12px;aspect-ratio:7/3;display:grid;place-items:center;color:#2b3b5f;font-weight:700}
+    footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;margin-top:40px}
+
+    @media (max-width:1024px){
+      .grid.s-3{grid-template-columns:repeat(2,1fr)}
+      .grid.s-4{grid-template-columns:repeat(2,1fr)}
+      .logo-wall{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width:520px){
+      .grid.s-3,.grid.s-4{grid-template-columns:1fr}
+      .logo-wall{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* —— 自适应分割线：隐藏旧 .bar，给每个 .section 顶部画线 —— */
+    .bar{ display:none !important; }
+    .section{ position: relative; }
+    .section:not(:first-of-type)::before{
+      content:"";
+      display:block;height:1px;background:var(--line);
+      width:min(var(--container), calc(100% - 48px));
+      margin: var(--sepY) auto var(--sepY);
+      transform: translateZ(0);
+    }
+
     /* HERO */
     .hero{
       padding:110px 0 72px;
@@ -60,21 +94,23 @@
     .title{font-size:40px;line-height:1.15;margin:0 0 12px}
     .lead{color:var(--muted);max-width:800px}
 
-    /* 固定在 container 右内边的鞋子组（缩放不跑位） */
+    /* Hero 徽章/品牌微证明 */
+    .micro-proof{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+    .micro-proof .badge{padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-weight:700;color:var(--text)}
+    .micro-proof .sep{opacity:.5}
+    .brand-strip{display:flex;gap:10px;align-items:center}
+    .brand-strip img{height:18px;opacity:.9;filter:grayscale(100%);transition:opacity .2s}
+    .brand-strip img:hover{opacity:1}
+    @media (max-width:640px){ .brand-strip{overflow:auto;-webkit-overflow-scrolling:touch} }
+
+    /* 固定在 container 右内边的鞋子组 */
     .hero-art{
-      right: calc((100vw - min(100vw, var(--container))) / 2 + 24px + 40px); /* ← 整体向左移 36px */
-      position:absolute;
-      top:40px;
-      display:grid;
-      gap:clamp(14px,2.2vw,26px);
+      right: calc((100vw - min(100vw, var(--container))) / 2 + 24px + 40px);
+      position:absolute; top:40px;
+      display:grid; gap:clamp(14px,2.2vw,26px);
       pointer-events:none;
     }
-    .hero-art img{
-      width: clamp(120px, 19vw, 240px);
-      height:auto;
-      opacity:.95;
-      filter: drop-shadow(0 10px 28px rgba(0,0,0,.35));
-    }
+    .hero-art img{ width: clamp(120px, 19vw, 240px); height:auto; opacity:.95; filter: drop-shadow(0 10px 28px rgba(0,0,0,.35)); }
     .hero-art img:nth-child(1){ width: clamp(110px, 18vw, 220px); }
     .hero-art img:nth-child(2){ width: clamp(115px, 19vw, 230px); }
     .hero-art img:nth-child(3){ width: clamp(120px, 20vw, 240px); }
@@ -82,82 +118,6 @@
     @media (max-width:1200px){ .hero-art{ top:80px; } }
     @media (max-width:960px){ .hero-art{ opacity:.12; } }
     @media (max-width:720px){ .hero-art{ display:none; } }
-
-    /* 其它通用块 */
-    .bar{height:1px;background:var(--line);margin:42px 0}
-    .grid{display:grid;gap:16px}
-    .grid.s-3{grid-template-columns:repeat(3,1fr)}
-    .grid.s-4{grid-template-columns:repeat(4,1fr)}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-    .card .ph{aspect-ratio:4/3;background:linear-gradient(135deg,#1b2436,#0f1629)}
-    .card .bd{padding:14px 16px;color:var(--muted)}
-    .h2{font-size:28px;margin:0 0 8px}
-    .h3{font-size:18px;margin:0 0 4px}
-    details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
-    details+details{margin-top:12px}
-    summary{cursor:pointer;font-weight:700}
-    .logo-wall{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
-    .logo{background:#0c1426;border:1px dashed #23314f;border-radius:12px;aspect-ratio:7/3;display:grid;place-items:center;color:#2b3b5f;font-weight:700}
-    .cert{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
-    .info{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px}
-    footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;margin-top:40px}
-
-    @media (max-width:1024px){
-      .grid.s-3{grid-template-columns:repeat(2,1fr)}
-      .grid.s-4{grid-template-columns:repeat(2,1fr)}
-      .logo-wall{grid-template-columns:repeat(3,1fr)}
-      .info{grid-template-columns:1fr}
-      .title{font-size:32px}
-    }
-    @media (max-width:520px){
-      .grid.s-3,.grid.s-4{grid-template-columns:1fr}
-      .logo-wall{grid-template-columns:repeat(2,1fr)}
-    }
-
-    /* 红色外边框右下滑出的按钮效果 */
-    .btn-contact{position:relative;z-index:1;border-radius:16px;overflow:visible}
-    .btn-contact::after{
-      content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid #ff3055;opacity:0;transform:translate(0,0);
-      transition:transform .22s ease,opacity .12s ease,border-color .2s ease;z-index:-1}
-    .btn-contact:hover::after{opacity:1;transform:translate(8px,8px)}
-
-    /* Modal */
-    .modal.hidden{ display: none; }
-    .modal{ position: fixed; inset: 0; z-index: 1000; }
-    .modal__backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter: blur(2px);}
-    .modal__panel{ position:relative; margin:8vh auto 0; width:min(920px,92vw); background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px; color:var(--text); box-shadow:0 30px 60px rgba(0,0,0,.35);}
-    .modal__close{ position:absolute; top:12px; right:14px; width:36px; height:36px; border:1px solid var(--line); border-radius:50%; background:var(--ink); color:var(--text); font-size:20px; cursor:pointer;}
-    .modal__grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:28px}
-    .modal__left h2{ font-size:32px; margin:0 0 10px; color:var(--text); }
-    .modal__left p{ color:var(--muted); margin:0; }
-    .modal__form label{ display:block; margin:0 0 14px; font-weight:600; }
-    .modal__form input,.modal__form textarea{ width:100%; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin-top:6px; background:#e5e7eb; color:#0b1020; outline:none;}
-    .modal__form textarea{ min-height:140px; resize:vertical; }
-    .btn-contact.btn-submit{ width:100%; margin-top:6px; }
-    .form-msg{ margin-top:10px; min-height:1.2em; color:var(--muted); }
-    @media (max-width: 860px){ .modal__grid{ grid-template-columns: 1fr; } }
-
-    /* About 文字块微调 */
-    #about.hero{ min-height:auto !important; padding:72px 0 48px !important;}
-    #about .copy{ max-width:56% !important; margin-left:4vw !important;}
-    #about .title{ font-size:clamp(34px,5vw,60px) !important; line-height:1.18 !important; margin:0 0 14px !important;}
-    #about .lead{ font-size:clamp(15px,1.5vw,18px) !important; line-height:1.6 !important; max-width:44ch !important;}
-    @media (max-width:900px){
-      #about.hero{ padding:90px 0 70px !important;}
-      #about .copy{ max-width:100% !important; margin-left:0 !important;}
-      #about .title{ font-size:clamp(28px,6.2vw,44px) !important;}
-      #about .lead{ font-size:clamp(15px,3.4vw,18px) !important;}
-    }
-    #about.hero{ padding-bottom:28px !important;}
-    .bar.container{ margin:16px 0 !important;}
-
-    /* philosophy 卡片图片样式 */
-    .grid-photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-    .card-media{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:12px}
-    .card-media img{width:100%;height:100%;object-fit:cover;display:block}
-    .card-media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.10), transparent)}
-    .card-media::before{content:"";position:absolute;inset:0;border-radius:12px;background:radial-gradient(circle at center, rgba(15,23,42,0) 70%, rgba(15,23,42,0.85) 100%);pointer-events:none;z-index:1}
-    .card-caption{margin-top:10px;color:var(--muted);font-size:14px}
 
     /* Samples 栅格与卡片 */
     .sample-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
@@ -177,158 +137,17 @@
     .sample-meta{ padding:10px 0 0; text-align:center;}
     .sample-tag{ position:static; transform:none; display:inline-block; margin-top:6px; background:transparent; color:var(--text); font-weight:800; padding:0; border-radius:0; box-shadow:none;}
 
-    /* Expertise 五等分矩形 */
-    .tri-slab{ position:relative; border-radius:16px; border:1px solid var(--line); background:var(--card); overflow:hidden; height:clamp(260px,38vw,520px);}
-    .tri-slab::before{ content:""; position:absolute; inset:0; background: radial-gradient(115% 150% at 50% 56%, rgba(255,255,255,.82) 0%, rgba(241,248,255,.68) 26%, rgba(190,208,232,.42) 56%, rgba(28,38,64,.84) 92%, rgba(15,23,42,1) 100%); pointer-events:none;}
-    .tri-track{ position:absolute; inset:0;}
-    .slice{ position:absolute; top:0; bottom:0; display:grid; place-items:center; cursor:pointer; user-select:none; color:var(--text); text-align:center; outline:none; border:none; background:none; transition: transform .18s ease, filter .18s ease;}
-    .slice > span{ position:absolute; bottom:12px; left:50%; transform:translateX(-50%); font-weight:800; letter-spacing:.6px; padding:6px 12px; border-radius:8px; background:rgba(0,0,0,.35); box-shadow:0 4px 12px rgba(0,0,0,.25); pointer-events:none; line-height:1.2;}
-    .slice::before{ content:""; position:absolute; inset:-1px; pointer-events:none; opacity:0; transition:opacity .22s ease, transform .22s ease;
-      background: radial-gradient(120% 160% at 50% 56%, rgba(255,255,255,.40) 0%, rgba(240,246,255,.28) 26%, rgba(190,208,232,.18) 56%, rgba(24,32,56,.14) 92%, rgba(15,23,42,.16) 100%); box-shadow: inset 0 0 70px 8px rgba(8,13,26,.08); z-index:0;}
-    .slice:is(:hover,:focus-visible)::before{ opacity:1;}
-    .slice:is(:hover,:focus-visible){ transform:translateY(-2px); filter:brightness(1.03);}
-    .slice.team{ left:0; right:80%; }
-    .slice.rd{ left:20%; right:60%;}
-    .slice.factory{ left:40%; right:40%;}
-    .slice.qc{ left:60%; right:20%;}
-    .slice.store{ left:80%; right:0;}
-    .slice.team{
-      background-image:
-        linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
-        url("images/samples/factory/Factory Overview1.png");
-      background-position:center center, 30% 30%; background-size:auto, cover; background-repeat:no-repeat;
-    }
-    .slice.qc{ background: linear-gradient(270deg, rgba(0,0,0,.05), transparent 65%); }
-    .slice.store{ background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.02)); }
-    .slice.rd{
-      background-image:
-        linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
-        url("images/samples/rd/3D-scaner.PNG");
-      background-position:center center, 70% 50%; background-size:auto, cover; background-repeat:no-repeat;
-    }
-    .slice.factory{
-      background-image:
-        linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
-        url("images/samples/factory/Lasting & Assembly Workshop1.jpg");
-      background-position:center center, 42% 40%; background-size:auto, cover; background-repeat:no-repeat;
-    }
-    .slice.qc{
-      background-image:
-        linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
-        url("images/samples/qs/QS1.jpg");
-      background-position:center center, 40% 50%; background-size:auto, cover; background-repeat:no-repeat;
-    }
-    .slice.store{
-      background-image:
-        linear-gradient(to right, rgba(10,15,31,.95) 0%, rgba(10,15,31,.72) 10%, rgba(10,15,31,.38) 22%, rgba(10,15,31,0) 38%, rgba(10,15,31,0) 62%, rgba(10,15,31,.38) 78%, rgba(10,15,31,.72) 90%, rgba(10,15,31,.95) 100%),
-        url("images/samples/storage/3.PNG");
-      background-position:center center, 20% 50%; background-size:auto, cover; background-repeat:no-repeat;
-    }
-
-    /* —— 自适应分割线：隐藏旧 .bar，给每个 .section 顶部画线 —— */
-    .bar{ display:none !important; }
-    .section{ position: relative; }
-    .section:not(:first-of-type)::before{
-      content:"";
-      display:block;
-      height:1px;
-      background:var(--line);
-      width:min(var(--container), calc(100% - 48px));
-      margin: var(--sepY) auto var(--sepY);
-      transform: translateZ(0);
-    }
-  </style>
-</head>
-
-<body>
-  <nav class="nav">
-    <div class="container row">
-      <div class="brand">
-        <span class="logo">SG</span>
-        <span>赛格鞋业 SAIGE Footwear</span>
-      </div>
-      <div class="menu">
-        <a href="#about">Who We Are</a>
-        <a href="#samples">Samples</a>
-        <a href="#expertise">Expertise</a>
-        <a href="#philosophy">Philosophy</a>
-        <a href="#partners">Partners</a>
-        <a href="#certs">Certifications</a>
-        <a href="#info">Info</a>
-      </div>
-      <div class="cta">
-        <a class="btn btn-contact" href="/contact.html">GET IN TOUCH</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <section id="about" class="hero">
-    <div class="container">
-      <div class="copy">
-        <h1 class="title">
-          Shoes that last — made with care, shared with the world.<br>
-          <span style="color:var(--accent);font-weight:700;">Every Step Counts.</span>
-        </h1>
-        <p class="lead">
-          We are defined by high craftsmanship, proven compliance, and true flexibility —
-          a manufacturing partner that delivers quality with responsibility,
-          and adapts to every brand’s vision.
-        </p>
-      </div>
-      <div class="hero-art" aria-hidden="true">
-        <img src="images/shoe1.png" alt="">
-        <img src="images/shoe2.png" alt="">
-        <img src="images/shoe3.png" alt="">
-      </div>
-    </div>
-  </section>
-
-  <div class="bar container"></div>
-
-  <!-- 合作品牌（统一画布 + 视觉等权） -->
-  <section id="partners" class="section">
-    <div class="container">
-      <h2 class="h2">合作品牌 Brands</h2>
-      <p class="lead">我们已与多家国际品牌建立合作，完成授权鞋款生产与交付。</p>
-
-      <div class="brand-grid" style="margin-top:18px;">
-        <a class="brand-card" data-brand="hm" href="#" aria-label="H&M">
-          <div class="ph"><img loading="lazy" src="images/samples/brand/1.PNG" alt="H&M"></div>
-        </a>
-        <a class="brand-card" data-brand="zara" href="#" aria-label="ZARA">
-          <div class="ph"><img loading="lazy" src="images/samples/brand/2.PNG" alt="ZARA"></div>
-        </a>
-        <a class="brand-card" data-brand="pb" href="#" aria-label="Pull&Bear / PB">
-          <div class="ph"><img loading="lazy" src="images/samples/brand/3.PNG" alt="PB"></div>
-        </a>
-        <a class="brand-card" data-brand="keds" href="#" aria-label="Keds">
-          <div class="ph"><img loading="lazy" src="images/samples/brand/4.PNG" alt="Keds"></div>
-        </a>
-        <a class="brand-card" data-brand="sperry" href="#" aria-label="Sperry">
-          <div class="ph"><img loading="lazy" src="images/samples/brand/5.PNG" alt="Sperry"></div>
-        </a>
-        <a class="brand-card" data-brand="dc" href="#" aria-label="DC Shoes">
-          <div class="ph"><img loading="lazy" src="images/samples/brand/6.PNG" alt="DC Shoes"></div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 合作品牌样式（比例统一/留白统一/自适应 + 视觉等权微调） -->
-  <style>
+    /* Brands 样式（比例统一/留白统一/自适应 + 视觉等权微调） */
     #partners .brand-grid{ display:grid; gap:16px; grid-template-columns:repeat(6,1fr); align-items:stretch }
     @media (max-width:1024px){ #partners .brand-grid{ grid-template-columns:repeat(3,1fr) } }
     @media (max-width:520px){  #partners .brand-grid{ grid-template-columns:repeat(2,1fr) } }
-
     #partners .brand-card{
       position:relative; display:block; border-radius:16px; overflow:hidden;
       transition:transform .22s ease, box-shadow .22s ease, filter .22s ease;
       border:none; background:transparent;
-      --mw:86%; --mh:86%; /* 基准（H&M） */
+      --mw:86%; --mh:86%;
     }
     #partners .brand-card:hover{ transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,.28) }
-
     #partners .brand-card .ph{
       position:relative; aspect-ratio:5/3; display:grid; place-items:center;
       overflow:hidden; border-radius:16px; background:transparent;
@@ -341,23 +160,103 @@
       transition:filter .22s ease, transform .22s ease;
     }
     #partners .brand-card:hover img{ filter:saturate(1) contrast(1.02); transform:scale(1.035) }
+    #partners .brand-card[data-brand="hm"]{ --mw:86%; --mh:86% }
+    #partners .brand-card[data-brand="zara"]{ --mw:94%; --mh:94% }
+    #partners .brand-card[data-brand="pb"]{ --mw:75%; --mh:75% }
+    #partners .brand-card[data-brand="keds"]{ --mw:95%; --mh:95% }
+    #partners .brand-card[data-brand="sperry"]{ --mw:110%; --mh:110% }
+    #partners .brand-card[data-brand="dc"]{ --mw:74%; --mh:74% }
 
-    /* 视觉等权微调（按你反馈） */
-    #partners .brand-card[data-brand="hm"]{ --mw:86%; --mh:86% }     /* 基准 */
-    #partners .brand-card[data-brand="zara"]{ --mw:94%; --mh:94% }   /* 偏小→放大 */
-    #partners .brand-card[data-brand="pb"]{ --mw:75%; --mh:75% }     /* 偏大→缩小 */
-    #partners .brand-card[data-brand="keds"]{ --mw:95%; --mh:95% }   /* 偏小→放大 */
-    #partners .brand-card[data-brand="sperry"]{ --mw:110%; --mh:110% } /* 偏小→放大 */
-    #partners .brand-card[data-brand="dc"]{ --mw:74%; --mh:74% }     /* 偏大→缩小 */
+    /* How We Do It：三段式取代五切片 */
+    .how-grid{ display:grid; gap:16px; grid-template-columns:repeat(3,1fr); }
+    @media (max-width:1024px){ .how-grid{ grid-template-columns:1fr 1fr } }
+    @media (max-width:640px){  .how-grid{ grid-template-columns:1fr } }
+    .how-card{ background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; }
+    .how-media{ aspect-ratio:16/9; background:#0c1426; display:grid; place-items:center; overflow:hidden }
+    .how-media img{ width:100%; height:100%; object-fit:cover; opacity:.9; transition:transform .3s ease}
+    .how-card:hover .how-media img{ transform:scale(1.03) }
+    .how-bd{ padding:14px 16px; color:var(--muted) }
+    .how-bd h3{ color:var(--text); margin:0 0 6px }
+    .how-bd ul{ margin:8px 0 0; padding-left:18px }
+    .how-cta{ padding:0 16px 16px }
+    .how-cta a{ display:inline-block; font-weight:800; color:var(--accent); }
+
+    /* Summary Hub（三个大入口卡） */
+    .hub-grid{ display:grid; gap:16px; grid-template-columns:repeat(3,1fr) }
+    @media (max-width:1024px){ .hub-grid{ grid-template-columns:1fr 1fr } }
+    @media (max-width:640px){  .hub-grid{ grid-template-columns:1fr } }
+    .hub-card{ border:1px solid var(--line); background:var(--card); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:8px }
+    .hub-card .kicker{ font-weight:800; letter-spacing:.5px; color:var(--text) }
+    .hub-card p{ margin:0; color:var(--muted) }
+    .hub-card a{ font-weight:800; color:var(--accent) }
   </style>
+</head>
 
-  <div class="bar container"></div>
+<body>
+  <nav class="nav">
+    <div class="container row">
+      <div class="brand">
+        <span class="logo">SG</span>
+        <span>赛格鞋业 SAIGE Footwear</span>
+      </div>
+      <div class="menu">
+        <a href="#samples">Samples</a>
+        <a href="#partners">Brands</a>
+        <a href="#how">How We Do It</a>
+        <a href="/responsibility.html">Certifications</a>
+        <a href="/who-we-are.html">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="cta">
+        <a class="btn btn-contact" href="/contact.html">GET IN TOUCH</a>
+      </div>
+    </div>
+  </nav>
 
-  <!-- Samples -->
+  <!-- 1) HERO（含徽章微证明） -->
+  <section id="about" class="hero">
+    <div class="container">
+      <div class="copy">
+        <h1 class="title">
+          Shoes that last — made with care.<br>
+          <span style="color:var(--accent);font-weight:700;">Every Step Counts.</span>
+        </h1>
+        <p class="lead">
+          OEM/ODM for vulcanized & cold-cement shoes — fast sampling, stable quality, and compliant manufacturing.
+        </p>
+        <p>
+          <a class="btn btn-contact" href="#samples">Browse Samples</a>
+          <a class="btn" style="margin-left:8px" href="/contact.html">Get in Touch</a>
+        </p>
+
+        <!-- 微型社会证明：徽章 + 小 logo 条（可选） -->
+        <div class="micro-proof" aria-label="key certifications and brands">
+          <span class="badge">Higg FSLM · Verified</span>
+          <span class="badge">ISO 9001:2015</span>
+          <span class="badge">RCS Scope (Footwear)</span>
+          <span class="sep">·</span>
+          <div class="brand-strip">
+            <img src="images/samples/brand/1.PNG" alt="H&M">
+            <img src="images/samples/brand/2.PNG" alt="ZARA">
+            <img src="images/samples/brand/5.PNG" alt="Sperry">
+            <img src="images/samples/brand/4.PNG" alt="Keds">
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <img src="images/shoe1.png" alt="">
+        <img src="images/shoe2.png" alt="">
+        <img src="images/shoe3.png" alt="">
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) WHAT WE MAKE（样品） -->
   <section id="samples" class="section">
     <div class="container">
-      <h2 class="h2">样品 Samples</h2>
-      <p class="lead">按品类浏览：硫化鞋 · 冷粘鞋 · 授权合作款。</p>
+      <h2 class="h2">What We Make · 样品</h2>
+      <p class="lead">按品类浏览：硫化鞋 · 冷粘鞋 · 授权合作款 · Upper · Sole · Lasts。</p>
 
       <div class="sample-grid" style="margin-top:18px;">
         <a class="sample-card" href="samples-vulcanized.html" aria-label="硫化鞋">
@@ -388,214 +287,129 @@
     </div>
   </section>
 
-  <div class="bar container"></div>
-
-  <!-- Expertise -->
-  <section id="expertise" class="section">
+  <!-- 3) COLLABORATION BRANDS（合作品牌） -->
+  <section id="partners" class="section">
     <div class="container">
-      <h2 class="h2">我们的专业性 Expertise</h2>
-      <p class="lead">懂产品的国际团队作前台 · 研发为核心 · 稳定产能做背书。点击任一板块了解详情。</p>
+      <h2 class="h2">合作品牌 Brands</h2>
+      <p class="lead">我们与多家国际品牌建立合作，完成授权鞋款生产与交付。</p>
 
-      <div class="tri-slab" style="margin-top:16px;">
-        <div class="tri-track">
-          <a class="slice team"    href="expertise-team.html"     aria-label="关于我们"><span>WHO WE ARE</span></a>
-          <a class="slice rd"      href="expertise-rd.html"       aria-label="研发中心"><span>R&amp;D</span></a>
-          <a class="slice factory" href="expertise-factory.html"  aria-label="工厂与制造"><span>FACTORY</span></a>
-          <a class="slice qc"      href="expertise-qc.html"       aria-label="质量控制"><span>QC</span></a>
-          <a class="slice store"   href="expertise-store.html"    aria-label="仓储与物流"><span>STORE &amp; SHIPPING</span></a>
-        </div>
+      <div class="brand-grid" style="margin-top:18px;">
+        <a class="brand-card" data-brand="hm" href="#" aria-label="H&M">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/1.PNG" alt="H&M"></div>
+        </a>
+        <a class="brand-card" data-brand="zara" href="#" aria-label="ZARA">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/2.PNG" alt="ZARA"></div>
+        </a>
+        <a class="brand-card" data-brand="pb" href="#" aria-label="Pull&Bear / PB">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/3.PNG" alt="PB"></div>
+        </a>
+        <a class="brand-card" data-brand="keds" href="#" aria-label="Keds">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/4.PNG" alt="Keds"></div>
+        </a>
+        <a class="brand-card" data-brand="sperry" href="#" aria-label="Sperry">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/5.PNG" alt="Sperry"></div>
+        </a>
+        <a class="brand-card" data-brand="dc" href="#" aria-label="DC Shoes">
+          <div class="ph"><img loading="lazy" src="images/samples/brand/6.PNG" alt="DC Shoes"></div>
+        </a>
       </div>
     </div>
   </section>
 
-  <div class="bar container"></div>
+  <!-- 4) HOW WE DO IT（三段：Who/Innovation/Quality） -->
+  <section id="how" class="section">
+    <div class="container">
+      <h2 class="h2">How We Do It · 我们如何把鞋做好</h2>
+      <p class="lead">清晰流程 · 可核验的数据 · 可追溯的质量控制。</p>
 
-<!-- Responsibility · 可持续与合规（仅环境与员工关怀） -->
-<section id="responsibility" class="section">
-  <div class="container">
-    <h2 class="h2">Responsibility · 可持续与合规</h2>
-    <p class="lead">我们以环保与员工关怀为核心，保持整洁有序的园区环境，并通过第三方审核与机制持续改进。</p>
+      <div class="how-grid" style="margin-top:14px">
+        <!-- A) Who We Are -->
+        <article class="how-card">
+          <div class="how-media">
+            <img src="images/samples/factory/Factory Overview1.png" alt="Factory campus & team">
+          </div>
+          <div class="how-bd">
+            <h3 class="h3">Who We Are · 团队与响应</h3>
+            <ul>
+              <li>时间轴：2016 → 2025（里程碑 3–5 条）</li>
+              <li>对外沟通：专属 merchandiser · 24h 内响应</li>
+              <li>交付时效：Sampling 7–10 days · Lead-time 30–45 days</li>
+              <li>园区与人文：绿化 / 宿舍食堂 / 安全演练</li>
+            </ul>
+          </div>
+          <div class="how-cta">
+            <a href="/who-we-are.html">Learn more →</a>
+          </div>
+        </article>
 
-    <!-- 园区环境 / 设施 -->
-    <div class="resp-grid" style="margin-top:16px">
-      <article class="resp-card">
-        <div class="resp-media"><img class="zoomable" src="images/samples/landscape/1.PNG" alt="Tree-lined Avenue · Factory Campus"></div>
-        <div class="resp-bd">Tree-lined Avenue · 厂区绿化</div>
-      </article>
-      <article class="resp-card">
-        <div class="resp-media"><img class="zoomable" src="images/samples/landscape/2.PNG" alt="Campus Road & Landscape"></div>
-        <div class="resp-bd">Campus Road · 景观与通透采光</div>
-      </article>
-      <article class="resp-card">
-        <div class="resp-media"><img class="zoomable" src="images/samples/landscape/4.PNG" alt="Landscape & Green Belts"></div>
-        <div class="resp-bd">Landscape · 绿篱与景观石</div>
-      </article>
-      <article class="resp-card">
-        <div class="resp-media"><img class="zoomable" src="images/samples/landscape/5.PNG" alt="Environmental Equipment"></div>
-        <div class="resp-bd">Landscape · 环保设备</div>
-      </article>
-    </div>
-  </div>
-</section>
+        <!-- B) Innovation · R&D -->
+        <article class="how-card">
+          <div class="how-media">
+            <img src="images/samples/rd/3D-scaner.PNG" alt="3D scanning & rapid prototyping">
+          </div>
+          <div class="how-bd">
+            <h3 class="h3">Innovation · 研发中心</h3>
+            <ul>
+              <li>3D 楦型扫描 & 快速打样</li>
+              <li>材料联动与可追溯性</li>
+              <li>一次通过率提升 · 打样周转降低</li>
+            </ul>
+          </div>
+          <div class="how-cta">
+            <a href="/who-we-are.html#rd">See our R&D →</a>
+          </div>
+        </article>
 
-<!-- 只影响本区块的轻量样式 -->
-<style>
-  #responsibility .resp-grid{ display:grid; gap:16px; grid-template-columns:repeat(4,1fr); }
-  @media (max-width:1024px){ #responsibility .resp-grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:600px){  #responsibility .resp-grid{ grid-template-columns:1fr; } }
-
-  #responsibility .resp-card{ background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
-  #responsibility .resp-media{ position:relative; aspect-ratio:4/3; background:#0c1426; overflow:hidden; }
-  #responsibility .resp-media img{ width:100%; height:100%; object-fit:cover; display:block; transition: transform .35s ease; cursor:zoom-in; }
-  #responsibility .resp-card:hover .resp-media img{ transform: scale(1.03); }
-  #responsibility .resp-bd{ padding:12px 14px; color:var(--muted); }
-</style>
-
-<!-- 预览弹窗（用于上面的园区图） -->
-<dialog id="respLightbox" style="border:none;padding:0;background:transparent">
-  <div class="lb-panel" style="position:relative;margin:auto;width:min(1100px,92vw);background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.35);">
-    <button class="lb-close" aria-label="Close" style="position:absolute;top:10px;right:12px;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:var(--ink);color:var(--text);font-size:22px;line-height:1;cursor:pointer;z-index:5;">×</button>
-    <div class="lb-stage" style="position:relative;border-radius:14px;display:flex;align-items:center;justify-content:center;height:min(82vh,92vw);width:100%;background:radial-gradient(115% 150% at 50% 56%,rgba(255,255,255,.92) 0%,rgba(241,248,255,.78) 26%,rgba(190,208,232,.50) 56%,rgba(28,38,64,.86) 92%,rgba(15,23,42,1) 100%);">
-      <img id="respLightboxImg" src="" alt="" style="max-width:98%;max-height:98%;object-fit:contain">
-    </div>
-  </div>
-</dialog>
-<style> dialog#respLightbox::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); } </style>
-<script>
-  (function(){
-    const dlg = document.getElementById('respLightbox');
-    const img = document.getElementById('respLightboxImg');
-    const btnClose = dlg.querySelector('.lb-close');
-
-    function openDlg(url, alt){
-      img.src = url; img.alt = alt || 'Preview';
-      if (typeof dlg.showModal === 'function') dlg.showModal();
-      else dlg.setAttribute('open','');
-    }
-    function closeDlg(){
-      img.src = '';
-      if (typeof dlg.close === 'function') dlg.close();
-      else dlg.removeAttribute('open');
-    }
-    document.addEventListener('click', (e)=>{
-      const t = e.target.closest('#responsibility .zoomable');
-      if (!t) return;
-      e.preventDefault();
-      openDlg(t.getAttribute('src'), t.getAttribute('alt'));
-    });
-    dlg.addEventListener('click', (e)=>{ if (e.target === dlg) closeDlg(); });
-    btnClose.addEventListener('click', (e)=>{ e.stopPropagation(); closeDlg(); });
-    document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape' && (dlg.open || dlg.hasAttribute('open'))) closeDlg(); });
-  })();
-</script>
-
-
-
-  <!-- Certifications · 核心认证（徽章墙样式 / 无大图证书） -->
-<section id="certs" class="section">
-  <div class="container">
-    <h2 class="h2">Certifications · 核心认证</h2>
-    <p class="lead">遵循主流国际标准与审计体系，以下为我们已建立并可复核的合规要点（示例，支持替换为你自有 Logo）。</p>
-
-    <div class="badge-wall" style="margin-top:14px">
-      <!-- Higg FSLM -->
-      <div class="badge">
-        <div class="logo-wrap"><img src="images/badges/higg-index.svg" alt="Higg Index"></div>
-        <div class="txt">
-          <div class="t">Higg FSLM · Verified</div>
-          <div class="s">社会与劳工管理（Intertek）</div>
-        </div>
-      </div>
-
-      <!-- RCS Scope -->
-      <div class="badge">
-        <div class="logo-wrap"><img src="images/badges/rcs.svg" alt="RCS"></div>
-        <div class="txt">
-          <div class="t">RCS Scope</div>
-          <div class="s">再生含量链条覆盖（Footwear；BV）</div>
-        </div>
-      </div>
-
-      <!-- ISO 9001 -->
-      <div class="badge">
-        <div class="logo-wrap"><img src="images/badges/iso9001.svg" alt="ISO 9001:2015"></div>
-        <div class="txt">
-          <div class="t">ISO 9001:2015</div>
-          <div class="s">质量管理体系</div>
-        </div>
-      </div>
-
-      <!-- Higg FEM（可选） -->
-      <div class="badge">
-        <div class="logo-wrap"><img src="images/badges/higg-fem.svg" alt="Higg FEM"></div>
-        <div class="txt">
-          <div class="t">Higg FEM</div>
-          <div class="s">环境模块（按项目年度更新）</div>
-        </div>
-      </div>
-
-      <!-- Fair Trade（示例，占位） -->
-      <div class="badge">
-        <div class="logo-wrap"><img src="images/badges/fair-trade.svg" alt="Fair Trade"></div>
-        <div class="txt">
-          <div class="t">Fair Trade</div>
-          <div class="s">按品牌项目对接</div>
-        </div>
-      </div>
-
-      <!-- GRS（示例，占位） -->
-      <div class="badge">
-        <div class="logo-wrap"><img src="images/badges/grs.svg" alt="GRS"></div>
-        <div class="txt">
-          <div class="t">GRS · Statement</div>
-          <div class="s">按供应链闭环配合</div>
-        </div>
+        <!-- C) Quality & Craftsmanship -->
+        <article class="how-card">
+          <div class="how-media">
+            <img src="images/samples/factory/Lasting & Assembly Workshop1.jpg" alt="Factory, QC and Storage">
+          </div>
+          <div class="how-bd">
+            <h3 class="h3">Quality & Craftsmanship · 工艺与质量</h3>
+            <ul>
+              <li>分工序控制：硫化 / 冷粘 关键节点</li>
+              <li>QC：来料 / 制程 / 终检（AQL 2.5）</li>
+              <li>仓储与发运：条码追溯 / 装箱规范</li>
+            </ul>
+          </div>
+          <div class="how-cta">
+            <a href="/who-we-are.html#factory">Explore factory & QC →</a>
+          </div>
+        </article>
       </div>
     </div>
+  </section>
 
-    <div style="margin-top:12px">
-      <a class="btn btn-contact" href="contact.html">Request Compliance Pack →</a>
+  <!-- 5) SUMMARY HUB（三卡入口：Who / What We Make / What We Care） -->
+  <section id="summary" class="section">
+    <div class="container">
+      <h2 class="h2">Keep Exploring</h2>
+      <div class="hub-grid" style="margin-top:12px">
+        <article class="hub-card">
+          <div class="kicker">Who We Are</div>
+          <p>团队、工厂与发展历程。</p>
+          <a href="/who-we-are.html" aria-label="Who we are">了解我们 →</a>
+        </article>
+        <article class="hub-card">
+          <div class="kicker">What We Make</div>
+          <p>按品类浏览样品与案例。</p>
+          <a href="#samples" aria-label="Back to samples">查看样品 →</a>
+        </article>
+        <article class="hub-card">
+          <div class="kicker">What We Care About</div>
+          <p>合规与认证：Higg / ISO / RCS 等。</p>
+          <a href="/responsibility.html" aria-label="Responsibility & certifications">查看合规与认证 →</a>
+        </article>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- 样式：徽章墙（参考 charminggroup 右下角“合规”风格） -->
-<style>
-  #certs .badge-wall{
-    display:grid; gap:16px;
-    grid-template-columns:repeat(3,1fr);
-  }
-  @media (max-width:1024px){ #certs .badge-wall{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:560px){  #certs .badge-wall{ grid-template-columns:1fr; } }
-
-  #certs .badge{
-    display:flex; align-items:center; gap:14px;
-    padding:14px 16px; border-radius:14px;
-    background:var(--card); border:1px solid var(--line);
-    transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
-  }
-  #certs .badge:hover{ transform:translateY(-2px); filter:brightness(1.03); box-shadow:0 10px 24px rgba(0,0,0,.25); }
-
-  #certs .logo-wrap{
-    width:64px; height:64px; border-radius:12px;
-    background:#0c1426; display:grid; place-items:center; flex:0 0 64px;
-    border:1px solid #23314f;
-  }
-  #certs .logo-wrap img{ max-width:80%; max-height:80%; object-fit:contain; display:block; }
-
-  #certs .txt{ display:flex; flex-direction:column; gap:2px; }
-  #certs .t{ font-weight:800; color:var(--text); line-height:1.2; }
-  #certs .s{ color:var(--muted); font-size:13px; }
-</style>
-
-
-  
-
-  <!-- Info -->
+  <!-- Info / Contact（保持不变，可放在页尾） -->
   <section id="info" class="section">
     <div class="container">
-      <h2 class="h2">基本信息（占位）</h2>
-      <div class="info" style="margin-top:16px;">
+      <h2 class="h2">Info</h2>
+      <div class="grid s-3" style="margin-top:16px;">
         <div>
           <div class="h3">公司信息</div>
           <p class="lead">赛格鞋业（SAIGE Footwear） · 地址/成立年/员工规模/年产能等占位。</p>
@@ -643,6 +457,24 @@
       </div>
     </div>
   </div>
+
+  <style>
+    /* Modal（原样保留） */
+    .modal.hidden{ display: none; }
+    .modal{ position: fixed; inset: 0; z-index: 1000; }
+    .modal__backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter: blur(2px);}
+    .modal__panel{ position:relative; margin:8vh auto 0; width:min(920px,92vw); background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px; color:var(--text); box-shadow:0 30px 60px rgba(0,0,0,.35);}
+    .modal__close{ position:absolute; top:12px; right:14px; width:36px; height:36px; border:1px solid var(--line); border-radius:50%; background:var(--ink); color:var(--text); font-size:20px; cursor:pointer;}
+    .modal__grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:28px}
+    .modal__left h2{ font-size:32px; margin:0 0 10px; color:var(--text); }
+    .modal__left p{ color:var(--muted); margin:0; }
+    .modal__form label{ display:block; margin:0 0 14px; font-weight:600; }
+    .modal__form input,.modal__form textarea{ width:100%; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin-top:6px; background:#e5e7eb; color:#0b1020; outline:none;}
+    .modal__form textarea{ min-height:140px; resize:vertical; }
+    .btn-contact.btn-submit{ width:100%; margin-top:6px; }
+    .form-msg{ margin-top:10px; min-height:1.2em; color:var(--muted); }
+    @media (max-width: 860px){ .modal__grid{ grid-template-columns: 1fr; } }
+  </style>
 
   <script>
     (function(){
