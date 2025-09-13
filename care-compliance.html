@@ -1,1 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Certifiable Excellence · 合规能力 | SAIGE Footwear</title>
+<style>
+  :root{
+    --bg:#0f172a; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
+    --card:#111827; --line:#1f2937; --accent:#e11d48; --accent-ink:#fff;
+    --surface:#0b1222; --container:1200px;
+  }
+  html,body{margin:0;background:#0a0f1f;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(6px);
+    background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
+    border-bottom:1px solid var(--line);}
+  .nav .row{display:flex;align-items:center;gap:20px;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+  .brand .logo{width:28px;height:28px;border-radius:6px;background:var(--accent);
+    display:grid;place-items:center;color:#fff;font-weight:800}
+  .menu{display:flex;gap:18px;flex:1;flex-wrap:wrap}
+  .menu a{color:var(--muted);font-weight:500} .menu a:hover{color:var(--text)}
+  .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.12);font-weight:700}
+  .btn:hover{filter:brightness(1.08)}
+
+  .subhero{padding:82px 0 28px;background:var(--surface);border-bottom:1px solid var(--line)}
+  h1{font-size:32px;margin:0 0 6px}
+  .lead{color:var(--muted);margin:0}
+
+  /* 徽章墙 */
+  .wall{display:grid;gap:16px;grid-template-columns:repeat(3,1fr);margin:26px 0 40px}
+  @media (max-width:1024px){ .wall{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:560px){ .wall{grid-template-columns:1fr} }
+  .badge{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .logo{width:64px;height:64px;flex:0 0 64px;border-radius:12px;background:#0c1426;border:1px solid #23314f;display:grid;place-items:center}
+  .logo img{max-width:80%;max-height:80%}
+  .t{font-weight:800}
+  .s{color:var(--muted);font-size:13px;margin-top:2px}
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container row">
+      <div class="brand"><span class="logo">SG</span><span>赛格鞋业 SAIGE Footwear</span></div>
+      <div class="menu">
+        <a href="index.html#about">Who We Are</a>
+        <a href="index.html#samples">Samples</a>
+        <a href="index.html#expertise">Expertise</a>
+        <a href="index.html#partners">Partners</a>
+        <a href="index.html#care">What We Care</a>
+        <a href="index.html#info">Info</a>
+      </div>
+      <a class="btn" href="contact.html">GET IN TOUCH</a>
+    </div>
+  </nav>
+
+  <header class="subhero">
+    <div class="container">
+      <h1>Certifiable Excellence · 合规能力</h1>
+      <p class="lead">以第三方标准为依据：社会责任、环境绩效、质量体系与再生材料链条覆盖。</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="wall">
+      <div class="badge">
+        <div class="logo"><img src="images/badges/higg-index.svg" alt="Higg Index"></div>
+        <div>
+          <div class="t">Higg FSLM · Verified</div>
+          <div class="s">社会与劳工管理（Intertek 验证）</div>
+        </div>
+      </div>
+
+      <div class="badge">
+        <div class="logo"><img src="images/badges/rcs.svg" alt="RCS"></div>
+        <div>
+          <div class="t">RCS Scope</div>
+          <div class="s">再生含量链条覆盖（Footwear；BV）</div>
+        </div>
+      </div>
+
+      <div class="badge">
+        <div class="logo"><img src="images/badges/iso9001.svg" alt="ISO 9001:2015"></div>
+        <div>
+          <div class="t">ISO 9001:2015</div>
+          <div class="s">质量管理体系（硫化/冷粘鞋设计与生产）</div>
+        </div>
+      </div>
+
+      <div class="badge">
+        <div class="logo"><img src="images/badges/higg-fem.svg" alt="Higg FEM"></div>
+        <div>
+          <div class="t">Higg FEM</div>
+          <div class="s">环境模块（按项目年度更新）</div>
+        </div>
+      </div>
+
+      <div class="badge">
+        <div class="logo"><img src="images/badges/grs.svg" alt="GRS"></div>
+        <div>
+          <div class="t">GRS · Statement</div>
+          <div class="s">按供应链闭环配合（示例）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 如需放证书扫描件预览，可在此处追加一个小型画廊或下载链接 -->
+  </main>
+</body>
+</html>
