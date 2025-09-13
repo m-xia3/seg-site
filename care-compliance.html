@@ -35,7 +35,7 @@
   h1{font-size:32px;margin:0 0 6px}
   .lead{color:var(--muted);margin:0}
 
-  /* 合规清单（无图片，仿 Charming 的纵列卡片） */
+  /* 合规清单（无图片，纵列卡片） */
   .care-grid{
     display:grid;
     grid-template-columns: repeat(3, 1fr);
@@ -64,14 +64,6 @@
     color: var(--muted);
   }
 
-  /* 轻微分割线（行间） */
-  .care-item + .care-item{ position: relative; }
-  .care-item + .care-item::before{
-    content:""; position:absolute; left:0; right:0; top:-12px; height:1px;
-    background:linear-gradient(to right, transparent, var(--line), transparent);
-  }
-
-  /* 页脚小注释 */
   .note{color:var(--muted); font-size:13px; margin: 8px 0 42px;}
 </style>
 </head>
@@ -96,40 +88,30 @@
   <header class="subhero">
     <div class="container">
       <h1>What We Care · 合规与认证</h1>
-      <p class="lead">以第三方标准为依据，而非“口号”：社会责任、质量体系、再生材料链条，以及品牌授权项目的合规配合。</p>
+      <p class="lead">以第三方标准为依据，而非“口号”：社会责任、质量体系与再生材料链条覆盖。</p>
     </div>
   </header>
 
-  <!-- 主体：纯文字清单 -->
+  <!-- 主体：三项已确认证明 -->
   <main class="container">
     <div class="care-grid">
       <article class="care-item">
         <h3>Higg FSLM · Verified</h3>
-        <p>已实施 FSLM（Facility Social &amp; Labor Module），并通过第三方验证（Intertek）。覆盖工资与工时、健康与安全、管理制度、员工福利等维度。可在 Worldly/Higg 平台按工厂名称核验，按年度持续改进。</p>
+        <p>已实施 FSLM（Facility Social &amp; Labor Module），并通过第三方验证（Intertek）。覆盖工资与工时、健康与安全、管理制度、员工福利等维度；可在 Worldly/Higg 平台按工厂名称核验。</p>
       </article>
 
       <article class="care-item">
         <h3>ISO 9001:2015</h3>
-        <p>质量管理体系，覆盖硫化/冷粘鞋的设计与生产。通过过程方法与风险思维，落实文件化作业、纠正与预防、供应商评价与客户满意度监测，以稳定交付为目标。</p>
+        <p>质量管理体系，覆盖硫化/冷粘鞋的设计与生产。通过过程方法与风险思维，落实文件化作业、供应商评价、纠正/预防与客户满意度监测，确保稳定交付。</p>
       </article>
 
       <article class="care-item">
         <h3>RCS Scope（Footwear）</h3>
-        <p>再生含量链条覆盖（Bureau Veritas 审核）。支持在品牌/供应链安排下执行原料可追溯与批次文件留存，配合出具相应链条单据（由持证节点开具）。</p>
-      </article>
-
-      <article class="care-item">
-        <h3>海关知识产权备案（Barbie / Mattel，商标第 25 类）</h3>
-        <p>已完成中国海关总署的商标权备案，用于跨境环节的正品核验与侵权保护；常用于品牌授权生产项目的清关与维权配合（示例：Barbie）。</p>
-      </article>
-
-      <article class="care-item">
-        <h3>Higg FEM（环境模块，按年度项目）</h3>
-        <p>按项目年度推进 FEM（Facility Environmental Module）评估，覆盖能源、排放、用水与废弃物等环境指标；可在项目需求下开放评分视图以供核验。</p>
+        <p>再生含量链条覆盖（Bureau Veritas 审核）。支持在品牌或供应链要求下进行原料可追溯与链条单据配合，由持证节点开具并供核验。</p>
       </article>
     </div>
 
-    <p class="note">说明：以上为可被第三方核验或按项目对接的合规项。若需查看证书扫描件或平台链接，请与我们联系获取完整合规包。</p>
+    <p class="note">注：如需查看证书扫描件或平台链接，请与我们联系获取完整合规包。其余项目（如 Higg FEM、BSCI、GRS 等）可按品牌项目需要协同推进，但在未完成前不对外声明。</p>
   </main>
 </body>
 </html>
