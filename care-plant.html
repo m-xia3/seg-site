@@ -1,1 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Our Plant · 我们的工厂 | SAIGE Footwear</title>
+<style>
+  :root{
+    --bg:#0f172a; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
+    --card:#111827; --line:#1f2937; --accent:#e11d48; --accent-ink:#fff;
+    --surface:#0b1222; --container:1200px;
+  }
+  html,body{margin:0;background:#0a0f1f;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:var(--container);margin:0 auto;padding:0 24px}
+  img{max-width:100%;height:auto;display:block}
 
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(6px);
+    background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
+    border-bottom:1px solid var(--line);}
+  .nav .row{display:flex;align-items:center;gap:20px;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+  .brand .logo{width:28px;height:28px;border-radius:6px;background:var(--accent);
+    display:grid;place-items:center;color:#fff;font-weight:800}
+  .menu{display:flex;gap:18px;flex:1;flex-wrap:wrap}
+  .menu a{color:var(--muted);font-weight:500} .menu a:hover{color:var(--text)}
+  .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.12);font-weight:700}
+  .btn:hover{filter:brightness(1.08)}
+
+  .subhero{padding:82px 0 28px;background:var(--surface);border-bottom:1px solid var(--line)}
+  h1{font-size:32px;margin:0 0 6px}
+  .lead{color:var(--muted);margin:0}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0 40px}
+  @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .ph{position:relative;aspect-ratio:4/3;background:#0c1426}
+  .ph img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease;cursor:zoom-in}
+  .card:hover .ph img{transform:scale(1.04)}
+  .bd{padding:12px 14px;color:var(--muted)}
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container row">
+      <div class="brand"><span class="logo">SG</span><span>赛格鞋业 SAIGE Footwear</span></div>
+      <div class="menu">
+        <a href="index.html#about">Who We Are</a>
+        <a href="index.html#samples">Samples</a>
+        <a href="index.html#expertise">Expertise</a>
+        <a href="index.html#partners">Partners</a>
+        <a href="index.html#care">What We Care</a>
+        <a href="index.html#info">Info</a>
+      </div>
+      <a class="btn" href="contact.html">GET IN TOUCH</a>
+    </div>
+  </nav>
+
+  <header class="subhero">
+    <div class="container">
+      <h1>Our Plant · 我们的工厂</h1>
+      <p class="lead">整洁园区、环保设施、规范工艺与稳定产能，确保样品到量产的一致性与交付质量。</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <article class="card">
+        <div class="ph"><img class="zoom" src="images/samples/landscape/1.PNG" alt="Tree-lined Avenue"></div>
+        <div class="bd">Tree-lined Avenue · 厂区绿化</div>
+      </article>
+      <article class="card">
+        <div class="ph"><img class="zoom" src="images/samples/landscape/2.PNG" alt="Campus Road"></div>
+        <div class="bd">Campus Road · 景观与通透采光</div>
+      </article>
+      <article class="card">
+        <div class="ph"><img class="zoom" src="images/samples/landscape/4.PNG" alt="Landscape & Green Belts"></div>
+        <div class="bd">Landscape · 绿篱与景观石</div>
+      </article>
+      <article class="card">
+        <div class="ph"><img class="zoom" src="images/samples/landscape/5.PNG" alt="Environmental Equipment"></div>
+        <div class="bd">环保设备 · VOC/粉尘治理</div>
+      </article>
+    </div>
+  </main>
+
+  <!-- 轻量预览弹窗（与首页同风格） -->
+  <dialog id="lb" style="border:none;padding:0;background:transparent">
+    <div style="position:relative;margin:auto;width:min(1100px,92vw);background:#111827;border:1px solid #1f2937;border-radius:16px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.35);">
+      <button id="lbClose" style="position:absolute;top:10px;right:12px;width:44px;height:44px;display:grid;place-items:center;border:1px solid #1f2937;border-radius:50%;background:#0b1020;color:#e5e7eb;font-size:22px;line-height:1;cursor:pointer;z-index:5;">×</button>
+      <div style="border-radius:14px;display:flex;align-items:center;justify-content:center;height:min(82vh,92vw);width:100%;
+           background:radial-gradient(115% 150% at 50% 56%,rgba(255,255,255,.92) 0%,rgba(241,248,255,.78) 26%,rgba(190,208,232,.50) 56%,rgba(28,38,64,.86) 92%,rgba(15,23,42,1) 100%);">
+        <img id="lbImg" src="" alt="" style="max-width:98%;max-height:98%;object-fit:contain">
+      </div>
+    </div>
+  </dialog>
+  <style> dialog#lb::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); } </style>
+  <script>
+    (function(){
+      const dlg=document.getElementById('lb'), img=document.getElementById('lbImg'), close=document.getElementById('lbClose');
+      function open(url,alt){ img.src=url; img.alt=alt||'Preview'; dlg.showModal?.() ?? dlg.setAttribute('open',''); }
+      function shut(){ img.src=''; dlg.close?.() ?? dlg.removeAttribute('open'); }
+      document.addEventListener('click',e=>{
+        const t=e.target.closest('img.zoom'); if(!t) return;
+        e.preventDefault(); open(t.src, t.alt);
+      });
+      dlg.addEventListener('click',e=>{ if(e.target===dlg) shut(); });
+      close.addEventListener('click',e=>{ e.stopPropagation(); shut(); });
+      document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&(dlg.open||dlg.hasAttribute('open'))) shut(); });
+    })();
+  </script>
+</body>
+</html>
