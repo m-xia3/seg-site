@@ -3,17 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Certifiable Excellence · 合规能力 | SAIGE Footwear</title>
+<title>What We Care · 合规与认证 | SAIGE Footwear</title>
 <style>
   :root{
     --bg:#0f172a; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
     --card:#111827; --line:#1f2937; --accent:#e11d48; --accent-ink:#fff;
     --surface:#0b1222; --container:1200px;
   }
-  html,body{margin:0;background:#0a0f1f;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+  html,body{margin:0;background:#0a0f1f;color:var(--text);
+    font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
   a{color:inherit;text-decoration:none}
   .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 
+  /* 顶部导航 */
   .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(6px);
     background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
     border-bottom:1px solid var(--line);}
@@ -22,26 +24,59 @@
   .brand .logo{width:28px;height:28px;border-radius:6px;background:var(--accent);
     display:grid;place-items:center;color:#fff;font-weight:800}
   .menu{display:flex;gap:18px;flex:1;flex-wrap:wrap}
-  .menu a{color:var(--muted);font-weight:500} .menu a:hover{color:var(--text)}
-  .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.12);font-weight:700}
+  .menu a{color:var(--muted);font-weight:500}
+  .menu a:hover{color:var(--text)}
+  .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);
+    padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.12);font-weight:700}
   .btn:hover{filter:brightness(1.08)}
 
+  /* 子页头 */
   .subhero{padding:82px 0 28px;background:var(--surface);border-bottom:1px solid var(--line)}
   h1{font-size:32px;margin:0 0 6px}
   .lead{color:var(--muted);margin:0}
 
-  /* 徽章墙 */
-  .wall{display:grid;gap:16px;grid-template-columns:repeat(3,1fr);margin:26px 0 40px}
-  @media (max-width:1024px){ .wall{grid-template-columns:repeat(2,1fr)} }
-  @media (max-width:560px){ .wall{grid-template-columns:1fr} }
-  .badge{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-  .logo{width:64px;height:64px;flex:0 0 64px;border-radius:12px;background:#0c1426;border:1px solid #23314f;display:grid;place-items:center}
-  .logo img{max-width:80%;max-height:80%}
-  .t{font-weight:800}
-  .s{color:var(--muted);font-size:13px;margin-top:2px}
+  /* 合规清单（无图片，仿 Charming 的纵列卡片） */
+  .care-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(22px, 2.3vw, 28px);
+    margin: 26px 0 42px;
+  }
+  @media (max-width:1100px){ .care-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width:640px){  .care-grid{ grid-template-columns: 1fr; } }
+
+  .care-item{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: clamp(14px, 1.6vw, 18px) clamp(14px, 1.6vw, 18px);
+  }
+  .care-item h3{
+    margin: 0 0 8px;
+    font-size: clamp(18px, 1.6vw, 20px);
+    line-height: 1.25;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: .2px;
+  }
+  .care-item p{
+    margin: 0;
+    color: var(--muted);
+  }
+
+  /* 轻微分割线（行间） */
+  .care-item + .care-item{ position: relative; }
+  .care-item + .care-item::before{
+    content:""; position:absolute; left:0; right:0; top:-12px; height:1px;
+    background:linear-gradient(to right, transparent, var(--line), transparent);
+  }
+
+  /* 页脚小注释 */
+  .note{color:var(--muted); font-size:13px; margin: 8px 0 42px;}
 </style>
 </head>
 <body>
+  <!-- 顶部导航 -->
   <nav class="nav">
     <div class="container row">
       <div class="brand"><span class="logo">SG</span><span>赛格鞋业 SAIGE Footwear</span></div>
@@ -57,57 +92,44 @@
     </div>
   </nav>
 
+  <!-- 子页头 -->
   <header class="subhero">
     <div class="container">
-      <h1>Certifiable Excellence · 合规能力</h1>
-      <p class="lead">以第三方标准为依据：社会责任、环境绩效、质量体系与再生材料链条覆盖。</p>
+      <h1>What We Care · 合规与认证</h1>
+      <p class="lead">以第三方标准为依据，而非“口号”：社会责任、质量体系、再生材料链条，以及品牌授权项目的合规配合。</p>
     </div>
   </header>
 
+  <!-- 主体：纯文字清单 -->
   <main class="container">
-    <div class="wall">
-      <div class="badge">
-        <div class="logo"><img src="images/badges/higg-index.svg" alt="Higg Index"></div>
-        <div>
-          <div class="t">Higg FSLM · Verified</div>
-          <div class="s">社会与劳工管理（Intertek 验证）</div>
-        </div>
-      </div>
+    <div class="care-grid">
+      <article class="care-item">
+        <h3>Higg FSLM · Verified</h3>
+        <p>已实施 FSLM（Facility Social &amp; Labor Module），并通过第三方验证（Intertek）。覆盖工资与工时、健康与安全、管理制度、员工福利等维度。可在 Worldly/Higg 平台按工厂名称核验，按年度持续改进。</p>
+      </article>
 
-      <div class="badge">
-        <div class="logo"><img src="images/badges/rcs.svg" alt="RCS"></div>
-        <div>
-          <div class="t">RCS Scope</div>
-          <div class="s">再生含量链条覆盖（Footwear；BV）</div>
-        </div>
-      </div>
+      <article class="care-item">
+        <h3>ISO 9001:2015</h3>
+        <p>质量管理体系，覆盖硫化/冷粘鞋的设计与生产。通过过程方法与风险思维，落实文件化作业、纠正与预防、供应商评价与客户满意度监测，以稳定交付为目标。</p>
+      </article>
 
-      <div class="badge">
-        <div class="logo"><img src="images/badges/iso9001.svg" alt="ISO 9001:2015"></div>
-        <div>
-          <div class="t">ISO 9001:2015</div>
-          <div class="s">质量管理体系（硫化/冷粘鞋设计与生产）</div>
-        </div>
-      </div>
+      <article class="care-item">
+        <h3>RCS Scope（Footwear）</h3>
+        <p>再生含量链条覆盖（Bureau Veritas 审核）。支持在品牌/供应链安排下执行原料可追溯与批次文件留存，配合出具相应链条单据（由持证节点开具）。</p>
+      </article>
 
-      <div class="badge">
-        <div class="logo"><img src="images/badges/higg-fem.svg" alt="Higg FEM"></div>
-        <div>
-          <div class="t">Higg FEM</div>
-          <div class="s">环境模块（按项目年度更新）</div>
-        </div>
-      </div>
+      <article class="care-item">
+        <h3>海关知识产权备案（Barbie / Mattel，商标第 25 类）</h3>
+        <p>已完成中国海关总署的商标权备案，用于跨境环节的正品核验与侵权保护；常用于品牌授权生产项目的清关与维权配合（示例：Barbie）。</p>
+      </article>
 
-      <div class="badge">
-        <div class="logo"><img src="images/badges/grs.svg" alt="GRS"></div>
-        <div>
-          <div class="t">GRS · Statement</div>
-          <div class="s">按供应链闭环配合（示例）</div>
-        </div>
-      </div>
+      <article class="care-item">
+        <h3>Higg FEM（环境模块，按年度项目）</h3>
+        <p>按项目年度推进 FEM（Facility Environmental Module）评估，覆盖能源、排放、用水与废弃物等环境指标；可在项目需求下开放评分视图以供核验。</p>
+      </article>
     </div>
 
-    <!-- 如需放证书扫描件预览，可在此处追加一个小型画廊或下载链接 -->
+    <p class="note">说明：以上为可被第三方核验或按项目对接的合规项。若需查看证书扫描件或平台链接，请与我们联系获取完整合规包。</p>
   </main>
 </body>
 </html>
