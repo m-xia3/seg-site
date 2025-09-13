@@ -1,1 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Our People · 我们的人 | SAIGE Footwear</title>
+<style>
+  :root{
+    --bg:#0f172a; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
+    --card:#111827; --line:#1f2937; --accent:#e11d48; --accent-ink:#fff;
+    --surface:#0b1222; --container:1200px;
+  }
+  html,body{margin:0;background:#0a0f1f;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:var(--container);margin:0 auto;padding:0 24px}
+  img{max-width:100%;display:block;height:auto}
 
+  /* 顶部导航（与首页一致） */
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(6px);
+    background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
+    border-bottom:1px solid var(--line);}
+  .nav .row{display:flex;align-items:center;gap:20px;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+  .brand .logo{width:28px;height:28px;border-radius:6px;background:var(--accent);
+    display:grid;place-items:center;color:#fff;font-weight:800}
+  .menu{display:flex;gap:18px;flex:1;flex-wrap:wrap}
+  .menu a{color:var(--muted);font-weight:500} .menu a:hover{color:var(--text)}
+  .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.12);font-weight:700}
+  .btn:hover{filter:brightness(1.08)}
+
+  /* 子页头 */
+  .subhero{padding:82px 0 28px;background:var(--surface);border-bottom:1px solid var(--line)}
+  h1{font-size:32px;margin:0 0 6px}
+  .lead{color:var(--muted);margin:0}
+
+  /* 内容 */
+  .grid{display:grid;grid-template-columns:1.05fr 1fr;gap:22px;margin:26px 0 40px}
+  @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .h2{font-size:22px;margin:0 0 10px}
+  .list{margin:0;padding:0 0 0 18px;color:var(--muted)}
+  .kv{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media (max-width:520px){ .kv{grid-template-columns:1fr} }
+  .kv .item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;gap:12px;align-items:flex-start}
+  .ico{width:44px;height:44px;flex:0 0 44px;border-radius:10px;background:#0c1426;border:1px solid #23314f;display:grid;place-items:center}
+  .t{font-weight:800}
+  .s{color:var(--muted);font-size:14px;margin-top:2px}
+
+  /* 简易小图库（占位可换真图） */
+  .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+  @media (max-width:680px){ .gal{grid-template-columns:repeat(2,1fr)} }
+  .ph{aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:radial-gradient(120% 160% at 50% 56%, #f8fbff 0%, #dbe6f3 55%, #1a2542 95%, #0f172a 100%)}
+  .ph img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+  .ph:hover img{transform:scale(1.04)}
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container row">
+      <div class="brand"><span class="logo">SG</span><span>赛格鞋业 SAIGE Footwear</span></div>
+      <div class="menu">
+        <a href="index.html#about">Who We Are</a>
+        <a href="index.html#samples">Samples</a>
+        <a href="index.html#expertise">Expertise</a>
+        <a href="index.html#partners">Partners</a>
+        <a href="index.html#care">What We Care</a>
+        <a href="index.html#info">Info</a>
+      </div>
+      <a class="btn" href="contact.html">GET IN TOUCH</a>
+    </div>
+  </nav>
+
+  <header class="subhero">
+    <div class="container">
+      <h1>Our People · 我们的人</h1>
+      <p class="lead">安全、尊重、透明、高效沟通与快速响应，是我们长期交付与复购的根基。</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <section class="panel">
+        <h2 class="h2">我们如何与客户协作</h2>
+        <ul class="list">
+          <li>国际贸易背景的前台团队，时差内 24h 快速答复与样品推进。</li>
+          <li>明确里程碑（开发 → 打样 → 流水线试产 → 量产 → 交付），每一步有负责人。</li>
+          <li>以合规与风险管控为底线：材料、化学与社会责任提前预审。</li>
+          <li>样品/量产信息闭环：尺寸表、工艺卡、变更记录统一归档。</li>
+        </ul>
+
+        <h2 class="h2" style="margin-top:16px">工作文化</h2>
+        <ul class="list">
+          <li>以人为本：公平雇佣、工作场所安全、必要的培训与晋升路径。</li>
+          <li>数据驱动：交付周期、良品率、投诉率均可追踪。</li>
+          <li>客户共创：与你的设计与 Merch/QA 团队保持高频互动。</li>
+        </ul>
+
+        <div class="gal">
+          <!-- 你可以替换为办公/沟通/团队合影等照片 -->
+          <div class="ph"><img src="images/samples/rd/3D-scaner.PNG" alt=""></div>
+          <div class="ph"><img src="images/samples/factory/Factory Overview1.png" alt=""></div>
+          <div class="ph"><img src="images/samples/qs/QS1.jpg" alt=""></div>
+        </div>
+      </section>
+
+      <aside class="kv">
+        <div class="item">
+          <div class="ico">👷‍♀️</div>
+          <div><div class="t">Safety & Dignity</div><div class="s">安全生产与尊重个体，减少流失，保证经验沉淀。</div></div>
+        </div>
+        <div class="item">
+          <div class="ico">💬</div>
+          <div><div class="t">Clear Comms</div><div class="s">英文直接沟通，少中间环节；所有结论落于书面。</div></div>
+        </div>
+        <div class="item">
+          <div class="ico">⚡</div>
+          <div><div class="t">Fast Response</div><div class="s">样品与报价在承诺时限内给到可执行方案。</div></div>
+        </div>
+        <div class="item">
+          <div class="ico">📈</div>
+          <div><div class="t">Accountability</div><div class="s">把可度量的指标公开给客户，共同复盘改进。</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>
