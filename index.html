@@ -560,26 +560,50 @@ transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
 @keyframes draw { to{ stroke-dashoffset: 0 } }
 </style>
 
-<!-- Info -->
+<!-- Info（仅改内容，沿用原有三列布局与风格） -->
 <section id="info" class="section">
-<div class="container">
-<h2 class="h2">基本信息（占位）</h2>
-<div class="info" style="margin-top:16px;">
-<div>
-<div class="h3">公司信息</div>
-<p class="lead">赛格鞋业（SAIGE Footwear） · 地址/成立年/员工规模/年产能等占位。</p>
-</div>
-<div>
-<div class="h3">主要市场</div>
-<p class="lead">EU / NA / JP / KR / MEA（占位）。</p>
-</div>
-<div id="contact">
-<div class="h3">联系</div>
-<p class="lead">Email / 电话 / WhatsApp / WeChat（占位）。</p>
-<a class="btn btn-contact" href="contact.html">GET IN TOUCH</a>
-</div>
-</div>
-</div>
+  <div class="container">
+    <div class="info" style="margin-top:16px;">
+
+      <!-- 左列：总结 & 主按钮 -->
+      <div>
+        <div class="h2">We Build Better Shoes. Responsibly.</div>
+        <p class="lead">
+          从材料选择、打样开发到批量生产与装运，我们以<strong>稳定质量</strong>与<strong>可核验合规</strong>为底线，
+          用灵活的产能与高效沟通，把你的想法做成能反复复购的产品。
+        </p>
+        <a class="btn btn-contact" href="#contact-bottom">GET IN TOUCH</a>
+      </div>
+
+      <!-- 中列：站内锚点导航（点击回到相应板块） -->
+      <div>
+        <div class="h3" style="margin-bottom:8px;">Navigation</div>
+        <ul class="info-links">
+          <li><a href="#samples">What We Do · 样品 Samples</a></li>
+          <li><a href="#partners">Brands · 合作品牌</a></li>
+          <li><a href="#expertise">How We Do It · 我们的专业性</a></li>
+          <li><a href="#care">What We Care About · 我们在乎的事</a></li>
+          <li><a href="#contact-bottom">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- 右列：联系按钮（或保留为空也可） -->
+      <div id="contact-bottom">
+        <div class="h3" style="margin-bottom:8px;">Contact</div>
+        <p class="lead" style="margin:0 0 10px;">有项目要聊？欢迎联系。</p>
+        <a class="btn btn-contact" href="contact.html">CONTACT US</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 轻量样式（仅作用于 #info 区域，不改变全站风格） -->
+  <style>
+    #info .info-links{ list-style:none; padding:0; margin:0; }
+    #info .info-links li + li{ margin-top:10px; }
+    #info .info-links a{ font-weight:800; color:var(--text); }
+    #info .info-links a:hover{ color:var(--muted); }
+  </style>
 </section>
 
 <footer>
