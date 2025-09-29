@@ -29,8 +29,10 @@
     .hero{padding:42px 0 22px;
       background:radial-gradient(900px 360px at 70% -10%, rgba(225,29,72,.12), transparent 55%),
                  radial-gradient(700px 320px at 8% -5%, rgba(59,130,246,.10), transparent 60%)}
-    .title{font-size:40px;line-height:1.15;margin:0 0 10px;text-align:center}
-    .lead{color:var(--muted);max-width:68ch;margin:0 auto;text-align:center}
+/* 与 R&D 页面一致：左对齐，副标题不限制宽度 */
+.title{font-size:40px;line-height:1.15;margin:0 0 10px}
+.lead{color:var(--muted);margin:0}
+.hero .lead{max-width:none;}
 
     .bar{height:1px;background:var(--line);margin:28px 0}
 
