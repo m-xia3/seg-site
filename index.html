@@ -46,7 +46,12 @@ img{max-width:100%;height:auto;display:block}
 }
 .nav .row{display:flex;align-items:center;gap:20px;padding:14px 0}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.5px}
-.brand .logo{width:28px;height:28px;border-radius:6px;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink);font-weight:800}
+.brand .logo{
+  width:28px;height:28px;border-radius:6px;
+  background:transparent;      /* 或 background:none; */
+  display:grid;place-items:center;color:var(--accent-ink);font-weight:800;
+  overflow:hidden;             /* 可选：确保圆角裁切图片 */
+}
 .menu{display:flex;gap:18px;flex:1;flex-wrap:wrap}
 .menu a{color:var(--muted);font-weight:500}
 .menu a:hover{color:var(--text)}
