@@ -36,7 +36,7 @@
       background:radial-gradient(800px 360px at 70% -10%, rgba(225,29,72,.12), transparent 55%),
       radial-gradient(600px 320px at 10% -5%, rgba(59,130,246,.10), transparent 60%);}
     .title{font-size:40px;line-height:1.15;margin:0 0 10px}
-    /* 展开文字宽度：去掉 max-width */
+    /* 展开 lead 宽度 */
     .lead{color:var(--muted);margin:0}
     @media (max-width:720px){.title{font-size:32px}}
 
@@ -55,6 +55,9 @@
     .tl-h{display:flex;align-items:center;gap:10px;margin-bottom:8px}
     .tl-h .dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
     .tl-sub{color:var(--muted);margin:0 0 8px}
+
+    /* 缩小时间轴文字 */
+    .timeline svg text{ font-size:14px; }
 
     /* Grid & cards */
     .grid{display:grid;gap:18px}
@@ -164,10 +167,11 @@
         <text x="920" y="170" text-anchor="middle" fill="#0e2a47">Established · 2015</text>
       </svg>
 
+      <!-- 简要历程（聚焦 Qingzhou Baozu 与 Handan Baozu） -->
       <p class="tl-sub" style="margin-top:8px">
-        Baozu footprint: <b>65,000㎡</b> land / <b>45,000㎡</b> workshops; SAIGE footprint: <b>80,000㎡</b> land / <b>60,000㎡</b> workshops.
-        We serve H&amp;M, Inditex (Zara / Pull&amp;Bear / Bershka) and Italy’s SUGI (CIRCA),
-        with products shipped to <b>40+</b> countries and regions.
+        <strong>Qingzhou Baozu Footwear Co., Ltd.</strong> was founded in 2001, building our early manufacturing footprint and know-how in vulcanized and cold-cement footwear.
+        In 2015, <strong>Handan Baozu Footwear Co., Ltd.</strong> was established as a larger production base to scale capacity and standardize ERP-driven operations within the group.
+        Today, Baozu operates across two campuses, with Handan covering <b>65,000㎡</b> of land and <b>45,000㎡</b> of workshops, and works alongside SAIGE and Hong Kong Tai Yuk within an integrated trade-and-manufacturing model.
       </p>
     </div>
   </section>
