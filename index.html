@@ -272,10 +272,11 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
 /* ====== 底部 Info（两块并列，整体居中） 覆盖样式 ====== */
 #info .info{
   display:grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: max-content max-content; /* 两块按内容宽度 */
   gap: clamp(24px, 5vw, 80px);
-  justify-content: center;   /* 两列整体居中 */
+  justify-content: space-between;                 /* 均匀分散到两侧 */
   align-items: start;
+  width:100%;                                     /* 确保占满容器 */
 }
 #info .info-block{ text-align:left; }
 #info .info-links{ list-style:none; padding:0; margin:0; }
