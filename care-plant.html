@@ -6,97 +6,93 @@
 <title>Our Plant · 我们的工厂 | SAIGE Footwear</title>
 <style>
   :root{
-    --bg:#0f172a; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
+    /* 与 Our People 保持一致 */
+    --bg:#0a0f1f; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
     --card:#111827; --line:#1f2937; --accent:#e11d48; --accent-ink:#fff;
-    --surface:#0b1222; --container:1200px;
+    --container:1200px;
+    /* 本页原有 */
     --radius:16px; --radius-sm:12px; --stack: clamp(18px, 3.4vw, 28px);
   }
-  html,body{margin:0;background:#0a0f1f;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+  html,body{margin:0;background:var(--bg);color:var(--text);
+    font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
   a{color:inherit;text-decoration:none}
   img{max-width:100%;height:auto;display:block}
   .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 
-  /* 顶部导航（与 Who We Are 同风格：半透明+细分隔线） */
-  .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(6px);
+  /* Topbar —— 与 Our People 同款 */
+  .topbar{position:sticky;top:0;z-index:40;
+    backdrop-filter:saturate(160%) blur(6px);
     background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
     border-bottom:1px solid var(--line);}
-  .nav .row{display:flex;align-items:center;gap:20px;padding:14px 0}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:700}
-  .brand .logo{width:28px;height:28px;border-radius:6px;background:var(--accent);
-    display:grid;place-items:center;color:#fff;font-weight:800}
-  .menu{display:flex;gap:18px;flex:1;flex-wrap:wrap}
-  .menu a{color:var(--muted);font-weight:500;opacity:.92}
-  .menu a:hover{color:var(--text)}
-  .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.12);font-weight:700}
-  .btn:hover{filter:brightness(1.08)}
+  .topbar .row{display:flex;align-items:center;gap:12px;padding:12px 0}
+  .brand{font-weight:800;letter-spacing:.3px}
+  .back{display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--line);border-radius:10px;padding:8px 12px;
+    background:#0b1222;color:var(--text);font-weight:600;}
+  .back:hover{filter:brightness(1.06)}
+  .close{margin-left:auto;display:inline-grid;place-items:center;
+    width:36px;height:36px;border-radius:10px;border:1px solid var(--line);
+    background:var(--ink);font-size:18px;cursor:pointer;}
+  .close:hover{filter:brightness(1.08)}
 
-  /* 子页头：加入 eyebrow、更窄行宽与次要描述； */
-  .subhero{padding:86px 0 28px;background:var(--surface);border-bottom:1px solid var(--line)}
-  .eyebrow{display:inline-flex;gap:8px;align-items:center;color:#cbd5e1;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.9}
-  .eyebrow::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--accent);box-shadow:0 0 0 3px rgba(225,29,72,.18)}
-  h1{font-size:32px;margin:8px 0 8px}
-  .lead{color:var(--muted);max-width:820px;margin:0}
+  /* Hero —— 与 Our People 同款气氛背景 */
+  .hero{padding:42px 0 22px;
+    background:radial-gradient(800px 360px at 70% -10%, rgba(225,29,72,.12), transparent 55%),
+               radial-gradient(600px 320px at 10% -5%, rgba(59,130,246,.10), transparent 60%);}
+  .title{font-size:40px;line-height:1.15;margin:0 0 10px}
+  .lead{color:var(--muted);max-width:72ch;margin:0}
+  @media (max-width:720px){.title{font-size:32px}}
 
-  /* 关键指标条（与 Who We Are 统一的小卡风格） */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 6px}
-  @media (max-width:900px){ .stats{grid-template-columns:1fr 1fr} }
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-  .stat .k{font-size:18px;font-weight:800;letter-spacing:.2px}
-  .stat .t{font-size:12px;color:var(--muted)}
+  .bar{height:1px;background:var(--line);margin:26px 0}
 
-  /* 分段导航（与 who we are 的轻量分段 tabs 对齐） */
-  .subtabs{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 6px}
-  .subtabs a{padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:#cbd5e1}
-  .subtabs a:hover{border-color:#2b3443;color:#fff}
-
-  /* 内容区块 */
+  /* ====== 以下保留你原 Our Plant 内容样式 ====== */
   .section{padding: calc(var(--stack) + 8px) 0}
   .section h2{font-size:22px;margin:0 0 10px}
   .section .desc{color:var(--muted);max-width:820px;margin:0 0 14px}
 
-  /* 统一卡片与图片样式（覆盖标题悬浮、说明在图上，匹配 Who We Are 的卡片半径与阴影） */
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   @media (max-width:900px){ .grid{grid-template-columns:1fr} }
-  .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;transition:transform .2s ease, box-shadow .2s ease}
+  .card{position:relative;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius-sm);overflow:hidden;transition:transform .2s ease, box-shadow .2s ease}
   .card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(0,0,0,.18)}
   .ph{position:relative;aspect-ratio:3/2;background:#0c1426}
   .ph img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease;cursor:zoom-in}
   .card:hover .ph img{transform:scale(1.035)}
-  /* 图片上覆盖标题（与 who we are 一致的角标/渐变带） */
   .cap{
     position:absolute;left:10px;bottom:10px;right:10px;
     background:linear-gradient(to top, rgba(2,6,23,.72), rgba(2,6,23,.0));
     padding:38px 10px 8px;border-radius:10px;color:#e5e7eb;font-weight:600;
   }
   .cap small{display:block;font-weight:500;color:#cbd5e1;opacity:.9}
-
-  /* 次级说明条（可选，用于可读性补充） */
   .bd{padding:10px 12px;color:var(--muted);border-top:1px solid var(--line)}
 
-  /* 底部 CTA（与主站统一） */
-  .cta{margin:26px 0 60px;padding:16px;border:1px dashed #273243;border-radius:var(--radius-sm);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .cta{margin:26px 0 60px;padding:16px;border:1px dashed #273243;border-radius:var(--radius-sm);
+    display:flex;gap:14px;flex-wrap:wrap;align-items:center}
   .cta strong{font-weight:800}
 </style>
 </head>
 <body>
-  <nav class="nav">
+  <!-- 顶部与 Our People 一致 -->
+  <header class="topbar">
     <div class="container row">
-      <div class="brand"><span class="logo">SG</span><span>赛格鞋业 SAIGE Footwear</span></div>
-      <div class="menu">
-        <a href="index.html#about">Who We Are</a>
-        <a href="index.html#samples">Samples</a>
-        <a href="index.html#expertise">Expertise</a>
-        <a href="index.html#partners">Partners</a>
-        <a href="index.html#care">What We Care</a>
-        <a href="index.html#info">Info</a>
-      </div>
-      <a class="btn" href="contact.html">GET IN TOUCH</a>
+      <a class="back" href="index.html#about">← Back</a>
+      <div class="brand">SAIGE Footwear · Our Plant</div>
+      <button class="close" aria-label="Close" id="btnClose">×</button>
     </div>
-  </nav>
+  </header>
 
+  <!-- 渐变 Hero 与标题/副标题 -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="title">Our Plant · 我们的工厂</h1>
+      <p class="lead">整洁园区、环保设施、规范工艺与稳定产能，确保样品到量产的一致性与交付质量。</p>
+    </div>
+  </section>
 
+  <div class="bar"></div>
+
+  <!-- 主体内容保持原来的网格与灯箱 -->
   <main class="container">
-    <!-- 园区风貌 / 环保（统一卡片风格 + 图上覆盖标题） -->
     <section id="campus" class="section">
       <h2>园区风貌 Campus</h2>
       <p class="desc">通透采光、绿化带与交通流线规划，保证良好的作业环境与物料流转效率。</p>
@@ -136,7 +132,6 @@
       </div>
     </section>
 
-    <!-- 统一底部 CTA -->
     <section class="cta" aria-label="contact">
       <strong>需要现场审核或更多合规资料？</strong>
       <span class="desc" style="color:var(--muted)">可提供工艺流程、安环文件、产线清单与抽检样品。</span>
@@ -144,7 +139,7 @@
     </section>
   </main>
 
-  <!-- 轻量预览弹窗（保持与首页/Who We Are 同风格） -->
+  <!-- 预览灯箱保持不变 -->
   <dialog id="lb" style="border:none;padding:0;background:transparent">
     <div style="position:relative;margin:auto;width:min(1100px,92vw);background:#111827;border:1px solid #1f2937;border-radius:16px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.35);">
       <button id="lbClose" style="position:absolute;top:10px;right:12px;width:44px;height:44px;display:grid;place-items:center;border:1px solid #1f2937;border-radius:50%;background:#0b1020;color:#e5e7eb;font-size:22px;line-height:1;cursor:pointer;z-index:5;">×</button>
@@ -156,6 +151,13 @@
   </dialog>
   <style> dialog#lb::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); } </style>
   <script>
+    // 顶部 Close：有历史则返回，否则回到首页 about 锚点
+    document.getElementById('btnClose').addEventListener('click', function(){
+      if(history.length > 1) history.back();
+      else location.href = 'index.html#about';
+    });
+
+    // 图片灯箱
     (function(){
       const dlg=document.getElementById('lb'), img=document.getElementById('lbImg'), close=document.getElementById('lbClose');
       function open(url,alt){ img.src=url; img.alt=alt||'Preview'; dlg.showModal?.() ?? dlg.setAttribute('open',''); }
