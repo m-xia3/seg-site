@@ -15,34 +15,45 @@
     img{max-width:100%;height:auto;display:block}
     .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 
-    /* 顶部导航 */
-    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(6px);
+    /* ===== 顶部：与“硫化鞋”页面一致 ===== */
+    .topbar{position:sticky;top:0;z-index:40;
+      backdrop-filter:saturate(160%) blur(6px);
       background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
       border-bottom:1px solid var(--line);}
-    .nav .row{display:flex;align-items:center;gap:16px;padding:12px 0}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
-    .brand .logo{width:28px;height:28px;border-radius:6px;background:var(--accent);
-      display:grid;place-items:center;color:#fff;font-weight:800}
-    .menu{margin-left:auto}
-    .menu a{color:var(--muted);margin-left:14px}
-    .menu a:hover{color:var(--text)}
+    .topbar .row{display:flex;align-items:center;gap:12px;padding:12px 0}
+    .brand{font-weight:800;letter-spacing:.3px}
+    .back{display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--line);border-radius:10px;padding:8px 12px;
+      background:#0b1222;color:var(--text);font-weight:600;}
+    .back:hover{filter:brightness(1.06)}
+    .close{margin-left:auto;display:inline-grid;place-items:center;
+      width:36px;height:36px;border-radius:10px;border:1px solid var(--line);
+      background:var(--ink);font-size:18px;cursor:pointer;}
+    .close:hover{filter:brightness(1.08)}
 
+    /* Hero（同“硫化鞋”） */
+    .hero{padding:42px 0 22px;
+      background:radial-gradient(800px 360px at 70% -10%, rgba(225,29,72,.12), transparent 55%),
+                 radial-gradient(600px 320px at 10%  -5%, rgba(59,130,246,.10), transparent 60%);}
+    .title{font-size:40px;line-height:1.15;margin:0 0 10px}
+    .lead-hero{color:var(--muted);max-width:72ch;margin:0}
+    @media (max-width:720px){.title{font-size:32px}}
+    .bar{height:1px;background:var(--line);margin:26px 0}
+
+    /* ===== 以下保留原页面样式，不改动 ===== */
     .section{padding:36px 0}
     .h2{font-size:28px;margin:0 0 8px}
     .lead{color:var(--muted);margin:0 0 8px}
     .crumbs{color:var(--muted);font-size:14px;margin:10px 0 18px}
     .crumbs a{color:var(--muted)} .crumbs a:hover{color:var(--text)}
-    .bar{height:1px;background:var(--line);margin:24px 0}
     .btn{display:inline-block;background:var(--accent);color:var(--accent-ink);
       padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);font-weight:700}
     .btn:hover{filter:brightness(1.08)}
 
-    /* 画廊栅格 */
     .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
     @media (max-width:1024px){ .gallery{grid-template-columns:repeat(2,1fr);} }
     @media (max-width:560px){ .gallery{grid-template-columns:1fr;} }
 
-    /* 缩略图容器（亮背景） */
     .thumb{
       position:relative; border-radius:16px; overflow:hidden; aspect-ratio:4/3;
       background: transparent; cursor: zoom-in;
@@ -50,48 +61,27 @@
     .thumb-inner{
       position:relative; inset:0; width:100%; height:100%;
       display:grid; place-items:center; overflow:hidden;
-      background: radial-gradient(
-        115% 150% at 50% 56%,
-        rgba(255,255,255,.92) 0%,
-        rgba(241,248,255,.78) 26%,
-        rgba(190,208,232,.50) 56%,
-        rgba(28,38,64,.86)   92%,
-        rgba(15,23,42,1)     100%
-      );
-      transition: background .24s ease, box-shadow .24s ease;
-      border-radius:16px;
+      background: radial-gradient(115% 150% at 50% 56%, rgba(255,255,255,.92) 0%, rgba(241,248,255,.78) 26%, rgba(190,208,232,.50) 56%, rgba(28,38,64,.86) 92%, rgba(15,23,42,1) 100%);
+      transition: background .24s ease, box-shadow .24s ease; border-radius:16px;
     }
     .thumb-inner::before{
       content:""; position:absolute; inset:0; pointer-events:none; border-radius:16px;
-      box-shadow: inset 0 0 120px 14px rgba(8,13,26,.14);
-      transition: box-shadow .24s ease;
+      box-shadow: inset 0 0 120px 14px rgba(8,13,26,.14); transition: box-shadow .24s ease;
     }
 
-    /* 缩略图：基础 + 个别微调（通过 CSS 变量控制缩放/位移） */
     .thumb img{
-      max-width:92%;
-      max-height:92%;
-      object-fit:contain;
-      object-position:center;
+      max-width:92%; max-height:92%; object-fit:contain; object-position:center;
       transform: translateY(var(--shift-y,0)) scale(var(--scale,1)) !important;
-      mix-blend-mode:normal;
-      z-index:1;
-      transition: transform .25s ease;
+      mix-blend-mode:normal; z-index:1; transition: transform .25s ease;
     }
-
-    /* 1 / 4 / 7：第4张再单独调 —— 稍微小一点并上移 6% */
     .gallery .item:nth-child(1){ --scale:0.88; --shift-y:-10%; }
-    .gallery .item:nth-child(4){ --scale:0.76; --shift-y:-20%; }  /* 关键：抬高 */
+    .gallery .item:nth-child(4){ --scale:0.76; --shift-y:-20%; }
     .gallery .item:nth-child(7){ --scale:0.88; --shift-y:-10%; }
-
-    /* 平板端：位移回到 0，仍略小于其它 */
     @media (max-width:1024px){
       .gallery .item:nth-child(1){ --scale:0.90; --shift-y:3%; }
       .gallery .item:nth-child(4){ --scale:0.76; --shift-y:-6%; }
       .gallery .item:nth-child(7){ --scale:0.90; --shift-y:3%; }
     }
-
-    /* 手机端：统一视觉，轻度缩小即可 */
     @media (max-width:640px){
       .gallery .item:nth-child(1){ --scale:0.92; --shift-y:2%; }
       .gallery .item:nth-child(4){ --scale:0.76; --shift-y:-6%; }
@@ -99,54 +89,25 @@
     }
 
     .thumb:hover .thumb-inner{
-      background: radial-gradient(
-        125% 165% at 50% 56%,
-        rgba(255,255,255,.98) 0%,
-        rgba(248,252,255,.90) 26%,
-        rgba(196,214,236,.56) 56%,
-        rgba(24,32,56,.82)   92%,
-        rgba(15,23,42,1)     100%
-      );
+      background: radial-gradient(125% 165% at 50% 56%, rgba(255,255,255,.98) 0%, rgba(248,252,255,.90) 26%, rgba(196,214,236,.56) 56%, rgba(24,32,56,.82) 92%, rgba(15,23,42,1) 100%);
     }
     .thumb:hover .thumb-inner::before{ box-shadow: inset 0 0 90px 8px rgba(8,13,26,.10); }
     .cap{color:var(--muted);font-size:14px;margin-top:8px;padding:0 2px}
 
-    /* === 放大预览 === */
     dialog#lightbox{ border:none; padding:0; background:transparent; width:100%; max-width:none; }
     dialog::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
 
     .lightbox-panel{
       position:relative; margin:auto; width:min(1100px,92vw);
       background:var(--card); border:1px solid var(--line); border-radius:16px;
-      padding:14px;
-      box-shadow:0 30px 60px rgba(0,0,0,.35);
+      padding:14px; box-shadow:0 30px 60px rgba(0,0,0,.35);
     }
-
     .lightbox-stage{
-      position:relative;
-      border-radius:14px;
-      display:flex; align-items:center; justify-content:center;
-      height: min(82vh, 92vw);
-      max-height: 82vh;
-      width: 100%;
-      background: radial-gradient(
-        115% 150% at 50% 56%,
-        rgba(255,255,255,.92) 0%,
-        rgba(241,248,255,.78) 26%,
-        rgba(190,208,232,.50) 56%,
-        rgba(28,38,64,.86)   92%,
-        rgba(15,23,42,1)     100%
-      );
+      position:relative; border-radius:14px; display:flex; align-items:center; justify-content:center;
+      height: min(82vh, 92vw); max-height: 82vh; width: 100%;
+      background: radial-gradient(115% 150% at 50% 56%, rgba(255,255,255,.92) 0%, rgba(241,248,255,.78) 26%, rgba(190,208,232,.50) 56%, rgba(28,38,64,.86) 92%, rgba(15,23,42,1) 100%);
     }
-
-    .lightbox-stage img{
-      max-width: 98%;
-      max-height: 98%;
-      object-fit: contain;
-      object-position: center;
-      transform: none;
-      mix-blend-mode: normal;
-    }
+    .lightbox-stage img{ max-width:98%; max-height:98%; object-fit:contain; object-position:center; transform:none; mix-blend-mode:normal; }
 
     .lightbox-close{
       position:absolute; top:10px; right:12px;
@@ -158,13 +119,26 @@
   </style>
 </head>
 <body>
-  <nav class="nav">
+  <!-- Topbar（与“硫化鞋”一致） -->
+  <header class="topbar">
     <div class="container row">
-      <div class="brand"><span class="logo">SG</span><span>SAIGE Footwear</span></div>
-      <div class="menu"><a href="index.html#samples">返回样品</a><a href="index.html">首页</a></div>
+      <a class="back" href="index.html#samples">← Back</a>
+      <div class="brand">SAIGE Footwear · 样品</div>
+      <button class="close" aria-label="Close" id="btnClose">×</button>
     </div>
-  </nav>
+  </header>
 
+  <!-- Hero（与“硫化鞋”一致） -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="title">帮面 · Uppers</h1>
+      <p class="lead-hero">精选案例（点击图片可放大预览）。我们可依据来图来样快速打样与量产。</p>
+    </div>
+  </section>
+
+  <div class="bar"></div>
+
+  <!-- ===== 原页面主体保持不变，图片一张不少 ===== -->
   <section class="section">
     <div class="container">
       <div class="crumbs"><a href="index.html">首页</a> › <a href="index.html#samples">样品</a> › 帮面</div>
@@ -188,7 +162,7 @@
     </div>
   </section>
 
-  <!-- 预览弹窗 -->
+  <!-- 预览弹窗（原样保留） -->
   <dialog id="lightbox">
     <div class="lightbox-panel">
       <button class="lightbox-close" aria-label="Close">×</button>
@@ -197,6 +171,12 @@
   </dialog>
 
   <script>
+  // 顶部 Close：与“硫化鞋”同逻辑
+  document.getElementById('btnClose').addEventListener('click', function(){
+    if(history.length > 1) history.back();
+    else location.href = 'index.html#samples';
+  });
+
   (function(){
     const dlg  = document.getElementById('lightbox');
     const img  = document.getElementById('lightboxImg');
