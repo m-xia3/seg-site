@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>关于我们 · 香港泰玉贸易有限公司（工贸一体） | SAIGE / 保足鞋业</title>
+  <title>Who We Are · Hong Kong Tai Yuk Trading Limited | SAIGE / Baozu Footwear</title>
   <style>
     :root{
       --bg:#0a0f1f; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
@@ -15,7 +15,7 @@
     img{max-width:100%;display:block}
     .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 
-    /* 顶部返回栏 */
+    /* Top bar */
     .topbar{position:sticky;top:0;z-index:40;
       backdrop-filter:saturate(160%) blur(6px);
       background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
@@ -49,13 +49,13 @@
     @media (max-width:960px){.kpis{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:520px){.kpis{grid-template-columns:1fr}}
 
-    /* 时间轴 */
+    /* Timeline */
     .timeline{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
     .tl-h{display:flex;align-items:center;gap:10px;margin-bottom:8px}
     .tl-h .dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
     .tl-sub{color:var(--muted);margin:0 0 8px}
 
-    /* 网格与卡片 */
+    /* Grid & cards */
     .grid{display:grid;gap:18px}
     .grid.s-3{grid-template-columns:repeat(3,1fr)}
     .grid.s-2{grid-template-columns:repeat(2,1fr)}
@@ -67,7 +67,7 @@
     .card-media img{width:100%;height:100%;object-fit:cover;object-position:center}
     .card-bd{padding:14px 16px;color:var(--muted)}
 
-    /* 只调第二张：向上移，露出下边人脸 */
+    /* Only the 2nd photo: nudge focus upward */
     .card-media.focus-up img{object-position:50% 15%}
 
     /* Lightbox */
@@ -89,11 +89,11 @@
   </style>
 </head>
 <body>
-  <!-- 顶部条 -->
+  <!-- Top bar -->
   <header class="topbar">
     <div class="container row">
       <a class="back" href="index.html#expertise">← Back</a>
-      <div class="brand">香港泰玉贸易有限公司 · 邯郸保足鞋业（工贸一体）</div>
+      <div class="brand">HONG KONG TAI YUK TRADING LTD · Handan Baozu Footwear (integrated)</div>
       <button class="close" aria-label="Close" id="btnClose">×</button>
     </div>
   </header>
@@ -101,29 +101,31 @@
   <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <h1 class="title">关于我们 · TEAM</h1>
-      <p class="lead">网站名称更新为「香港泰玉贸易有限公司」，前端对接国际买手与品牌；背后由
-        「邯郸市保足鞋业有限公司」与「赛格鞋业」提供稳定制造能力，形成
-        <span style="color:var(--accent);font-weight:700">工贸一体</span>的协同体系。</p>
+      <h1 class="title">Who We Are · TEAM</h1>
+      <p class="lead">
+        This site presents <strong>Hong Kong Tai Yuk Trading Limited</strong> as the front office for international buyers and brands.
+        Behind the scenes, <strong>Handan Baozu Footwear Co., Ltd.</strong> and <strong>SAIGE Footwear</strong> provide stable manufacturing —
+        together forming an <span style="color:var(--accent);font-weight:700">integrated trade-and-manufacturing</span> model.
+      </p>
       <div class="kpis">
-        <div class="kpi"><b>4+2</b><small>硫化线 4 条 · 冷粘线 2 条</small></div>
-        <div class="kpi"><b>900+</b><small>在职员工 · ERP 精益管理</small></div>
-        <div class="kpi"><b>500万+</b><small>年产双数（双/年）</small></div>
-        <div class="kpi"><b>40+</b><small>出口国家与地区（EU/NA 为主）</small></div>
+        <div class="kpi"><b>4 + 2</b><small>4 vulcanized lines · 2 cold-cement lines</small></div>
+        <div class="kpi"><b>900+</b><small>employees · ERP-driven lean management</small></div>
+        <div class="kpi"><b>5M+</b><small>annual capacity (pairs/year)</small></div>
+        <div class="kpi"><b>40+</b><small>export markets (primarily EU / NA)</small></div>
       </div>
     </div>
   </section>
 
   <div class="bar"></div>
 
-  <!-- 企业发展历程（补回） -->
+  <!-- Milestones -->
   <section class="container">
     <div class="timeline">
-      <div class="tl-h"><span class="dot"></span><strong>企业发展历程</strong></div>
-      <p class="tl-sub">从 1994 创业到 2015 工贸一体：品牌服务能力与制造规模并进。</p>
+      <div class="tl-h"><span class="dot"></span><strong>Milestones</strong></div>
+      <p class="tl-sub">From a 1994 start to a 2015 integrated model — growing brand service and manufacturing scale in step.</p>
 
-      <!-- 响应式 SVG 时间轴 -->
-      <svg viewBox="0 0 1100 360" width="100%" height="auto" role="img" aria-label="企业发展历程">
+      <!-- Responsive SVG timeline -->
+      <svg viewBox="0 0 1100 360" width="100%" height="auto" role="img" aria-label="Company milestones">
         <defs>
           <linearGradient id="g1" x1="0" x2="1">
             <stop offset="0" stop-color="#93c5fd" stop-opacity=".8"/>
@@ -136,93 +138,93 @@
         <path d="M40,300 C360,60 740,60 1060,300" fill="none" stroke="url(#g1)" stroke-width="4" filter="url(#shadow)"/>
         <polygon points="1060,300 1048,294 1052,306" fill="#fda4af"/>
 
-        <!-- 1994 山东赛格鞋业有限公司 -->
+        <!-- 1994 Shandong SAIGE Footwear Co., Ltd. -->
         <circle cx="180" cy="230" r="8" fill="#e11d48"/>
         <rect x="70" y="120" rx="14" ry="14" width="220" height="70" fill="#a7f3d0" stroke="#0e2a47" stroke-width="3"/>
-        <text x="180" y="150" text-anchor="middle" fill="#0e2a47" font-weight="700">山东赛格鞋业有限公司</text>
-        <text x="180" y="170" text-anchor="middle" fill="#0e2a47">创立 · 1994</text>
+        <text x="180" y="150" text-anchor="middle" fill="#0e2a47" font-weight="700">Shandong SAIGE Footwear Co., Ltd.</text>
+        <text x="180" y="170" text-anchor="middle" fill="#0e2a47">Founded · 1994</text>
 
-        <!-- 2001 青州保足鞋业有限公司 -->
+        <!-- 2001 Qingzhou Baozu Footwear Co., Ltd. -->
         <circle cx="430" cy="170" r="8" fill="#e11d48"/>
         <rect x="350" y="60" rx="14" ry="14" width="220" height="70" fill="#bbf7d0" stroke="#0e2a47" stroke-width="3"/>
-        <text x="460" y="90" text-anchor="middle" fill="#0e2a47" font-weight="700">青州保足鞋业有限公司</text>
-        <text x="460" y="110" text-anchor="middle" fill="#0e2a47">成立 · 2001</text>
+        <text x="460" y="90" text-anchor="middle" fill="#0e2a47" font-weight="700">Qingzhou Baozu Footwear Co., Ltd.</text>
+        <text x="460" y="110" text-anchor="middle" fill="#0e2a47">Established · 2001</text>
 
-        <!-- 2015 香港泰玉贸易有限公司 -->
+        <!-- 2015 Hong Kong Tai Yuk Trading Limited -->
         <circle cx="680" cy="170" r="8" fill="#e11d48"/>
         <rect x="600" y="60" rx="14" ry="14" width="220" height="70" fill="#a7f3d0" stroke="#0e2a47" stroke-width="3"/>
-        <text x="710" y="90" text-anchor="middle" fill="#0e2a47" font-weight="700">香港泰玉贸易有限公司</text>
-        <text x="710" y="110" text-anchor="middle" fill="#0e2a47">成立 · 2015</text>
+        <text x="710" y="90" text-anchor="middle" fill="#0e2a47" font-weight="700">Hong Kong Tai Yuk Trading Limited</text>
+        <text x="710" y="110" text-anchor="middle" fill="#0e2a47">Established · 2015</text>
 
-        <!-- 2015 邯郸市保足鞋业有限公司 -->
+        <!-- 2015 Handan Baozu Footwear Co., Ltd. -->
         <circle cx="900" cy="230" r="8" fill="#e11d48"/>
         <rect x="800" y="120" rx="14" ry="14" width="240" height="70" fill="#bbf7d0" stroke="#0e2a47" stroke-width="3"/>
-        <text x="920" y="150" text-anchor="middle" fill="#0e2a47" font-weight="700">邯郸市保足鞋业有限公司</text>
-        <text x="920" y="170" text-anchor="middle" fill="#0e2a47">成立 · 2015</text>
+        <text x="920" y="150" text-anchor="middle" fill="#0e2a47" font-weight="700">Handan Baozu Footwear Co., Ltd.</text>
+        <text x="920" y="170" text-anchor="middle" fill="#0e2a47">Established · 2015</text>
       </svg>
 
       <p class="tl-sub" style="margin-top:8px">
-        目前保足占地 <b>65,000㎡</b>、厂房 <b>45,000㎡</b>；赛格占地 <b>80,000㎡</b>、厂房 <b>60,000㎡</b>。
-        服务 H&amp;M、Inditex（Zara / Pull&bear / Bershka）及意大利 SUGI（CIRCA）等，
-        产品销往欧美等 <b>40+</b> 国家与地区。
+        Baozu footprint: <b>65,000㎡</b> land / <b>45,000㎡</b> workshops; SAIGE footprint: <b>80,000㎡</b> land / <b>60,000㎡</b> workshops.
+        We serve H&amp;M, Inditex (Zara / Pull&amp;Bear / Bershka) and Italy’s SUGI (CIRCA),
+        with products shipped to <b>40+</b> countries and regions.
       </p>
     </div>
   </section>
 
   <div class="bar"></div>
 
-  <!-- 实拍照片 -->
+  <!-- Photos -->
   <section id="team-photos" class="container">
-    <h2 style="margin:0 0 10px;font-size:28px">真实协同 · 即刻响应</h2>
-    <p class="lead" style="margin-bottom:12px">以下均为与客户线上评审、线下拜访与工厂现场的真实照片。</p>
+    <h2 style="margin:0 0 10px;font-size:28px">Real collaboration · fast response</h2>
+    <p class="lead" style="margin-bottom:12px">All images are real moments — remote reviews, on-site visits and factory floors.</p>
 
     <div class="grid s-3">
       <article class="card">
         <div class="card-media">
-          <img class="zoomable" src="images/samples/team/8.PNG" alt="视频评审样品">
+          <img class="zoomable" src="images/samples/team/8.PNG" alt="Live video review of samples">
         </div>
-        <div class="card-bd">视频连线评审样品细节</div>
+        <div class="card-bd">Live video review of sample details</div>
       </article>
 
-      <!-- 第二张：加 focus-up 类（向上对焦） -->
+      <!-- 2nd photo: focus upward -->
       <article class="card">
         <div class="card-media focus-up">
-          <img class="zoomable" src="images/samples/team/7.PNG" alt="多方视频会议 · 快速决策">
+          <img class="zoomable" src="images/samples/team/7.PNG" alt="Multi-party video meeting · quick decision-making">
         </div>
-        <div class="card-bd">多方视频会议 · 快速决策</div>
+        <div class="card-bd">Multi-party video meeting · quick decisions</div>
       </article>
 
       <article class="card">
         <div class="card-media">
-          <img class="zoomable" src="images/samples/team/5.PNG" alt="客户参观工厂生产线">
+          <img class="zoomable" src="images/samples/team/5.PNG" alt="Client tour on the production line">
         </div>
-        <div class="card-bd">客户参观 · 工艺与质量透明</div>
+        <div class="card-bd">Client tour · transparent process & quality</div>
       </article>
 
       <article class="card">
         <div class="card-media">
-          <img class="zoomable" src="images/samples/team/4.PNG" alt="多款鞋型并行评审">
+          <img class="zoomable" src="images/samples/team/4.PNG" alt="Parallel review of multiple styles">
         </div>
-        <div class="card-bd">多款鞋型并行评审 · 提速上新</div>
+        <div class="card-bd">Parallel review of multiple styles · faster launches</div>
       </article>
 
       <article class="card">
         <div class="card-media">
-          <img class="zoomable" src="images/samples/team/1.PNG" alt="与品牌团队合影">
+          <img class="zoomable" src="images/samples/team/1.PNG" alt="Group photo with brand team">
         </div>
-        <div class="card-bd">与品牌团队合影 · 长期合作</div>
+        <div class="card-bd">With our brand partners · long-term collaboration</div>
       </article>
 
       <article class="card">
         <div class="card-media">
-          <img class="zoomable" src="images/samples/team/3.PNG" alt="项目之外的朋友关系">
+          <img class="zoomable" src="images/samples/team/3.PNG" alt="Friendship beyond the project">
         </div>
-        <div class="card-bd">项目之外的朋友关系</div>
+        <div class="card-bd">Friendship beyond the project</div>
       </article>
     </div>
   </section>
 
-  <!-- 预览弹窗 -->
+  <!-- Lightbox -->
   <dialog id="lightbox">
     <div class="lightbox-panel">
       <button class="lightbox-close" aria-label="Close">×</button>
@@ -248,7 +250,7 @@
         if(typeof dlg.close==='function')dlg.close();else dlg.removeAttribute('open');}
       document.addEventListener('click',(e)=>{const t=e.target.closest('.zoomable');if(!t)return;
         openDlg(t.getAttribute('src'),t.getAttribute('alt'));});
-      dlg.addEventListener('click',(e)=>{if(e.target===dlg)closeDlg();});
+      dlg.addEventListener('click',(e)=>{if (e.target===dlg) closeDlg();});
       btnClose.addEventListener('click',(e)=>{e.stopPropagation();closeDlg();});
       panel.addEventListener('click',(e)=>e.stopPropagation());
       document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&(dlg.open||dlg.hasAttribute('open')))closeDlg();});
