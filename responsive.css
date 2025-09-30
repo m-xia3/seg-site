@@ -1,144 +1,110 @@
-/* ===========================
-   responsive.css
-   统一移动端 & 平板覆盖样式
-   =========================== */
+/* ===================================================================
+   responsive.css  —— 让手机竖屏导航与横屏一致：一行排布、可横向滚动
+   放到项目根目录并在所有页面<head>里通过
+   <link rel="stylesheet" href="responsive.css"> 引用
+   =================================================================== */
 
-/* —— 桌面端（>900px）的小优化：底部四栏更均匀 —— */
-#info .info{
-  grid-template-columns: 0.9fr 1.1fr 1.1fr auto;
-  gap: clamp(24px, 5vw, 64px);
-}
-#info .addr{ max-width:32ch; }
-#info .addr .line{ display:block; }
-
-/* ===========================
-   小平板：641–900px
-   顶部两行 Grid（品牌｜按钮）/（菜单）
-   =========================== */
-@media (min-width: 641px) and (max-width: 900px){
-  .container{ padding: 0 20px; }
-
-  .nav .row{
-    display: grid !important;
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
-      "brand cta"
-      "menu  menu";
-    align-items: center;
-    gap: 14px;
-    padding: 12px 0;
-  }
-  .brand{ grid-area: brand; font-size: 18px; line-height: 1.25; white-space: normal; }
-  .menu{
-    grid-area: menu;
-    justify-self: center;
-    width: 100% !important;
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 12px !important;
-  }
-  .menu a{ font-size: 16px; }
-  .cta{ grid-area: cta; justify-self: end; margin-left: 0 !important; }
-
-  section{ scroll-margin-top: 78px; }
+/* 1) 一些安全默认值（不改变你原来的主题变量） */
+:root{
+  --container: 1200px;
+  --line: #1f2937;
+  --text: #e5e7eb;
+  --muted:#94a3b8;
+  --accent:#e11d48;
+  --ink:#0b1020;
 }
 
-/* ===========================
-   手机：≤640px
-   顶部一行三列（品牌 | 菜单 | 按钮）
-   极限紧凑化 + 横向滚动菜单
-   =========================== */
-@media (max-width: 640px){
-  .container{ padding: 0 16px; }
+/* 2) 通用容器与图像（与现有保持一致，仅防止某些子页遗漏） */
+.container{ max-width:var(--container); margin:0 auto; padding:0 24px; }
+img{ max-width:100%; height:auto; display:block; }
 
-  /* 一行三列 */
-  .nav .row{
-    display: grid !important;
-    grid-template-columns: auto 1fr auto;   /* 品牌自适应 | 菜单吃满 | 按钮自适应 */
-    align-items: center;
-    gap: 8px;
-    padding: 8px 0;
-  }
-
-  /* 品牌紧凑化：logo缩小、文本省略号 */
-  .brand{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-width: 0;              /* 允许被压缩 */
-  }
-  .brand .logo{ width: 24px; height: 24px; border-radius: 6px; }
-  .brand span{
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;   /* 名称过长省略 */
-    max-width: 48vw;           /* 不压扁菜单 */
-  }
-
-  /* 菜单横向滚动，不换行 */
-  .menu{
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    gap: 12px !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;           /* Firefox 隐藏滚动条 */
-  }
-  .menu::-webkit-scrollbar{ display: none; }  /* iOS/Chrome 隐藏滚动条 */
-  .menu a{
-    white-space: nowrap;
-    font-size: 14.5px;
-    line-height: 1.1;
-    padding: 4px 0;
-    color: var(--muted);
-  }
-
-  /* 右侧按钮紧凑化 */
-  .cta{ margin-left: 0 !important; }
-  .btn{
-    padding: 8px 10px;
-    border-radius: 10px;
-    font-size: 13px;
-    line-height: 1;
-    white-space: nowrap;
-  }
-
-  /* Hero 更紧凑，标题不溢出 */
-  .hero{ padding: 70px 0 40px; }
-  .title{ font-size: clamp(26px, 7vw, 32px); line-height: 1.18; }
-  .lead{ font-size: 15.5px; max-width: 44ch; }
-
-  /* 锚点跳转时给粘顶导航留空间 */
-  section{ scroll-margin-top: 68px; }
-
-  /* 底部信息单列置中 */
-  #info .info{
-    grid-template-columns: 1fr !important;
-    justify-items: center;
-    text-align: center;
-    gap: 18px;
-  }
-  #info .cta-block{ justify-self: center; }
-
-  /* Cards/Logo 增强可读性 */
-  .grid.s-3, .grid.s-4{ grid-template-columns: 1fr !important; }
-  .logo-wall{ grid-template-columns: repeat(2,1fr) !important; }
-  .sample-grid{ grid-template-columns: 1fr !important; }
+/* 3) 顶部导航 —— 始终单行；在极窄屏上允许菜单横向滚动 */
+.nav{ position:sticky; top:0; z-index:50; border-bottom:1px solid var(--line); }
+.nav .row{
+  display:flex; align-items:center;
+  gap:16px; padding:12px 0;
+  /* 不换行：关键 */
+  flex-wrap:nowrap;
 }
 
-/* ===========================
-   其它公共退化（保持一致性）
-   =========================== */
+/* 品牌区：名称太长时省略号 */
+.brand{ display:flex; align-items:center; gap:10px; min-width:0; }
+.brand .logo{ width:28px; height:28px; border-radius:6px; overflow:hidden; flex:0 0 auto; }
+.brand span{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+/* 菜单始终横排；小屏可左右滑动；隐藏滚动条 */
+.menu{
+  display:flex; gap:18px; align-items:center;
+  flex:1 1 auto; min-width:0;
+  overflow:auto hidden; -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.menu::-webkit-scrollbar{ display:none; }
+.menu a{ color:var(--muted); font-weight:600; text-decoration:none; line-height:1; }
+.menu a:hover{ color:var(--text); }
+
+/* 右侧按钮 */
+.cta{ margin-left:auto; flex:0 0 auto; }
+.btn{
+  background:var(--accent); color:#fff;
+  padding:10px 16px; border-radius:14px;
+  border:1px solid rgba(255,255,255,.12); font-weight:800;
+  white-space:nowrap; line-height:1;
+}
+
+/* ==================== 断点：平板与大手机（横/竖） ==================== */
 @media (max-width: 1024px){
-  .grid.s-3{ grid-template-columns: repeat(2,1fr) !important; }
-  .grid.s-4{ grid-template-columns: repeat(2,1fr) !important; }
-  .logo-wall{ grid-template-columns: repeat(3,1fr) !important; }
+  .container{ padding:0 18px; }
+  .nav .row{ gap:14px; padding:10px 0; }
+  .menu{ gap:16px; }
+  .btn{ padding:10px 14px; border-radius:12px; }
 }
 
-/* 宽度≤720：若 hero-art 未隐藏，降低其透明度（兜底） */
-@media (max-width: 720px){
-  .hero-art{ opacity: .12; }
+/* ==================== 断点：手机（横屏/竖屏相同行为） ==================== */
+/* 关键：不堆叠、不换行，通过压缩字号与左右滑动保证放得下 */
+@media (max-width: 768px){
+  .container{ padding:0 16px; }
+
+  .brand{ gap:8px; }
+  .brand .logo{ width:26px; height:26px; }
+  /* 品牌名称给出最大宽度，避免把菜单挤出 */
+  .brand span{ max-width:46vw; font-weight:800; letter-spacing:.2px; }
+
+  .menu{
+    gap: clamp(10px, 3.2vw, 14px);
+    /* 保证和按钮之间仍留一点空间 */
+    margin-right:8px;
+  }
+  .menu a{
+    font-size: clamp(14px, 3.6vw, 16px);
+  }
+
+  .btn{ font-size:14px; padding:9px 12px; border-radius:12px; }
+}
+
+/* ==================== 断点：小手机（iPhone SE/12 mini 等） ==================== */
+@media (max-width: 420px){
+  .nav .row{ gap:10px; }
+  .brand .logo{ width:24px; height:24px; }
+  .brand span{ max-width:44vw; font-size: clamp(13px, 3.7vw, 15px); }
+  .menu{ gap:10px; }
+  .menu a{ font-size: clamp(13px, 3.7vw, 15px); }
+  .btn{ font-size:13px; padding:8px 10px; border-radius:10px; }
+}
+
+/* ==================== 其余版块的轻度收缩（可选，避免首屏过挤） ==================== */
+@media (max-width: 900px){
+  .title{ font-size:clamp(28px, 6.2vw, 44px); line-height:1.18; }
+  .lead{ font-size:clamp(15px, 3.4vw, 18px); }
+}
+
+/* ==================== 底部 Info 四列在手机保持可读（仍单列） ==================== */
+@media (max-width: 640px){
+  #info .info{ grid-template-columns:1fr !important; justify-items:center; text-align:center; }
+  #info .cta-block{ justify-self:center; }
+}
+
+/* ==================== 保护：防止任何地方把导航换成 block ==================== */
+@supports (display:flex){
+  .nav .row, .menu{ display:flex; }
 }
