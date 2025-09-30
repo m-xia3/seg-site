@@ -30,10 +30,23 @@
     border:1px solid var(--line);border-radius:10px;padding:8px 12px;
     background:#0b1222;color:var(--text);font-weight:600;}
   .back:hover{filter:brightness(1.06)}
-  .close{margin-left:auto;display:inline-grid;place-items:center;
-    width:36px;height:36px;border-radius:10px;border:1px solid var(--line);
-    background:var(--ink);font-size:18px;cursor:pointer;}
-  .close:hover{filter:brightness(1.08)}
+
+  /* 顶栏专用 CTA 容器（避免与内容区 .cta 冲突） */
+  .top-cta{ margin-left:auto; }
+  .btn{
+    background:var(--accent); color:var(--accent-ink);
+    padding:10px 16px; border-radius:10px;
+    border:1px solid rgba(255,255,255,.12); font-weight:700;
+    display:inline-block;
+  }
+  .btn:hover{ filter:brightness(1.08); }
+  .btn-contact{ position:relative; border-radius:16px; overflow:visible; }
+  .btn-contact::after{
+    content:""; position:absolute; inset:0; border-radius:inherit;
+    border:2px solid #ff3055; opacity:0; transform:translate(0,0);
+    transition:transform .22s ease, opacity .12s ease, border-color .2s ease; z-index:-1;
+  }
+  .btn-contact:hover::after{ opacity:1; transform:translate(8px,8px); }
 
   /* Hero */
   .hero{padding:42px 0 22px;
@@ -66,52 +79,23 @@
   .cap small{display:block;font-weight:500;color:#cbd5e1;opacity:.9}
   .bd{padding:10px 12px;color:var(--muted);border-top:1px solid var(--line)}
 
+  /* 页面内“提示/行动”盒（保留你原有 .cta，注意和 .top-cta 不同） */
   .cta{margin:26px 0 60px;padding:16px;border:1px dashed #273243;border-radius:var(--radius-sm);
     display:flex;gap:14px;flex-wrap:wrap;align-items:center}
   .cta strong{font-weight:800}
-
-/* 顶部右侧按钮容器：靠右 */
-.cta{ margin-left:auto; }
-
-/* 通用按钮（与首页一致） */
-.btn{
-  background:var(--accent);
-  color:var(--accent-ink);
-  padding:10px 16px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,.12);
-  font-weight:700;
-}
-.btn:hover{ filter:brightness(1.08); }
-
-/* 红色外边框右下滑出效果（可选） */
-.btn-contact{ position:relative; border-radius:16px; overflow:visible; }
-.btn-contact::after{
-  content:"";
-  position:absolute; inset:0; border-radius:inherit;
-  border:2px solid #ff3055; opacity:0; transform:translate(0,0);
-  transition:transform .22s ease, opacity .12s ease, border-color .2s ease; z-index:-1;
-}
-.btn-contact:hover::after{ opacity:1; transform:translate(8px,8px); }
-
-/* （可选）移除未使用的关闭按钮样式 */
-.close{ display:none !important; }
-
-  
 </style>
 </head>
 <body>
   <!-- Topbar -->
-<header class="topbar">
-  <div class="container row">
-    <a class="back" href="index.html#samples">← Back</a>
-    <div class="brand">Samples</div>
-    <div class="cta">
-      <a class="btn btn-contact" href="contact.html" aria-label="Get in touch">GET IN TOUCH</a>
+  <header class="topbar">
+    <div class="container row">
+      <a class="back" href="index.html#care">← Back</a>
+      <div class="brand">Hong Kong Tai Yuk Trading Limited</div>
+      <div class="top-cta">
+        <a class="btn btn-contact" href="contact.html" aria-label="Get in touch">GET IN TOUCH</a>
+      </div>
     </div>
-  </div>
-</header>
-
+  </header>
 
   <!-- Hero -->
   <section class="hero">
@@ -185,7 +169,6 @@
   </dialog>
   <style> dialog#lb::backdrop{ background:rgba(0,0,0,.55); backdrop-filter: blur(2px); } </style>
   <script>
-
     // Image lightbox
     (function(){
       const dlg=document.getElementById('lb'), img=document.getElementById('lbImg'), close=document.getElementById('lbClose');
