@@ -1,25 +1,23 @@
 /* ===========================
    responsive.css
-   统一移动端 & 平板优化（覆盖）
+   统一移动端 & 平板覆盖样式
    =========================== */
 
-/* —— 桌面默认的小优化（≥901px）：底部四栏更均匀 —— */
+/* —— 桌面端（>900px）的小优化：底部四栏更均匀 —— */
 #info .info{
-  grid-template-columns: 0.9fr 1.1fr 1.1fr auto;  /* 左导航略窄，两地址均分，按钮自适应 */
+  grid-template-columns: 0.9fr 1.1fr 1.1fr auto;
   gap: clamp(24px, 5vw, 64px);
 }
-#info .addr{ max-width:32ch; }   /* 地址不撐太宽，更易读 */
+#info .addr{ max-width:32ch; }
 #info .addr .line{ display:block; }
 
 /* ===========================
    小平板：641–900px
-   顶部改为两行 Grid：
-   第一行「品牌｜按钮」，第二行「菜单」
+   顶部两行 Grid（品牌｜按钮）/（菜单）
    =========================== */
 @media (min-width: 641px) and (max-width: 900px){
   .container{ padding: 0 20px; }
 
-  /* 强制用 Grid，避免基础 flex 带来的挤压 */
   .nav .row{
     display: grid !important;
     grid-template-columns: 1fr auto;
@@ -42,73 +40,81 @@
   .menu a{ font-size: 16px; }
   .cta{ grid-area: cta; justify-self: end; margin-left: 0 !important; }
 
-  /* 锚点跳转时也留出粘顶空间 */
   section{ scroll-margin-top: 78px; }
 }
 
 /* ===========================
    手机：≤640px
-   顶部纵向三段（品牌→菜单→按钮 100%），
-   Hero 文案更紧凑，Info 单列居中
+   顶部一行三列（品牌 | 菜单 | 按钮）
+   极限紧凑化 + 横向滚动菜单
    =========================== */
 @media (max-width: 640px){
-  .container{ padding: 0 18px; }
+  .container{ padding: 0 16px; }
 
-  /* 用 Grid 明确三行并提权（!important） */
+  /* 一行三列 */
   .nav .row{
     display: grid !important;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "brand"
-      "menu"
-      "cta";
-    align-items: start;
-    gap: 12px;
-    padding: 12px 0;
-  }
-  .brand{
-    grid-area: brand;
-    font-size: 18px;
-    line-height: 1.25;
-    white-space: normal;       /* 品牌名允许换行，避免被压缩 */
+    grid-template-columns: auto 1fr auto;   /* 品牌自适应 | 菜单吃满 | 按钮自适应 */
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
   }
 
-  .menu{
-    grid-area: menu;
-    width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    flex: initial !important;  /* 彻底取消基础里的 flex:1 */
-    gap: 10px !important;
+  /* 品牌紧凑化：logo缩小、文本省略号 */
+  .brand{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;              /* 允许被压缩 */
   }
+  .brand .logo{ width: 24px; height: 24px; border-radius: 6px; }
+  .brand span{
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;   /* 名称过长省略 */
+    max-width: 48vw;           /* 不压扁菜单 */
+  }
+
+  /* 菜单横向滚动，不换行 */
+  .menu{
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;           /* Firefox 隐藏滚动条 */
+  }
+  .menu::-webkit-scrollbar{ display: none; }  /* iOS/Chrome 隐藏滚动条 */
   .menu a{
-    display: block;
-    padding: 6px 0;
-    font-size: 18px;
+    white-space: nowrap;
+    font-size: 14.5px;
+    line-height: 1.1;
+    padding: 4px 0;
     color: var(--muted);
   }
 
-  .cta{
-    grid-area: cta;
-    margin-left: 0 !important;
-    width: 100% !important;
-    justify-self: stretch !important;
-  }
+  /* 右侧按钮紧凑化 */
+  .cta{ margin-left: 0 !important; }
   .btn{
-    width: 100% !important;
-    padding: 12px 14px;
-    border-radius: 12px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1;
+    white-space: nowrap;
   }
 
   /* Hero 更紧凑，标题不溢出 */
-  .hero{ padding: 72px 0 42px; }
+  .hero{ padding: 70px 0 40px; }
   .title{ font-size: clamp(26px, 7vw, 32px); line-height: 1.18; }
   .lead{ font-size: 15.5px; max-width: 44ch; }
 
-  /* 锚点跳转时给粘顶导航让位，避免被遮住 */
-  section{ scroll-margin-top: 74px; }
+  /* 锚点跳转时给粘顶导航留空间 */
+  section{ scroll-margin-top: 68px; }
 
-  /* 底部信息改为单列，按钮置中 */
+  /* 底部信息单列置中 */
   #info .info{
     grid-template-columns: 1fr !important;
     justify-items: center;
@@ -116,31 +122,23 @@
     gap: 18px;
   }
   #info .cta-block{ justify-self: center; }
-}
 
-/* ===========================
-   补充：常见小断点微调（可选）
-   =========================== */
-
-/* 宽度≤520：网格退化为单列（防止拥挤） */
-@media (max-width: 520px){
+  /* Cards/Logo 增强可读性 */
   .grid.s-3, .grid.s-4{ grid-template-columns: 1fr !important; }
   .logo-wall{ grid-template-columns: repeat(2,1fr) !important; }
-}
-
-/* 宽度≤600：Samples 栅格两列→一列（与你的子页一致） */
-@media (max-width: 600px){
   .sample-grid{ grid-template-columns: 1fr !important; }
 }
 
-/* 宽度≤720：若 hero-art 未隐藏，则降低其透明度（保险） */
-@media (max-width: 720px){
-  .hero-art{ opacity: .12; }
-}
-
-/* 宽度≤1024：常规两列退化（与基础样式保持一致，增强覆盖力） */
+/* ===========================
+   其它公共退化（保持一致性）
+   =========================== */
 @media (max-width: 1024px){
   .grid.s-3{ grid-template-columns: repeat(2,1fr) !important; }
   .grid.s-4{ grid-template-columns: repeat(2,1fr) !important; }
   .logo-wall{ grid-template-columns: repeat(3,1fr) !important; }
+}
+
+/* 宽度≤720：若 hero-art 未隐藏，降低其透明度（兜底） */
+@media (max-width: 720px){
+  .hero-art{ opacity: .12; }
 }
