@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FACTORY · 工厂与制造 | SAIGE Footwear</title>
+  <title>FACTORY · Manufacturing | SAIGE Footwear</title>
   <style>
     :root{
       --bg:#0a0f1f; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
@@ -15,7 +15,7 @@
     img{max-width:100%;display:block}
     .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 
-    /* 顶部返回栏 */
+    /* Top bar */
     .topbar{position:sticky;top:0;z-index:40;
       backdrop-filter:saturate(160%) blur(6px);
       background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
@@ -31,7 +31,7 @@
       background:var(--ink);font-size:18px;cursor:pointer;}
     .close:hover{filter:brightness(1.08)}
 
-    /* 页头 */
+    /* Hero */
     .hero{padding:42px 0 22px;
       background:radial-gradient(800px 360px at 70% -10%, rgba(225,29,72,.12), transparent 55%),
                  radial-gradient(600px 320px at 10% -5%, rgba(59,130,246,.10), transparent 60%);}
@@ -40,7 +40,7 @@
 
     .bar{height:1px;background:var(--line);margin:26px 0}
 
-    /* 统一图片容器：16:9，不裁剪，等比缩放，留边 */
+    /* Media grid */
     .media-grid{
       display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
     }
@@ -58,7 +58,7 @@
       object-fit:contain;
     }
 
-    /* 分区块 */
+    /* Sections */
     .section{padding:12px 0 8px}
     .section h2{font-size:26px;margin:14px 0 8px}
     .section p{color:var(--muted);margin:6px 0 0}
@@ -67,7 +67,7 @@
       background:rgba(0,0,0,.25);border:1px solid var(--line);
       padding:6px 10px;border-radius:8px}
 
-    /* Lightbox（与 who we are 一致） */
+    /* Lightbox */
     dialog#lightbox{border:none;padding:0;background:transparent}
     dialog::backdrop{background:rgba(0,0,0,.55);backdrop-filter:blur(2px)}
     .lightbox-panel{
@@ -92,7 +92,7 @@
   </style>
 </head>
 <body>
-  <!-- 顶部条 -->
+  <!-- Top bar -->
   <header class="topbar">
     <div class="container row">
       <a class="back" href="index.html#expertise">← Back</a>
@@ -101,11 +101,12 @@
     </div>
   </header>
 
-  <!-- 页头 -->
+  <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <h1 class="title">FACTORY · 工厂与制造</h1>
-      <p class="lead">覆盖裁断、平板/炼胶、针车与成型的完整鞋类制造流程；设备与现场管理按国际品牌标准运行。</p>
+      <h1 class="title">FACTORY · Manufacturing</h1>
+      <p class="lead">End-to-end footwear manufacturing covering cutting, rubber mixing/sheeting, stitching and assembly. Equipment and shop-floor management run to international brand standards.</p>
+      <p class="lead" style="margin-top:6px">Note: This is only a selection of factory photos. Contact us for more images and detailed information.</p>
     </div>
   </section>
 
@@ -113,7 +114,7 @@
 
   <main class="container">
 
-    <!-- 裁断车间 -->
+    <!-- Cutting -->
     <section class="section" id="cutting">
       <span class="tag">Cutting Workshop</span>
       <div class="media-grid" style="margin-top:12px">
@@ -124,13 +125,13 @@
           <img class="zoomable" src="images/samples/factory/Cutting Workshop2.png" alt="Cutting Workshop - Precision Cutting">
         </div>
       </div>
-      <h2>裁断车间</h2>
-      <p>High-precision cutting (die/automatic) ensuring material utilization and pattern accuracy; traceable labeling for each material lot.</p>
+      <h2>Cutting Workshop</h2>
+      <p>High-precision die/automatic cutting maximizes yield and pattern accuracy; each material lot is traceably labeled.</p>
     </section>
 
     <div class="bar"></div>
 
-    <!-- 平板/炼胶车间 -->
+    <!-- Rubber / Sheeting -->
     <section class="section" id="rubber">
       <span class="tag">Rubber / Sheeting Workshop</span>
       <div class="media-grid" style="margin-top:12px">
@@ -141,13 +142,13 @@
           <img class="zoomable" src="images/samples/factory/Rubber Calendering Workshop2.jpg" alt="Rubber Workshop - In-process Control">
         </div>
       </div>
-      <h2>平板车间（炼胶）</h2>
-      <p>In-house rubber mixing and sheeting line to secure stable compound quality; in-process controls for hardness, density and consistency.</p>
+      <h2>Rubber / Sheeting (Mixing)</h2>
+      <p>In-house mixing and sheeting ensure stable compound quality; in-process checks cover hardness, density and consistency.</p>
     </section>
 
     <div class="bar"></div>
 
-    <!-- 针车车间 -->
+    <!-- Stitching -->
     <section class="section" id="stitching">
       <span class="tag">Stitching Workshop</span>
       <div class="media-grid" style="margin-top:12px">
@@ -158,13 +159,13 @@
           <img class="zoomable" src="images/samples/factory/Stitching Workshop2.png" alt="Stitching Workshop - Process">
         </div>
       </div>
-      <h2>针车车间</h2>
-      <p>Skilled operators supported by semi-auto equipment for upper production; standard SOP for seam strength and appearance quality.</p>
+      <h2>Stitching Workshop</h2>
+      <p>Skilled operators with semi-auto aids produce uppers to SOP; seam strength and appearance are strictly controlled.</p>
     </section>
 
     <div class="bar"></div>
 
-    <!-- 成型车间 -->
+    <!-- Assembly -->
     <section class="section" id="assembly">
       <span class="tag">Assembly / Lasting & Molding</span>
       <div class="media-grid" style="margin-top:12px">
@@ -175,15 +176,15 @@
           <img class="zoomable" src="images/samples/factory/Lasting & Assembly Workshop2.jpg" alt="Assembly Workshop - Final Assembly">
         </div>
       </div>
-      <h2>成型车间</h2>
-      <p>Automated lasting & molding lines for vulcanized and cemented constructions; process control on bonding, curing and final inspection.</p>
+      <h2>Assembly (Lasting & Molding)</h2>
+      <p>Automated lasting & molding for vulcanized and cemented builds; bonding, curing and final inspection are tightly controlled.</p>
     </section>
 
     <div class="bar"></div>
 
   </main>
 
-  <!-- 预览弹窗（通用） -->
+  <!-- Lightbox -->
   <dialog id="lightbox">
     <div class="lightbox-panel">
       <button class="lightbox-close" aria-label="Close">×</button>
@@ -194,13 +195,13 @@
   </dialog>
 
   <script>
-    // 右上角“✕”：优先后退；没有历史则跳回首页 Expertise
+    // Close button: back first; otherwise go home
     document.getElementById('btnClose').addEventListener('click', function(){
       if (history.length > 1) history.back();
       else location.href = 'index.html#expertise';
     });
 
-    // 轻量 Lightbox：点击任何 .zoomable 放大
+    // Lightweight lightbox
     (function(){
       const dlg  = document.getElementById('lightbox');
       const img  = document.getElementById('lightboxImg');
