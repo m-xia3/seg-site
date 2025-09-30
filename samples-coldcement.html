@@ -30,7 +30,7 @@
       width:36px;height:36px;border-radius:10px;border:1px solid var(--line);
       background:var(--ink);font-size:18px;cursor:pointer;}
     .close:hover{filter:brightness(1.08)}
-
+    
     /* Hero（同“硫化鞋”） */
     .hero{padding:42px 0 22px;
       background:radial-gradient(800px 360px at 70% -10%, rgba(225,29,72,.12), transparent 55%),
@@ -103,17 +103,48 @@
     .lightbox-close{position:absolute; top:10px; right:12px; width:44px; height:44px; display:grid; place-items:center;
       border:1px solid var(--line); border-radius:50%; background:var(--ink); color:var(--text); font-size:22px; line-height:1; cursor:pointer; z-index:5;}
     .lightbox-close::after{content:""; position:absolute; inset:-12px; border-radius:50%}
+
+/* 顶部右侧按钮容器：靠右 */
+.cta{ margin-left:auto; }
+
+/* 通用按钮（与首页一致） */
+.btn{
+  background:var(--accent);
+  color:var(--accent-ink);
+  padding:10px 16px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.12);
+  font-weight:700;
+}
+.btn:hover{ filter:brightness(1.08); }
+
+/* 红色外边框右下滑出效果（可选） */
+.btn-contact{ position:relative; border-radius:16px; overflow:visible; }
+.btn-contact::after{
+  content:"";
+  position:absolute; inset:0; border-radius:inherit;
+  border:2px solid #ff3055; opacity:0; transform:translate(0,0);
+  transition:transform .22s ease, opacity .12s ease, border-color .2s ease; z-index:-1;
+}
+.btn-contact:hover::after{ opacity:1; transform:translate(8px,8px); }
+
+/* 如果没删掉右上角 X，也可以强制隐藏它 */
+.close{ display:none !important; }
+
+    
   </style>
 </head>
 <body>
   <!-- Topbar（与“硫化鞋”一致） -->
-  <header class="topbar">
-    <div class="container row">
-      <a class="back" href="index.html#samples">← Back</a>
-      <div class="brand">Samples</div>
-      <button class="close" aria-label="Close" id="btnClose">×</button>
+<header class="topbar">
+  <div class="container row">
+    <a class="back" href="index.html#samples">← Back</a>
+    <div class="brand">Samples</div>
+    <div class="cta">
+      <a class="btn btn-contact" href="contact.html" aria-label="Get in touch">GET IN TOUCH</a>
     </div>
-  </header>
+  </div>
+</header>
 
   <!-- Hero（与“硫化鞋”一致） -->
   <section class="hero">
@@ -220,11 +251,6 @@
   </dialog>
 
   <script>
-    // 顶部 Close：与“硫化鞋”同逻辑
-    document.getElementById('btnClose').addEventListener('click', function(){
-      if(history.length > 1) history.back();
-      else location.href = 'index.html#samples';
-    });
 
     // Lightbox 逻辑（原样保留）
     (function(){
