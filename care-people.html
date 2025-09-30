@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Our People · 以人为本 | SAIGE Footwear</title>
+<title>Our People · People First | SAIGE Footwear</title>
 <style>
   :root{
     --bg:#0a0f1f; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
@@ -15,7 +15,7 @@
   a{color:inherit;text-decoration:none}
   .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 
-  /* 统一 Topbar（返回到首页 care 区） */
+  /* Topbar */
   .topbar{position:sticky;top:0;z-index:40;
     backdrop-filter:saturate(160%) blur(6px);
     background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
@@ -31,7 +31,7 @@
     background:var(--ink);font-size:18px;cursor:pointer;}
   .close:hover{filter:brightness(1.08)}
 
-  /* Hero（同款背景气氛） */
+  /* Hero */
   .hero{padding:42px 0 22px;
     background:radial-gradient(800px 360px at 70% -10%, rgba(225,29,72,.12), transparent 55%),
                radial-gradient(600px 320px at 10% -5%, rgba(59,130,246,.10), transparent 60%);}
@@ -41,7 +41,7 @@
 
   .bar{height:1px;background:var(--line);margin:26px 0}
 
-  /* 内容卡片与栅格（沿用 Who We Are 的卡片体系） */
+  /* Cards & grid */
   .grid{display:grid;gap:18px}
   .grid.s-3{grid-template-columns:repeat(3,1fr)}
   @media (max-width:1024px){ .grid.s-3{grid-template-columns:repeat(2,1fr)} }
@@ -67,29 +67,42 @@
   <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <h1 class="title">Our People · 以人为本</h1>
-      <p class="lead">安全与尊重是底线；资深师傅长期在岗并传帮带，把多年经验沉淀进每一道工序，确保稳定的做工与可靠交付。</p>
+      <h1 class="title">Our People · People First</h1>
+      <p class="lead">
+        Safety and respect are non-negotiable. Veteran craftsmen remain on the lines and mentor new
+        teammates, passing down know-how so that every operation reflects consistent workmanship and
+        reliable delivery.
+      </p>
     </div>
   </section>
 
   <div class="bar"></div>
 
-  <!-- 内容 -->
+  <!-- Content -->
   <main class="container" style="padding-bottom:10px">
     <section>
-      <h2 class="h2">People-first · 我们的价值主张</h2>
+      <h2 class="h2">People First · What We Stand For</h2>
       <div class="grid s-3">
         <div class="card">
           <strong>Safety & Respect</strong>
-          <p class="muted">班前会与安全检查、PPE 佩戴、人体工学工位与女工关怀，尊重是基本线。</p>
+          <p class="muted">
+            Pre-shift briefings, PPE compliance, ergonomic workstations and support for women
+            in the workplace — dignity and safety set the baseline for everything we do.
+          </p>
         </div>
         <div class="card">
-          <strong>Experience Matters</strong>
-          <p class="muted">资深老师傅稳定在岗，并以带徒制传承工艺；关键工序由经验丰富的骨干负责。</p>
+          <strong>Craftsmanship, Passed On</strong>
+          <p class="muted">
+            Senior masters are retained and teach through apprenticeship. Critical operations are led
+            by experienced hands so technique is preserved and quality is repeatable.
+          </p>
         </div>
         <div class="card">
-          <strong>Fast & Clear Communication</strong>
-          <p class="muted">前台懂产品的团队对接，问题前移、快速响应，打样到量产流程清晰透明。</p>
+          <strong>Fast, Clear Communication</strong>
+          <p class="muted">
+            A product-savvy front team surfaces issues early and responds quickly. From sampling to
+            mass production, the process is transparent and predictable.
+          </p>
         </div>
       </div>
     </section>
@@ -97,30 +110,30 @@
     <div class="bar"></div>
 
     <section>
-      <h2 class="h2">Practices · 我们具体在做</h2>
+      <h2 class="h2">Practices · How We Care</h2>
       <div class="grid s-3">
         <div class="card">
-          <strong>员工保障</strong>
+          <strong>Employee Well-being</strong>
           <ul class="check">
-            <li>合法合规用工与社保福利</li>
-            <li>食宿与通勤保障、夏季降温/冬季取暖</li>
-            <li>合理工时与自愿加班，透明考勤</li>
+            <li>Lawful employment with full social insurance benefits</li>
+            <li>Meals, housing/commuting support; summer cooling & winter heating</li>
+            <li>Reasonable hours and voluntary overtime; transparent attendance</li>
           </ul>
         </div>
         <div class="card">
-          <strong>培训与成长</strong>
+          <strong>Training & Growth</strong>
           <ul class="check">
-            <li>岗前/年度安全培训</li>
-            <li>带徒制 + 多能工培养</li>
-            <li>质量意识与问题复盘</li>
+            <li>Safety onboarding and annual refreshers</li>
+            <li>Apprenticeship program & multi-skill development</li>
+            <li>Quality mindset with structured root-cause reviews</li>
           </ul>
         </div>
         <div class="card">
-          <strong>沟通与效率</strong>
+          <strong>Communication & Efficiency</strong>
           <ul class="check">
-            <li>班前会与看板管理</li>
-            <li>样品评审/试产清单前移</li>
-            <li>客户需求快速闭环</li>
+            <li>Daily huddles and visual boards on the shop floor</li>
+            <li>Up-front sample reviews and pilot-run checklists</li>
+            <li>Rapid customer feedback loops and closure</li>
           </ul>
         </div>
       </div>
@@ -128,7 +141,7 @@
   </main>
 
   <script>
-    // 顶部 Close：有历史则返回，否则回到首页 care 锚点
+    // Close: back or go to Care on the homepage
     document.getElementById('btnClose').addEventListener('click', function(){
       if(history.length > 1) history.back();
       else location.href = 'index.html#care';
