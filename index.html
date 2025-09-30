@@ -18,7 +18,7 @@
   --surface:#0b1222;
   --container: 1200px;
 
-  /* Expertise 切片用的更窄更淡遮罩（收缩两侧暗角） */
+  /* Expertise 切片遮罩（收窄两侧暗角） */
   --ex-mask: linear-gradient(to right,
     rgba(10,15,31,.36) 0%,
     rgba(10,15,31,.14) 4%,
@@ -28,7 +28,7 @@
     rgba(10,15,31,.36) 100%
   );
 
-  /* 响应缩放的分割线（替代 .bar container） */
+  /* 响应缩放的分割线间距 */
   --sepY: clamp(24px, 4vw, 42px);
 }
 
@@ -190,7 +190,7 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
 .sample-card:hover .ph{ background: radial-gradient(125% 165% at 50% 56%, rgba(255,255,255,.98) 0%, rgba(248,252,255,.90) 26%, rgba(196,214,236,.56) 56%, rgba(24,32,56,.82) 92%, rgba(15,23,42,1) 100%);}
 .sample-card:hover .ph::before{ box-shadow: inset 0 0 90px 8px rgba(8,13,26,.10);}
 
-/* —— Expertise 五等分矩形（已大幅收窄暗角） —— */
+/* —— Expertise 五等分矩形 —— */
 .tri-slab{
   position:relative; border-radius:16px; border:1px solid var(--line);
   background:var(--card); overflow:hidden;
@@ -267,10 +267,10 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
   transform: translateZ(0);
 }
 
-/* ====== 底部 Info（四列等距：左导航｜Handan｜Tai Yuk｜右侧CTA） ====== */
+/* ====== 底部 Info（四列：左导航｜Handan｜Tai Yuk｜右侧CTA） ====== */
 #info .info{
   display:grid;
-  grid-template-columns: 1fr 1fr 1fr auto;   /* 三列自适应 + 按钮宽度自适应 */
+  grid-template-columns: .8fr 1fr 1fr auto;   /* 左列略窄，更均衡 */
   gap: clamp(18px, 3.5vw, 40px);
   align-items: start;
   width:100%;
@@ -278,6 +278,7 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
 #info .info-block{ text-align:left; }
 #info .info-title{ margin:0 0 8px; font-weight:800; color:var(--text); letter-spacing:.2px; }
 #info .addr{ margin:0; font-style:normal; color:var(--muted); line-height:1.6; }
+#info .addr .line{ display:block; }         /* 地址拆成上下两行 */
 #info .info-links{ list-style:none; padding:0; margin:0; }
 #info .info-links li + li{ margin-top:10px; }
 #info .info-links a{ font-weight:800; color:var(--text); }
@@ -590,21 +591,21 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
         </ul>
       </div>
 
-      <!-- 中：Handan Baozu 地址（占位，后续可自行修改） -->
+      <!-- 中：Handan Baozu（两行） -->
       <div class="info-block">
         <h4 class="info-title">Handan Baozu Footwear Co., Ltd.</h4>
         <p class="addr">
-          No. 88 Xinhua East Road, Fuxing District, Handan, Hebei, China 056000<br>
-          Tel: +86 310 0000 0000
+          <span class="line">Fuxing District, Handan, Hebei</span>
+          <span class="line">Tel: +86 310 0000 0000</span>
         </p>
       </div>
 
-      <!-- 中：Hong Kong Tai Yuk 地址（占位，后续可自行修改） -->
+      <!-- 中：Hong Kong Tai Yuk（两行） -->
       <div class="info-block">
         <h4 class="info-title">Hong Kong Tai Yuk Trading Limited</h4>
         <p class="addr">
-          Room 1208, Example Tower, 33 Cameron Road, Tsim Sha Tsui, Kowloon, Hong Kong<br>
-          Tel: +852 2800 0000
+          <span class="line">Tsim Sha Tsui, Kowloon, Hong Kong</span>
+          <span class="line">Tel: +852 2800 0000</span>
         </p>
       </div>
 
