@@ -32,6 +32,22 @@
     background:var(--ink);font-size:18px;cursor:pointer;}
   .close:hover{filter:brightness(1.08)}
 
+  /* 顶栏专用 CTA（避免与内容区类名冲突） */
+  .top-cta{ margin-left:auto; }
+  .btn{
+    background:var(--accent); color:var(--accent-ink);
+    padding:10px 16px; border-radius:10px;
+    border:1px solid rgba(255,255,255,.12); font-weight:700; display:inline-block;
+  }
+  .btn:hover{ filter:brightness(1.08); }
+  .btn-contact{ position:relative; border-radius:16px; overflow:visible; }
+  .btn-contact::after{
+    content:""; position:absolute; inset:0; border-radius:inherit;
+    border:2px solid #ff3055; opacity:0; transform:translate(0,0);
+    transition:transform .22s ease, opacity .12s ease, border-color .2s ease; z-index:-1;
+  }
+  .btn-contact:hover::after{ opacity:1; transform:translate(8px,8px); }
+
   /* Hero */
   .hero{padding:42px 0 22px;
     background:radial-gradient(800px 360px at 70% -10%, rgba(225,29,72,.12), transparent 55%),
@@ -80,7 +96,9 @@
     <div class="container row">
       <a class="back" href="index.html#care">← Back</a>
       <div class="brand">Hong Kong Tai Yuk Trading Limited</div>
-      <button class="close" aria-label="Close" id="btnClose">×</button>
+      <div class="top-cta">
+        <a class="btn btn-contact" href="contact.html" aria-label="Get in touch">GET IN TOUCH</a>
+      </div>
     </div>
   </header>
 
@@ -117,8 +135,8 @@
   </main>
 
   <script>
-    // Close: back or return to Care section
-    document.getElementById('btnClose').addEventListener('click', function(){
+    // Close: back or return to Care section (保留以备需要)
+    document.getElementById('btnClose')?.addEventListener('click', function(){
       if(history.length > 1) history.back();
       else location.href = 'index.html#care';
     });
