@@ -90,6 +90,35 @@
     .lightbox-close::after{content:"";position:absolute;inset:-12px;border-radius:50%}
 
     .zoomable{cursor:zoom-in}
+
+/* 顶部右侧按钮容器：靠右 */
+.cta{ margin-left:auto; }
+
+/* 通用按钮（与首页一致） */
+.btn{
+  background:var(--accent);
+  color:var(--accent-ink);
+  padding:10px 16px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.12);
+  font-weight:700;
+}
+.btn:hover{ filter:brightness(1.08); }
+
+/* 红色外边框右下滑出效果（可选） */
+.btn-contact{ position:relative; border-radius:16px; overflow:visible; }
+.btn-contact::after{
+  content:"";
+  position:absolute; inset:0; border-radius:inherit;
+  border:2px solid #ff3055; opacity:0; transform:translate(0,0);
+  transition:transform .22s ease, opacity .12s ease, border-color .2s ease; z-index:-1;
+}
+.btn-contact:hover::after{ opacity:1; transform:translate(8px,8px); }
+
+/* （可选）移除未使用的关闭按钮样式 */
+.close{ display:none !important; }
+
+
   </style>
 </head>
 <body>
@@ -196,11 +225,7 @@
   </dialog>
 
   <script>
-    // Close button: back first; otherwise go home
-    document.getElementById('btnClose').addEventListener('click', function(){
-      if (history.length > 1) history.back();
-      else location.href = 'index.html#expertise';
-    });
+
 
     // Lightweight lightbox
     (function(){
