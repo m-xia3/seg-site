@@ -1,0 +1,86 @@
+/* responsive.css  —— 统一的响应式覆盖（主页面 + 所有子页面通用） */
+
+/* 让 container 随屏宽“台阶式”收缩，手机上边距也更紧凑 */
+:root{ --container: 1200px; }
+@media (max-width: 1280px){ :root{ --container: 1040px; } }
+@media (max-width: 1024px){ :root{ --container: 920px; } }
+@media (max-width: 900px) { :root{ --container: 720px; } }
+@media (max-width: 720px) { :root{ --container: 600px; } }
+@media (max-width: 560px) { :root{ --container: 520px; } }
+
+.container{ padding: 0 clamp(14px, 3.4vw, 24px); }
+
+/* 基础排版微缩放（避免手机“巨字/拥挤”） */
+html{ font-size: clamp(14px, 1.6vw, 16px); }
+
+/* ======= 顶部区（主页 .nav / 子页 .topbar） ======= */
+.nav .row, .topbar .row{ gap: 16px; padding: 12px 0; }
+@media (max-width: 900px){
+  .nav .row, .topbar .row{ gap: 12px; padding: 10px 0; }
+  .menu{ gap: 12px; flex-wrap: wrap; }
+}
+@media (max-width: 640px){
+  .menu{ gap: 10px; }
+}
+
+/* HERO 右侧鞋图在小屏弱化/隐藏（你主页已写，这里兜底） */
+@media (max-width: 960px){ .hero-art{ opacity:.12; } }
+@media (max-width: 720px){ .hero-art{ display:none; } }
+
+/* ======= 常用栅格（主/子页面统一兜底） ======= */
+.grid.s-3{ grid-template-columns: repeat(3,1fr); }
+.grid.s-4{ grid-template-columns: repeat(4,1fr); }
+@media (max-width: 1024px){
+  .grid.s-3{ grid-template-columns: repeat(2,1fr); }
+  .grid.s-4{ grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 560px){
+  .grid.s-3, .grid.s-4{ grid-template-columns: 1fr; }
+}
+
+/* Samples / 子页 gallery */
+.gallery{ grid-template-columns: repeat(3,1fr); }
+@media (max-width: 1024px){ .gallery{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 560px){  .gallery{ grid-template-columns: 1fr; } }
+
+/* Partners 品牌墙 */
+#partners .brand-grid{ grid-template-columns: repeat(6,1fr); }
+@media (max-width: 1024px){ #partners .brand-grid{ grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 520px){  #partners .brand-grid{ grid-template-columns: repeat(2,1fr); } }
+
+/* Expertise 五切片容器（超小屏降低高度） */
+@media (max-width: 560px){
+  .tri-slab{ height: 320px; }
+}
+
+/* ======= 页脚 Info 四栏（主页面底部） ======= */
+/* 桌面：四栏布局更均匀些 */
+#info .info{
+  grid-template-columns: 0.9fr 1.1fr 1.1fr auto;   /* 左略窄，两个地址更宽，按钮自适应 */
+  gap: clamp(24px, 5vw, 64px);
+}
+/* ≤1200px：三列 + 按钮独占最后一列（仍在同一行末端） */
+@media (max-width: 1200px){
+  #info .info{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  #info .cta-block{ justify-self: end; }
+}
+/* ≤900px：两列；按钮落到第二列末端 */
+@media (max-width: 900px){
+  #info .info{ grid-template-columns: 1fr 1fr; }
+  #info .cta-block{ justify-self: end; }
+}
+/* ≤640px：一列垂直堆叠并居中 */
+@media (max-width: 640px){
+  #info .info{
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+  #info .cta-block{ justify-self: center; }
+  #info .addr{ max-width: 36ch; } /* 限宽避免一行太长 */
+}
+
+/* 细节：按钮在小屏不显得“巨大” */
+.btn{ padding: clamp(8px, 1.6vw, 10px) clamp(12px, 2.6vw, 16px); border-radius: 12px; }
