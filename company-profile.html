@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Company Profile · PDF</title>
+<style>
+:root{ --text:#e5e7eb; --muted:#94a3b8; --bg:#0a0f1f; --card:#0f1629; --line:#1f2937; --accent:#e11d48; --container:1200px; }
+*{box-sizing:border-box} html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+.container{max-width:var(--container);margin:0 auto;padding:18px 24px}
+.header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.title{font-size:22px;margin:0}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;border:1px solid rgba(255,255,255,.12);padding:10px 16px;border-radius:12px;font-weight:800;text-decoration:none}
+.btn:hover{filter:brightness(1.08)}
+.viewer{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;height:calc(100vh - 120px)}
+.viewer iframe{width:100%;height:100%;border:0;display:block;background:#111827}
+.note{color:var(--muted);font-size:14px;margin-top:10px}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="title">Company Profile</h1>
+      <a class="btn" href="assets/company-profile.pdf" download>Download PDF</a>
+      <a class="btn" href="assets/company-profile.pdf" target="_blank" rel="noopener">Open in New Tab</a>
+    </div>
+
+    <div class="viewer" role="region" aria-label="PDF viewer">
+      <iframe src="assets/company-profile.pdf#zoom=page-width"></iframe>
+      <noscript><div class="note">Your browser blocked the inline viewer. Please use the buttons above to open or download.</div></noscript>
+    </div>
+
+    <p class="note">如果 PDF 未加载，请点击上方按钮在新标签打开或下载。</p>
+  </div>
+</body>
+</html>
