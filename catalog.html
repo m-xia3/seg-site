@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Catalog Preview · Hong Kong Tai Yuk</title>
+<style>
+  :root{
+    --bg:#0f172a; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
+    --card:#111827; --line:#1f2937; --accent:#e11d48; --accent-ink:#fff;
+    --container:1200px;
+  }
+  html,body{margin:0;background:#0a0f1f;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+  .container{max-width:var(--container);margin:0 auto;padding:0 16px}
+  .topbar{
+    position:sticky;top:0;z-index:10;background:rgba(10,15,31,.85);
+    backdrop-filter:saturate(160%) blur(6px); border-bottom:1px solid var(--line);
+  }
+  .topbar .row{display:flex;align-items:center;gap:12px;padding:10px 0}
+  .title{font-weight:800;letter-spacing:.3px;margin-right:auto}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:10px 16px;border-radius:10px;background:var(--accent);color:var(--accent-ink);
+    border:1px solid rgba(255,255,255,.12);font-weight:700;text-decoration:none
+  }
+  .btn:hover{filter:brightness(1.08)}
+  .viewer{height:calc(100vh - 64px)}
+  .viewer iframe,.viewer object{width:100%;height:100%;border:0;background:#0a0f1f}
+  .fallback{padding:20px;color:var(--muted);text-align:center}
+  .fallback a{color:#fff;text-decoration:underline}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container row">
+      <div class="title">Catalog Preview</div>
+      <!-- 直接下载按钮 -->
+      <a class="btn" href="assets/catalog.pdf" download>Download PDF</a>
+    </div>
+  </div>
+
+  <main class="viewer">
+    <!-- 方式一：iframe 预览（多数浏览器支持） -->
+    <iframe src="assets/catalog.pdf#toolbar=1"></iframe>
+
+    <!-- 方式二（备选）：object；部分移动端/老浏览器会走到 fallback -->
+    <object data="assets/catalog.pdf#toolbar=1" type="application/pdf">
+      <div class="fallback">
+        Your browser cannot preview PDFs.  
+        <a href="assets/catalog.pdf" target="_blank" rel="noopener">Open in new tab</a> or
+        <a href="assets/catalog.pdf" download>download the file</a>.
+      </div>
+    </object>
+  </main>
+</body>
+</html>
