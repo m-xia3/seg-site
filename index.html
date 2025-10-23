@@ -61,20 +61,23 @@ img{max-width:100%;height:auto;display:block}
   border:1px solid rgba(255,255,255,.12);font-weight:700
 }
 .btn:hover{filter:brightness(1.08)}
+section{scroll-margin-top:80px}
 
-/* === Samples 标题右侧 Catalog 下载按钮 === */
+/* === Samples 标题右侧 Catalog 下载按钮（新增） === */
 .section-head{
   display:flex;
   align-items:center;
-  justify-content:space-between; /* 按钮靠右 */
-  gap:16px;
+  justify-content:flex-start;   /* 紧贴标题，而不是顶到最右 */
+  gap:12px;
   margin-bottom:16px;
-  flex-wrap:wrap;                /* 窄屏自动换行 */
+  flex-wrap:wrap;               /* 窄屏自动换行 */
 }
-
-/* 复用全站 .btn，只补圆角和交互 */
+.section-head .btn--catalog{    /* 标题右侧留一点间距 */
+  margin-left:12px;
+}
+/* 目录按钮外观与交互（复用 .btn 基础） */
 .btn--catalog{
-  border-radius:12px;            /* 矩形圆角 */
+  border-radius:12px;           /* 矩形圆角 */
   padding:10px 16px;
   font-weight:700;
   letter-spacing:.2px;
@@ -88,13 +91,10 @@ img{max-width:100%;height:auto;display:block}
   outline:2px solid color-mix(in oklab, var(--accent,#e11d48) 60%, white);
   outline-offset:2px;
 }
-
 @media (max-width:560px){
   .section-head{ gap:10px; }
   .btn--catalog{ padding:9px 14px; font-size:13px; }
 }
-  
-section{scroll-margin-top:80px}
 
 /* HERO */
 .hero{
@@ -207,7 +207,7 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
 .card-media::before{content:"";position:absolute;inset:0;border-radius:12px;background:radial-gradient(circle at center, rgba(15,23,42,0) 70%, rgba(15,23,42,0.85) 100%);pointer-events:none;z-index:1}
 .card-caption{margin-top:10px;color:var(--muted);font-size:14px}
 
-/* Samples 栅格与卡片 */
+/* Samples 栅格与卡片（恢复为 3/2/1 列） */
 .sample-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
 @media (max-width:1024px){ .sample-grid{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:600px){ .sample-grid{ grid-template-columns:1fr; } }
@@ -382,13 +382,15 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
 <!-- Samples -->
 <section id="samples" class="section">
   <div class="container">
+
+    <!-- 标题 + Catalog 按钮（新增） -->
     <div class="section-head">
       <h2 class="h2">Samples</h2>
       <a class="btn btn--catalog"
          href="assets/catalog.pdf"
          download
          aria-label="Download Catalog PDF">Catalog</a>
-      </div
+    </div>
 
     <div class="sample-grid" style="margin-top:18px;">
       <a class="sample-card" href="samples-vulcanized.html" aria-label="硫化鞋">
