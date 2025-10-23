@@ -7,60 +7,132 @@
 
 <style>
 :root{
-  --bg:#0f172a; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
-  --card:#111827; --line:#1f2937; --accent:#e11d48; --accent-ink:#fff;
-  --surface:#0b1222; --container: 1200px;
-  --ex-mask: linear-gradient(to right, rgba(10,15,31,.36) 0%, rgba(10,15,31,.14) 4%, rgba(10,15,31,0) 20%, rgba(10,15,31,0) 80%, rgba(10,15,31,.14) 96%, rgba(10,15,31,.36) 100%);
+  --bg:#0f172a;
+  --ink:#0b1020;
+  --text:#e5e7eb;
+  --muted:#94a3b8;
+  --card:#111827;
+  --line:#1f2937;
+  --accent:#e11d48;
+  --accent-ink:#ffffff;
+  --surface:#0b1222;
+  --container: 1200px;
+
+  /* Expertise 切片遮罩（收窄两侧暗角） */
+  --ex-mask: linear-gradient(to right,
+    rgba(10,15,31,.36) 0%,
+    rgba(10,15,31,.14) 4%,
+    rgba(10,15,31,0) 20%,
+    rgba(10,15,31,0) 80%,
+    rgba(10,15,31,.14) 96%,
+    rgba(10,15,31,.36) 100%
+  );
+
+  /* 响应缩放的分割线间距 */
   --sepY: clamp(24px, 4vw, 42px);
 }
+
 html,body{margin:0;background:#0a0f1f;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;height:auto;display:block}
 .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 
 /* 顶部导航 */
-.nav{ position:sticky;top:0;z-index:50; backdrop-filter:saturate(160%) blur(6px);
-  background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55)); border-bottom:1px solid var(--line);}
+.nav{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:saturate(160%) blur(6px);
+  background:linear-gradient(to bottom, rgba(10,15,31,.85), rgba(10,15,31,.55));
+  border-bottom:1px solid var(--line);
+}
 .nav .row{display:flex;align-items:center;gap:20px;padding:14px 0}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.5px}
-.brand .logo{width:28px;height:28px;border-radius:6px;background:transparent;display:grid;place-items:center;overflow:hidden}
+.brand .logo{
+  width:28px;height:28px;border-radius:6px;
+  background:transparent;
+  display:grid;place-items:center;color:var(--accent-ink);font-weight:800;
+  overflow:hidden;
+}
 .menu{display:flex;gap:18px;flex:1;flex-wrap:wrap}
-.menu a{color:var(--muted);font-weight:500}.menu a:hover{color:var(--text)}
+.menu a{color:var(--muted);font-weight:500}
+.menu a:hover{color:var(--text)}
 .cta{margin-left:auto}
-.btn{background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.12);font-weight:700}
+.btn{
+  background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:10px;
+  border:1px solid rgba(255,255,255,.12);font-weight:700
+}
 .btn:hover{filter:brightness(1.08)}
 section{scroll-margin-top:80px}
 
-/* 标题行按钮（Samples/Expertise 共用） */
-.section-head{ display:flex; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap;}
-.section-head .btn--catalog{ margin-left:12px; }
-.btn--catalog{ border-radius:12px; padding:10px 16px; font-weight:700; letter-spacing:.2px; line-height:1;
-  background:var(--accent); color:var(--accent-ink); box-shadow:0 6px 16px rgba(225,29,72,0.35);
-  transition:transform .12s ease, box-shadow .12s ease;}
-.btn--catalog:hover{ transform:translateY(-1px); box-shadow:0 10px 22px rgba(225,29,72,0.45) }
-.btn--catalog:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(225,29,72,0.35) }
-.btn--catalog:focus-visible{ outline:2px solid color-mix(in oklab, var(--accent) 60%, white); outline-offset:2px; }
-@media (max-width:560px){ .section-head{gap:10px} .btn--catalog{padding:9px 14px;font-size:13px} }
+/* === 标题行 + 小按钮（Samples/Expertise 共用） === */
+.section-head{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:12px;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+}
+.section-head .btn--catalog{ margin-left:12px; } /* 与标题留距 */
+
+/* 小按钮外观（复用 .btn 视觉基因） */
+.btn--catalog{
+  border-radius:12px;
+  padding:10px 16px;
+  font-weight:700;
+  letter-spacing:.2px;
+  line-height:1;
+  background:var(--accent);
+  color:var(--accent-ink);
+  box-shadow:0 6px 16px rgba(225,29,72,0.35);
+  transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+.btn--catalog:hover{ transform:translateY(-1px); box-shadow:0 10px 22px rgba(225,29,72,0.45); }
+.btn--catalog:active{ transform:translateY(0); box-shadow:0 4px 10px rgba(225,29,72,0.35); }
+.btn--catalog:focus-visible{
+  outline:2px solid color-mix(in oklab, var(--accent,#e11d48) 60%, white);
+  outline-offset:2px;
+}
+@media (max-width:560px){
+  .section-head{ gap:10px; }
+  .btn--catalog{ padding:9px 14px; font-size:13px; }
+}
 
 /* HERO */
-.hero{ padding:110px 0 72px;
-  background: radial-gradient(1000px 500px at 70% -10%, rgba(225,29,72,.15), transparent 55%),
-             radial-gradient(800px 400px at 10% -5%, rgba(59,130,246,.12), transparent 60%),
-             var(--surface);
-  position:relative; overflow:hidden;}
+.hero{
+  padding:110px 0 72px;
+  background:
+    radial-gradient(1000px 500px at 70% -10%, rgba(225,29,72,.15), transparent 55%),
+    radial-gradient(800px 400px at 10% -5%, rgba(59,130,246,.12), transparent 60%),
+    var(--surface);
+  position:relative; overflow:hidden;
+}
 .title{font-size:40px;line-height:1.15;margin:0 0 12px}
 .lead{color:var(--muted);max-width:800px}
-.hero-art{ right: calc((100vw - min(100vw, var(--container))) / 2 + 24px + 40px); position:absolute; top:40px; display:grid; gap:clamp(14px,2.2vw,26px); pointer-events:none;}
-.hero-art img{ width: clamp(120px, 19vw, 240px); opacity:.95; filter:drop-shadow(0 10px 28px rgba(0,0,0,.35)); }
-.hero-art img:nth-child(1){ width: clamp(110px, 18vw, 220px) }
-.hero-art img:nth-child(2){ width: clamp(115px, 19vw, 230px) }
-.hero-art img:nth-child(3){ width: clamp(120px, 20vw, 240px) }
-@media (min-width:1400px){ .hero-art img{ width:auto; max-width:340px } }
-@media (max-width:1200px){ .hero-art{ top:80px } }
-@media (max-width:960px){ .hero-art{ opacity:.12 } }
-@media (max-width:720px){ .hero-art{ display:none } }
 
-/* 通用 */
+/* 固定在 container 右内边的鞋子组（缩放不跑位） */
+.hero-art{
+  right: calc((100vw - min(100vw, var(--container))) / 2 + 24px + 40px);
+  position:absolute;
+  top:40px;
+  display:grid;
+  gap:clamp(14px,2.2vw,26px);
+  pointer-events:none;
+}
+.hero-art img{
+  width: clamp(120px, 19vw, 240px);
+  height:auto;
+  opacity:.95;
+  filter: drop-shadow(0 10px 28px rgba(0,0,0,.35));
+}
+.hero-art img:nth-child(1){ width: clamp(110px, 18vw, 220px); }
+.hero-art img:nth-child(2){ width: clamp(115px, 19vw, 230px); }
+.hero-art img:nth-child(3){ width: clamp(120px, 20vw, 240px); }
+@media (min-width:1400px){ .hero-art img{ width:auto; max-width:340px; } }
+@media (max-width:1200px){ .hero-art{ top:80px; } }
+@media (max-width:960px){ .hero-art{ opacity:.12; } }
+@media (max-width:720px){ .hero-art{ display:none; } }
+
+/* 其它通用块 */
 .bar{height:1px;background:var(--line);margin:42px 0}
 .grid{display:grid;gap:16px}
 .grid.s-3{grid-template-columns:repeat(3,1fr)}
@@ -73,84 +145,191 @@ section{scroll-margin-top:80px}
 details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
 details+details{margin-top:12px}
 summary{cursor:pointer;font-weight:700}
+.logo-wall{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.logo{background:#0c1426;border:1px dashed #23314f;border-radius:12px;aspect-ratio:7/3;display:grid;place-items:center;color:#2b3b5f;font-weight:700}
+.cert{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.info{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px}
 footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;margin-top:40px}
-@media (max-width:1024px){ .grid.s-3{grid-template-columns:repeat(2,1fr)} .grid.s-4{grid-template-columns:repeat(2,1fr)} .title{font-size:32px}}
-@media (max-width:520px){ .grid.s-3,.grid.s-4{grid-template-columns:1fr} }
+
+@media (max-width:1024px){
+  .grid.s-3{grid-template-columns:repeat(2,1fr)}
+  .grid.s-4{grid-template-columns:repeat(2,1fr)}
+  .logo-wall{grid-template-columns:repeat(3,1fr)}
+  .info{grid-template-columns:1fr}
+  .title{font-size:32px}
+}
+@media (max-width:520px){
+  .grid.s-3,.grid.s-4{grid-template-columns:1fr}
+  .logo-wall{grid-template-columns:repeat(2,1fr)}
+}
 
 /* 红色外边框右下滑出的按钮效果 */
 .btn-contact{position:relative;z-index:1;border-radius:16px;overflow:visible}
-.btn-contact::after{content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid #ff3055;opacity:0;transform:translate(0,0);transition:transform .22s ease,opacity .12s ease,border-color .2s ease;z-index:-1}
+.btn-contact::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid #ff3055;opacity:0;transform:translate(0,0);
+  transition:transform .22s ease,opacity .12s ease,border-color .2s ease;z-index:-1}
 .btn-contact:hover::after{opacity:1;transform:translate(8px,8px)}
 
-/* Modal（略） */
-.modal.hidden{display:none}.modal{position:fixed;inset:0;z-index:1000}
-.modal__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
-.modal__panel{position:relative;margin:8vh auto 0;width:min(920px,92vw);background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;color:var(--text);box-shadow:0 30px 60px rgba(0,0,0,.35)}
-.modal__close{position:absolute;top:12px;right:14px;width:36px;height:36px;border:1px solid var(--line);border-radius:50%;background:var(--ink);color:var(--text);font-size:20px;cursor:pointer}
-.modal__grid{display:grid;grid-template-columns:1.1fr 1fr;gap:28px}
-.modal__left h2{font-size:32px;margin:0 0 10px}
-.modal__left p{color:var(--muted);margin:0}
-.modal__form label{display:block;margin:0 0 14px;font-weight:600}
-.modal__form input,.modal__form textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:6px;background:#e5e7eb;color:#0b1020;outline:none}
-.modal__form textarea{min-height:140px;resize:vertical}
-.btn-contact.btn-submit{width:100%;margin-top:6px}
-.form-msg{margin-top:10px;min-height:1.2em;color:var(--muted)}
-@media (max-width:860px){ .modal__grid{grid-template-columns:1fr}}
+/* Modal */
+.modal.hidden{ display: none; }
+.modal{ position: fixed; inset: 0; z-index: 1000; }
+.modal__backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter: blur(2px);}
+.modal__panel{ position:relative; margin:8vh auto 0; width:min(920px,92vw); background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px; color:var(--text); box-shadow:0 30px 60px rgba(0,0,0,.35);}
+.modal__close{ position:absolute; top:12px; right:14px; width:36px; height:36px; border:1px solid var(--line); border-radius:50%; background:var(--ink); color:var(--text); font-size:20px; cursor:pointer;}
+.modal__grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:28px}
+.modal__left h2{ font-size:32px; margin:0 0 10px; color:var(--text); }
+.modal__left p{ color:var(--muted); margin:0; }
+.modal__form label{ display:block; margin:0 0 14px; font-weight:600; }
+.modal__form input,.modal__form textarea{ width:100%; border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin-top:6px; background:#e5e7eb; color:#0b1020; outline:none;}
+.modal__form textarea{ min-height:140px; resize:vertical; }
+.btn-contact.btn-submit{ width:100%; margin-top:6px; }
+.form-msg{ margin-top:10px; min-height:1.2em; color:var(--muted); }
+@media (max-width: 860px){ .modal__grid{ grid-template-columns: 1fr; } }
 
-/* About 微调 */
-#about.hero{min-height:auto !important;padding:72px 0 48px !important}
-#about .copy{max-width:56% !important;margin-left:4vw !important}
-#about .title{font-size:clamp(34px,5vw,60px) !important;line-height:1.18 !important;margin:0 0 14px !important}
-#about .lead{font-size:clamp(15px,1.5vw,18px) !important;line-height:1.6 !important;max-width:44ch !important}
-@media (max-width:900px){ #about.hero{padding:90px 0 70px !important} #about .copy{max-width:100% !important;margin-left:0 !important} #about .title{font-size:clamp(28px,6.2vw,44px) !important} #about .lead{font-size:clamp(15px,3.4vw,18px) !important}}
-#about.hero{padding-bottom:28px !important}
-.bar.container{margin:16px 0 !important}
+/* About 文字块微调 */
+#about.hero{ min-height:auto !important; padding:72px 0 48px !important;}
+#about .copy{ max-width:56% !important; margin-left:4vw !important;}
+#about .title{ font-size:clamp(34px,5vw,60px) !important; line-height:1.18 !important; margin:0 0 14px !important;}
+#about .lead{ font-size:clamp(15px,1.5vw,18px) !important; line-height:1.6 !important; max-width:44ch !important;}
+@media (max-width:900px){
+  #about.hero{ padding:90px 0 70px !important;}
+  #about .copy{ max-width:100% !important; margin-left:0 !important;}
+  #about .title{ font-size:clamp(28px,6.2vw,44px) !important;}
+  #about .lead{ font-size:clamp(15px,3.4vw,18px) !important;}
+}
+#about.hero{ padding-bottom:28px !important;}
+.bar.container{ margin:16px 0 !important;}
 
-/* Samples */
-.sample-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-@media (max-width:1024px){ .sample-grid{grid-template-columns:repeat(2,1fr)} }
-@media (max-width:600px){ .sample-grid{grid-template-columns:1fr} }
-.sample-card{position:relative;display:flex;flex-direction:column;gap:8px;border-radius:16px;background:transparent}
-.sample-card .ph{position:relative;aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden;border-radius:16px;background: radial-gradient(115% 150% at 50% 56%, rgba(255,255,255,.92) 0%, rgba(241,248,255,.78) 26%, rgba(190,208,232,.50) 56%, rgba(28,38,64,.86) 92%, rgba(15,23,42,1) 100%);transition:background .24s ease,box-shadow .24s ease}
-.sample-card .ph::before{content:"";position:absolute;inset:0;box-shadow:inset 0 0 120px 14px rgba(8,13,26,.14);pointer-events:none;transition:box-shadow .24s ease}
-.sample-card img{max-width:92%;max-height:92%;object-fit:contain;display:block;margin:auto;position:relative;z-index:1}
-.sample-card .ph img[alt="Upper"],a[href*="samples-upper"] .ph img{max-width:86%;max-height:86%;transform:translateY(-15%)}
-@media (max-width:1024px){ .sample-card .ph img[alt="Upper"],a[href*="samples-upper"] .ph img{transform:translateY(-8%)} }
-@media (max-width:640px){ .sample-card .ph img[alt="Upper"],a[href*="samples-upper"] .ph img{transform:translateY(-5%)} }
-.sample-card:hover .ph{background: radial-gradient(125% 165% at 50% 56%, rgba(255,255,255,.98) 0%, rgba(248,252,255,.90) 26%, rgba(196,214,236,.56) 56%, rgba(24,32,56,.82) 92%, rgba(15,23,42,1) 100%)}
-.sample-card:hover .ph::before{box-shadow:inset 0 0 90px 8px rgba(8,13,26,.10)}
+/* philosophy 卡片图片样式 */
+.grid-photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.card-media{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:12px}
+.card-media img{width:100%;height:100%;object-fit:cover;display:block}
+.card-media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.10), transparent)}
+.card-media::before{content:"";position:absolute;inset:0;border-radius:12px;background:radial-gradient(circle at center, rgba(15,23,42,0) 70%, rgba(15,23,42,0.85) 100%);pointer-events:none;z-index:1}
+.card-caption{margin-top:10px;color:var(--muted);font-size:14px}
 
-/* Expertise 五等分矩形 */
-.tri-slab{position:relative;border-radius:16px;border:1px solid var(--line);background:var(--card);overflow:hidden;height:clamp(260px,38vw,520px)}
-.tri-slab::before{content:"";position:absolute;inset:0;pointer-events:none;background: radial-gradient(180% 240% at 50% 56%, rgba(255,255,255,.92) 0%, rgba(241,248,255,.78) 28%, rgba(190,208,232,.24) 62%, rgba(28,38,64,.10) 97%, rgba(15,23,42,.14) 100%)}
-.tri-track{position:absolute;inset:0}
-.slice{position:absolute;top:0;bottom:0;display:grid;place-items:center;cursor:pointer;user-select:none;color:var(--text);text-align:center;background:none;transition:transform .18s ease,filter .18s ease}
-.slice>span{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-weight:800;letter-spacing:.6px;padding:6px 12px;border-radius:8px;background:rgba(0,0,0,.35);box-shadow:0 4px 12px rgba(0,0,0,.25);pointer-events:none;line-height:1.2}
-.slice::before{content:"";position:absolute;inset:-1px;pointer-events:none;opacity:0;transition:opacity .22s ease,transform .22s ease;background:radial-gradient(120% 160% at 50% 56%, rgba(255,255,255,.36) 0%, rgba(240,246,255,.22) 26%, rgba(24,32,56,.10) 92%, rgba(15,23,42,.12) 100%);box-shadow:inset 0 0 44px 6px rgba(8,13,26,.05)}
-.slice:is(:hover,:focus-visible)::before{opacity:1}
-.slice:is(:hover,:focus-visible){transform:translateY(-2px);filter:brightness(1.03)}
-.slice.team{left:0;right:80%}.slice.rd{left:20%;right:60%}.slice.factory{left:40%;right:40%}.slice.qc{left:60%;right:20%}.slice.store{left:80%;right:0}
-.slice.team{background-image:var(--ex-mask),url("images/samples/factory/Factory Overview1.png");background-position:center center,30% 30%;background-size:auto,cover;background-repeat:no-repeat}
-.slice.rd{background-image:var(--ex-mask),url("images/samples/rd/3D-scaner.PNG");background-position:center center,70% 50%;background-size:auto,cover;background-repeat:no-repeat}
-.slice.factory{background-image:var(--ex-mask),url("images/samples/factory/Lasting & Assembly Workshop1.jpg");background-position:center center,42% 40%;background-size:auto,cover;background-repeat:no-repeat}
-.slice.qc{background-image:var(--ex-mask),url("images/samples/qs/QS1.jpg");background-position:center center,40% 50%;background-size:auto,cover;background-repeat:no-repeat}
-.slice.store{background-image:var(--ex-mask),url("images/samples/storage/3.PNG");background-position:center center,20% 50%;background-size:auto,cover;background-repeat:no-repeat}
+/* Samples 栅格与卡片（恢复为 3/2/1 列） */
+.sample-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media (max-width:1024px){ .sample-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:600px){ .sample-grid{ grid-template-columns:1fr; } }
+.sample-card{ position:relative; display:flex; flex-direction:column; gap:8px; border-radius:16px; background:transparent;}
+.sample-card .ph{ position:relative; aspect-ratio:4/3; display:grid; place-items:center; overflow:hidden; border-radius:16px;
+  background: radial-gradient(115% 150% at 50% 56%, rgba(255,255,255,.92) 0%, rgba(241,248,255,.78) 26%, rgba(190,208,232,.50) 56%, rgba(28,38,64,.86) 92%, rgba(15,23,42,1) 100%);
+  transition: background .24s ease, box-shadow .24s ease; }
+.sample-card .ph::before{ content:""; position:absolute; inset:0; box-shadow: inset 0 0 120px 14px rgba(8,13,26,.14); pointer-events:none; transition: box-shadow .24s ease;}
+.sample-card img{ max-width:92%; max-height:92%; object-fit:contain; object-position:center; display:block; margin:auto; position:relative; z-index:1; mix-blend-mode:normal;}
+.sample-card .ph img[alt="Upper"],a[href*="samples-upper"] .ph img{ max-width:86%; max-height:86%; transform:translateY(-15%);}
+@media (max-width:1024px){ .sample-card .ph img[alt="Upper"],a[href*="samples-upper"] .ph img{ transform:translateY(-8%);} }
+@media (max-width:640px){ .sample-card .ph img[alt="Upper"],a[href*="samples-upper"] .ph img{ transform:translateY(-5%);} }
+.sample-card:hover .ph{ background: radial-gradient(125% 165% at 50% 56%, rgba(255,255,255,.98) 0%, rgba(248,252,255,.90) 26%, rgba(196,214,236,.56) 56%, rgba(24,32,56,.82) 92%, rgba(15,23,42,1) 100%);}
+.sample-card:hover .ph::before{ box-shadow: inset 0 0 90px 8px rgba(8,13,26,.10);}
 
-/* 自适应分割线 */
-.bar{display:none !important}.section{position:relative}
-.section:not(:first-of-type)::before{content:"";display:block;height:1px;background:var(--line);width:min(var(--container),calc(100% - 48px));margin:var(--sepY) auto var(--sepY);transform:translateZ(0)}
+/* —— Expertise 五等分矩形 —— */
+.tri-slab{
+  position:relative; border-radius:16px; border:1px solid var(--line);
+  background:var(--card); overflow:hidden;
+  height:clamp(260px,38vw,520px);
+}
+.tri-slab::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(180% 240% at 50% 56%,
+    rgba(255,255,255,.92) 0%,
+    rgba(241,248,255,.78) 28%,
+    rgba(190,208,232,.24) 62%,
+    rgba(28,38,64,.10) 97%,
+    rgba(15,23,42,.14) 100%
+  );
+}
+.tri-track{ position:absolute; inset:0;}
+.slice{
+  position:absolute; top:0; bottom:0;
+  display:grid; place-items:center; cursor:pointer; user-select:none;
+  color:var(--text); text-align:center; outline:none; border:none; background:none;
+  transition: transform .18s ease, filter .18s ease;
+}
+.slice > span{
+  position:absolute; bottom:12px; left:50%; transform:translateX(-50%);
+  font-weight:800; letter-spacing:.6px; padding:6px 12px; border-radius:8px;
+  background:rgba(0,0,0,.35); box-shadow:0 4px 12px rgba(0,0,0,.25); pointer-events:none; line-height:1.2;
+}
+.slice::before{
+  content:""; position:absolute; inset:-1px; pointer-events:none; opacity:0;
+  transition:opacity .22s ease, transform .22s ease;
+  background: radial-gradient(120% 160% at 50% 56%, rgba(255,255,255,.36) 0%, rgba(240,246,255,.22) 26%, rgba(24,32,56,.10) 92%, rgba(15,23,42,.12) 100%);
+  box-shadow: inset 0 0 44px 6px rgba(8,13,26,.05); z-index:0;
+}
+.slice:is(:hover,:focus-visible)::before{ opacity:1;}
+.slice:is(:hover,:focus-visible){ transform:translateY(-2px); filter:brightness(1.03);}
 
-/* 底部 Info */
-#info .info{display:grid;grid-template-columns:0.9fr 1.1fr 1.1fr auto;gap:clamp(24px,5vw,64px);align-items:start;width:100%}
-#info .info-block{text-align:left}
-#info .info-title{margin:0 0 8px;font-weight:800;color:var(--text)}
-#info .addr{margin:0;font-style:normal;color:var(--muted);line-height:1.6;max-width:32ch}
-#info .addr .line{display:block}
-#info .info-links{list-style:none;padding:0;margin:0}
-#info .info-links li+li{margin-top:10px}
-#info .info-links a{font-weight:800;color:var(--text)} #info .info-links a:hover{color:var(--muted)}
-#info .cta-block{justify-self:end;align-self:start}
-@media (max-width:640px){ #info .info{grid-template-columns:1fr;justify-items:center;text-align:center} #info .cta-block{justify-self:center} }
+.slice.team{ left:0; right:80%; }
+.slice.rd{ left:20%; right:60%;}
+.slice.factory{ left:40%; right:40%;}
+.slice.qc{ left:60%; right:20%;}
+.slice.store{ left:80%; right:0;}
+
+.slice.team{
+  background-image: var(--ex-mask), url("images/samples/factory/Factory Overview1.png");
+  background-position:center center, 30% 30%; background-size:auto, cover; background-repeat:no-repeat;
+}
+.slice.rd{
+  background-image: var(--ex-mask), url("images/samples/rd/3D-scaner.PNG");
+  background-position:center center, 70% 50%; background-size:auto, cover; background-repeat:no-repeat;
+}
+.slice.factory{
+  background-image: var(--ex-mask), url("images/samples/factory/Lasting & Assembly Workshop1.jpg");
+  background-position:center center, 42% 40%; background-size:auto, cover; background-repeat:no-repeat;
+}
+.slice.qc{
+  background-image: var(--ex-mask), url("images/samples/qs/QS1.jpg");
+  background-position:center center, 40% 50%; background-size:auto, cover; background-repeat:no-repeat;
+}
+.slice.store{
+  background-image: var(--ex-mask), url("images/samples/storage/3.PNG");
+  background-position:center center, 20% 50%; background-size:auto, cover; background-repeat:no-repeat;
+}
+
+/* —— 自适应分割线：隐藏旧 .bar，给每个 .section 顶部画线 —— */
+.bar{ display:none !important; }
+.section{ position: relative; }
+.section:not(:first-of-type)::before{
+  content:"";
+  display:block;
+  height:1px;
+  background:var(--line);
+  width:min(var(--container), calc(100% - 48px));
+  margin: var(--sepY) auto var(--sepY);
+  transform: translateZ(0);
+}
+
+/* ====== 底部 Info（四列等分） ====== */
+#info .info{
+  display:grid;
+  grid-template-columns: 0.9fr 1.1fr 1.1fr auto;   /* 四列完全等分 */
+  gap: clamp(24px, 5vw, 64px);
+  align-items: start;
+  width:100%;
+}
+#info .info-block{ text-align:left; }
+
+#info .info-title{ margin:0 0 8px; font-weight:800; color:var(--text); letter-spacing:.2px; }
+#info .addr{ margin:0; font-style:normal; color:var(--muted); line-height:1.6; max-width:32ch; }
+#info .addr .line{ display:block; }
+
+#info .info-links{ list-style:none; padding:0; margin:0; }
+#info .info-links li + li{ margin-top:10px; }
+#info .info-links a{ font-weight:800; color:var(--text); }
+#info .info-links a:hover{ color:var(--muted); }
+
+#info .cta-block{ justify-self:end; align-self:start; }
+
+@media (max-width: 640px){
+  #info .info{
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align:center;
+  }
+  #info .cta-block{ justify-self:center; }
+}
 </style>
 <link rel="stylesheet" href="responsive.css?v=1">
 </head>
@@ -159,7 +338,9 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
 <nav class="nav">
   <div class="container row">
     <div class="brand">
-      <span class="logo"><img src="images/logo-taiyuk.png" alt="HONG KONG TAI YUK TRADING LIMITED" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"></span>
+      <span class="logo">
+        <img src="images/logo-taiyuk.png" alt="HONG KONG TAI YUK TRADING LIMITED" style="width:100%;height:100%;object-fit:cover;border-radius:6px;">
+      </span>
       <span>Hong Kong Tai Yuk Trading Limited</span>
     </div>
     <div class="menu">
@@ -169,7 +350,9 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
       <a href="#expertise">Expertise</a>
       <a href="care-compliance.html">Certifications</a>
     </div>
-    <div class="cta"><a class="btn btn-contact" href="/contact.html">GET IN TOUCH</a></div>
+    <div class="cta">
+      <a class="btn btn-contact" href="/contact.html">GET IN TOUCH</a>
+    </div>
   </div>
 </nav>
 
@@ -177,54 +360,136 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
 <section id="about" class="hero">
   <div class="container">
     <div class="copy">
-      <h1 class="title">Shoes that last — made with care, shared with the world.<br><span style="color:var(--accent);font-weight:700;">Every Step Counts.</span></h1>
-      <p class="lead">We are defined by high craftsmanship, proven compliance, and true flexibility — 
-        an Integrated Footwear Supply Platform delivering quality responsibly and adapting to every brand’s vision.</p>
+      <h1 class="title">
+        Shoes that last — made with care, shared with the world.<br>
+        <span style="color:var(--accent);font-weight:700;">Every Step Counts.</span>
+      </h1>
+      <p class="lead">
+        We are defined by high craftsmanship, proven compliance, and true flexibility — 
+        an Integrated Footwear Supply Platform delivering quality responsibly and adapting to every brand’s vision.
+      </p>
     </div>
     <div class="hero-art" aria-hidden="true">
-      <img src="images/shoe1.png" alt=""><img src="images/shoe2.png" alt=""><img src="images/shoe3.png" alt="">
+      <img src="images/shoe1.png" alt="">
+      <img src="images/shoe2.png" alt="">
+      <img src="images/shoe3.png" alt="">
     </div>
   </div>
 </section>
+
+<div class="bar container"></div>
 
 <!-- Samples -->
 <section id="samples" class="section">
   <div class="container">
+
+    <!-- 标题 + Catalog 按钮 -->
     <div class="section-head">
       <h2 class="h2">Samples</h2>
-      <a class="btn btn--catalog" href="catalog.html" target="_blank" rel="noopener" aria-label="Open Catalog Preview">Catalog</a>
+      <a class="btn btn--catalog"
+         href="catalog.html"
+         target="_blank" rel="noopener"
+         aria-label="Open Catalog Preview">Catalog</a>
     </div>
 
     <div class="sample-grid" style="margin-top:18px;">
-      <a class="sample-card" href="samples-vulcanized.html" aria-label="硫化鞋"><div class="ph"><img src="images/samples/vulcanized/1.PNG" alt="Vulcanized Shoes"></div></a>
-      <a class="sample-card" href="samples-coldcement.html" aria-label="冷粘鞋"><div class="ph"><img src="images/samples/cold_cement/10.png" alt="Cold_Cement Shoes"></div></a>
-      <a class="sample-card" href="samples-licensed.html" aria-label="授权合作款"><div class="ph"><img src="images/samples/licensed/page-licensed.PNG" alt="Licensed Shoes"></div></a>
-      <a class="sample-card" href="samples-shoe lasts.html" aria-label="鞋楦"><div class="ph"><img src="images/samples/lasts/1.PNG" alt="Shoe Lasts"></div></a>
-      <a class="sample-card" href="samples-sole.html" aria-label="大底"><div class="ph"><img src="images/samples/sole/1.PNG" alt="Outsoles"></div></a>
-      <a class="sample-card" href="samples-upper.html" aria-label="帮面"><div class="ph"><img src="images/samples/upper/upper.PNG" alt="Upper"></div></a>
+      <a class="sample-card" href="samples-vulcanized.html" aria-label="硫化鞋">
+        <div class="ph"><img src="images/samples/vulcanized/1.PNG" alt="Vulcanized Shoes"></div>
+      </a>
+      <a class="sample-card" href="samples-coldcement.html" aria-label="冷粘鞋">
+        <div class="ph"><img src="images/samples/cold_cement/10.png" alt="Cold_Cement Shoes"></div>
+      </a>
+      <a class="sample-card" href="samples-licensed.html" aria-label="授权合作款">
+        <div class="ph"><img src="images/samples/licensed/page-licensed.PNG" alt="Licensed Shoes"></div>
+      </a>
+      <a class="sample-card" href="samples-shoe lasts.html" aria-label="鞋楦">
+        <div class="ph"><img src="images/samples/lasts/1.PNG" alt="Shoe Lasts"></div>
+      </a>
+      <a class="sample-card" href="samples-sole.html" aria-label="大底">
+        <div class="ph"><img src="images/samples/sole/1.PNG" alt="Outsoles"></div>
+      </a>
+      <a class="sample-card" href="samples-upper.html" aria-label="帮面">
+        <div class="ph"><img src="images/samples/upper/upper.PNG" alt="Upper"></div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- Partners -->
+<div class="bar container"></div>
+
+<!-- 合作品牌 -->
 <section id="partners" class="section">
   <div class="container">
-    <div class="section-head"><h2 class="h2">Partners</h2></div>
-    <div class="brand-grid" style="margin-top:18px; display:grid; gap:16px; grid-template-columns:repeat(6,1fr);">
-      <a class="brand-card" data-brand="hm" href="#" aria-label="H&M"><div class="ph"><img loading="lazy" src="images/samples/brand/1.PNG" alt="H&M"></div></a>
-      <a class="brand-card" data-brand="zara" href="#" aria-label="ZARA"><div class="ph"><img loading="lazy" src="images/samples/brand/2.PNG" alt="ZARA"></div></a>
-      <a class="brand-card" data-brand="pb" href="#" aria-label="PB"><div class="ph"><img loading="lazy" src="images/samples/brand/3.PNG" alt="PB"></div></a>
-      <a class="brand-card" data-brand="keds" href="#" aria-label="Keds"><div class="ph"><img loading="lazy" src="images/samples/brand/4.PNG" alt="Keds"></div></a>
-      <a class="brand-card" data-brand="sperry" href="#" aria-label="Sperry"><div class="ph"><img loading="lazy" src="images/samples/brand/5.PNG" alt="Sperry"></div></a>
-      <a class="brand-card" data-brand="dc" href="#" aria-label="DC Shoes"><div class="ph"><img loading="lazy" src="images/samples/brand/6.PNG" alt="DC Shoes"></div></a>
+    <div class="section-head">
+      <h2 class="h2">Partners</h2>
+    </div>
+  
+    <div class="brand-grid" style="margin-top:18px;">
+      <a class="brand-card" data-brand="hm" href="#" aria-label="H&M">
+        <div class="ph"><img loading="lazy" src="images/samples/brand/1.PNG" alt="H&M"></div>
+      </a>
+      <a class="brand-card" data-brand="zara" href="#" aria-label="ZARA">
+        <div class="ph"><img loading="lazy" src="images/samples/brand/2.PNG" alt="ZARA"></div>
+      </a>
+      <a class="brand-card" data-brand="pb" href="#" aria-label="Pull&Bear / PB">
+        <div class="ph"><img loading="lazy" src="images/samples/brand/3.PNG" alt="PB"></div>
+      </a>
+      <a class="brand-card" data-brand="keds" href="#" aria-label="Keds">
+        <div class="ph"><img loading="lazy" src="images/samples/brand/4.PNG" alt="Keds"></div>
+      </a>
+      <a class="brand-card" data-brand="sperry" href="#" aria-label="Sperry">
+        <div class="ph"><img loading="lazy" src="images/samples/brand/5.PNG" alt="Sperry"></div>
+      </a>
+      <a class="brand-card" data-brand="dc" href="#" aria-label="DC Shoes">
+        <div class="ph"><img loading="lazy" src="images/samples/brand/6.PNG" alt="DC Shoes"></div>
+      </a>
     </div>
   </div>
 </section>
+
+<!-- 合作品牌样式（局部）——【关键：防止变形】 -->
+<style>
+#partners .brand-grid{ display:grid; gap:16px; grid-template-columns:repeat(6,1fr); align-items:stretch }
+@media (max-width:1024px){ #partners .brand-grid{ grid-template-columns:repeat(3,1fr) } }
+@media (max-width:520px){ #partners .brand-grid{ grid-template-columns:repeat(2,1fr) } }
+
+#partners .brand-card{
+  position:relative; display:block; border-radius:16px; overflow:hidden;
+  transition:transform .22s ease, box-shadow .22s ease, filter .22s ease;
+  border:none; background:transparent;
+  --mw:86%; --mh:86%; /* 基准（H&M） */
+}
+#partners .brand-card:hover{ transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,.28) }
+
+#partners .brand-card .ph{
+  position:relative; aspect-ratio:5/3; display:grid; place-items:center;
+  overflow:hidden; border-radius:16px; background:transparent;
+  padding:clamp(10px,8.5%,18px);
+}
+#partners .brand-card img{
+  max-width:var(--mw); max-height:var(--mh);
+  width:auto; height:auto;                /* 防止拉伸变形 */
+  object-fit:contain; margin:auto; display:block;
+  filter:saturate(.9) contrast(1);
+  transition:filter .22s ease, transform .22s ease;
+}
+#partners .brand-card:hover img{ filter:saturate(1) contrast(1.02); transform:scale(1.035) }
+
+/* 视觉等权微调 */
+#partners .brand-card[data-brand="hm"]{ --mw:86%; --mh:86% }
+#partners .brand-card[data-brand="zara"]{ --mw:94%; --mh:94% }
+#partners .brand-card[data-brand="pb"]{ --mw:75%; --mh:75% }
+#partners .brand-card[data-brand="keds"]{ --mw:95%; --mh:95% }
+#partners .brand-card[data-brand="sperry"]{ --mw:110%; --mh:110% }
+#partners .brand-card[data-brand="dc"]{ --mw:74%; --mh:74% }
+</style>
+
+<div class="bar container"></div>
 
 <!-- Expertise -->
 <section id="expertise" class="section">
   <div class="container">
-    <!-- 标题 + Company Profile（新增按钮） -->
+    <!-- 标题 + Company Profile 按钮（按你需求替换 Overview） -->
     <div class="section-head">
       <h2 class="h2">Expertise</h2>
       <a class="btn btn--catalog"
@@ -245,22 +510,129 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
   </div>
 </section>
 
+<div class="bar container"></div>
+
 <!-- What We Care -->
 <section id="care" class="section">
   <div class="container">
-    <div class="section-head"><h2 class="h2">What We Care</h2></div>
-    <div class="care-tiles" style="margin-top:16px; display:grid; gap:18px; grid-template-columns:repeat(3,1fr);">
-      <a class="care-badge-xl" href="care-people.html"><div class="ico"></div><div class="txt"><div class="t">Our People</div></div></a>
-      <a class="care-badge-xl" href="care-plant.html"><div class="ico"></div><div class="txt"><div class="t">Our Plant</div></div></a>
-      <a class="care-badge-xl" href="care-compliance.html"><div class="ico"></div><div class="txt"><div class="t">Certifiable Excellence</div></div></a>
+    <div class="section-head">
+      <h2 class="h2">What We Care</h2>
+    </div>
+
+    <div class="care-tiles" style="margin-top:16px">
+      <!-- Our People -->
+      <a class="care-badge-xl" href="care-people.html" aria-label="Our People">
+        <div class="ico">
+          <svg viewBox="0 0 120 120" width="84" height="84" aria-hidden="true">
+            <defs>
+              <linearGradient id="g-peo" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="46" fill="none" stroke="url(#g-peo)" stroke-width="2" opacity=".28">
+              <animate attributeName="r" values="42;46;42" dur="3.2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values=".18;.28;.18" dur="3.2s" repeatCount="indefinite"/>
+            </circle>
+            <g style="transform-origin:60px 60px; animation: floatY 3s ease-in-out infinite;">
+              <circle cx="40" cy="52" r="10" fill="url(#g-peo)"/>
+              <rect x="31" y="62" rx="8" ry="8" width="18" height="16" fill="url(#g-peo)"/>
+              <circle cx="80" cy="52" r="10" fill="url(#g-peo)"/>
+              <rect x="71" y="62" rx="8" ry="8" width="18" height="16" fill="url(#g-peo)"/>
+              <circle cx="60" cy="44" r="12" fill="url(#g-peo)"/>
+              <rect x="48" y="56" rx="10" ry="10" width="24" height="22" fill="url(#g-peo)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="txt">
+          <div class="t">Our People</div>
+        </div>
+      </a>
+
+      <!-- Our Plant -->
+      <a class="care-badge-xl" href="care-plant.html" aria-label="Our Plant">
+        <div class="ico">
+          <svg viewBox="0 0 120 120" width="84" height="84" aria-hidden="true">
+            <defs>
+              <linearGradient id="g-plant" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#22d3ee"/>
+              </linearGradient>
+            </defs>
+            <rect x="18" y="84" width="84" height="8" rx="4" fill="url(#g-plant)" opacity=".5"/>
+            <g style="transform-origin:60px 70px; animation: leaf 3.2s ease-in-out infinite;">
+              <path d="M60 80 C58 64, 46 54, 38 50 C46 66, 52 74, 60 80 Z" fill="url(#g-plant)"/>
+              <path d="M60 80 C62 62, 76 52, 84 48 C76 66, 68 74, 60 80 Z" fill="url(#g-plant)"/>
+              <rect x="58" y="72" width="4" height="12" fill="url(#g-plant)"/>
+            </g>
+            <g style="transform-origin:92px 88px; animation: spin 6s linear infinite;">
+              <circle cx="92" cy="88" r="10" fill="none" stroke="url(#g-plant)" stroke-width="3"/>
+              <g stroke="url(#g-plant)" stroke-width="3">
+                <line x1="92" y1="76" x2="92" y2="80"/>
+                <line x1="92" y1="96" x2="92" y2="100"/>
+                <line x1="80" y1="88" x2="84" y2="88"/>
+                <line x1="100" y1="88" x2="104" y2="88"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="txt">
+          <div class="t">Our Plant</div>
+        </div>
+      </a>
+
+      <!-- Certifiable Excellence -->
+      <a class="care-badge-xl" href="care-compliance.html" aria-label="Certifiable Excellence">
+        <div class="ico">
+          <svg viewBox="0 0 120 120" width="84" height="84" aria-hidden="true">
+            <defs>
+              <linearGradient id="g-cert" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#f472b6"/><stop offset="1" stop-color="#fb923c"/>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="38" fill="none" stroke="url(#g-cert)" stroke-width="6" opacity=".4"
+              style="transform-origin:60px 60px; animation: spin 9s linear infinite;"/>
+            <path d="M42 62 L56 74 L80 48"
+              fill="none" stroke="url(#g-cert)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"
+              style="stroke-dasharray:120; stroke-dashoffset:120; animation: draw 1.8s ease forwards .2s;"/>
+          </svg>
+        </div>
+        <div class="txt">
+          <div class="t">Certifiable Excellence</div>
+        </div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- Info -->
+<!-- 只影响 #care 的样式 -->
+<style>
+#care .care-tiles{ display:grid; gap:18px; grid-template-columns:repeat(3,1fr); }
+@media (max-width:1024px){ #care .care-tiles{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:640px){ #care .care-tiles{ grid-template-columns:1fr; } }
+
+#care .care-badge-xl{
+  display:flex; align-items:center; gap:16px;
+  padding:16px 18px; border-radius:16px;
+  background:var(--card); border:1px solid var(--line);
+  text-decoration:none; color:inherit;
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+#care .care-badge-xl:hover{ transform: translateY(-3px); filter: brightness(1.03); box-shadow: 0 12px 28px rgba(0,0,0,.28); }
+#care .ico{ width:88px; height:88px; flex:0 0 88px; display:grid; place-items:center; border-radius:14px; background:#0c1426; border:1px solid #23314f; }
+#care .txt{ display:flex; flex-direction:column; gap:4px; }
+#care .txt .t{ font-weight:800; font-size:18px; color:var(--text); line-height:1.2; }
+#care .txt .s{ color:var(--muted); font-size:13.5px; }
+
+@keyframes floatY { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-3px) } }
+@keyframes leaf { 0%,100%{ transform: rotate(-3deg) } 50%{ transform: rotate(3deg) } }
+@keyframes spin { to{ transform: rotate(360deg) } }
+@keyframes draw { to{ stroke-dashoffset: 0 } }
+</style>
+
+<!-- 底部 Info（四列布局） -->
 <section id="info" class="section">
   <div class="container">
     <div class="info" style="margin-top:16px;">
+      <!-- 左：站内锚点 -->
       <div class="info-block">
         <ul class="info-links">
           <li><a href="#samples">Samples</a></li>
@@ -269,15 +641,29 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
           <li><a href="#care">What We Care About</a></li>
         </ul>
       </div>
+
+      <!-- 中：Handan Baozu（两行） -->
       <div class="info-block">
         <h4 class="info-title">Handan Baozu Footwear Co., Ltd.</h4>
-        <p class="addr"><span class="line">No.1 Fuxing Road, Jize County, Handan City, Hebei Province</span><span class="line">Tel: +86 18663638566</span></p>
+        <p class="addr">
+          <span class="line">No.1 Fuxing Road, Jize County, Handan City, Hebei Province</span>
+          <span class="line">Tel: +86 18663638566</span>
+        </p>
       </div>
+
+      <!-- 中：Hong Kong Tai Yuk（两行） -->
       <div class="info-block">
         <h4 class="info-title">Hong Kong Tai Yuk Trading Limited</h4>
-        <p class="addr"><span class="line">Wui Wah Fty Building, 41 Wing Hong Street, Lai Chi Kok, Hong Kong</span><span class="line">Tel: +852 6216 7208</span></p>
+        <p class="addr">
+          <span class="line">Wui Wah Fty Building, 41 Wing Hong Street, Lai Chi Kok, Hong Kong</span>
+          <span class="line">Tel: +852 6216 7208</span>
+        </p>
       </div>
-      <div class="info-block cta-block" id="contact-bottom"><a class="btn btn-contact" href="contact.html">CONTACT US</a></div>
+
+      <!-- 右：按钮贴右对齐 -->
+      <div class="info-block cta-block" id="contact-bottom">
+        <a class="btn btn-contact" href="contact.html">CONTACT US</a>
+      </div>
     </div>
   </div>
 </section>
@@ -286,17 +672,26 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
   <div class="container">© <span id="y"></span> Hong Kong Tai Yuk Trading Limited · All rights reserved.</div>
 </footer>
 
-<!-- Contact Modal（简化逻辑） -->
+<!-- Contact Modal（占位逻辑，可接入表单服务） -->
 <div id="contactModal" class="modal hidden" aria-hidden="true">
   <div class="modal__backdrop" data-close></div>
   <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
     <button class="modal__close" aria-label="Close" data-close>×</button>
     <div class="modal__grid">
-      <div class="modal__left"><h2 id="contactTitle">Get In Touch</h2><p>We’d love to discuss your production needs and answer your questions.</p></div>
+      <div class="modal__left">
+        <h2 id="contactTitle">Get In Touch</h2>
+        <p>We’d love to discuss your production needs and answer your questions.</p>
+      </div>
       <form id="contactForm" class="modal__form" novalidate>
-        <label>Full Name (Required)<input type="text" name="name" required /></label>
-        <label>Email (Required)<input type="email" name="email" required /></label>
-        <label>Message (Required)<textarea name="message" required></textarea></label>
+        <label>Full Name (Required)
+          <input type="text" name="name" required />
+        </label>
+        <label>Email (Required)
+          <input type="email" name="email" required />
+        </label>
+        <label>Message (Required)
+          <textarea name="message" required></textarea>
+        </label>
         <button type="submit" class="btn btn-contact btn-submit">CONTACT US</button>
         <p id="formMsg" class="form-msg" aria-live="polite"></p>
       </form>
@@ -306,26 +701,48 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
 
 <script>
 (function(){
+  const btn = document.getElementById('contactBtn'); // 页面没有该按钮也没关系：可选链处理
   const modal = document.getElementById('contactModal');
   const form = document.getElementById('contactForm');
   const msg = document.getElementById('formMsg');
+
+  function openModal(){ modal.classList.remove('hidden'); document.body.style.overflow='hidden'; }
   function closeModal(){ modal.classList.add('hidden'); document.body.style.overflow=''; }
-  modal?.addEventListener('click',(e)=>{ if(e.target.hasAttribute('data-close')) closeModal(); });
-  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'&&!modal.classList.contains('hidden')) closeModal(); });
-  const ENDPOINT='https://formspree.io/f/REPLACE_WITH_YOURS';
-  form?.addEventListener('submit',async(e)=>{
+
+  btn?.addEventListener('click', function(e){ e.preventDefault(); openModal(); });
+  modal?.addEventListener('click', (e)=>{ if (e.target.hasAttribute('data-close')) closeModal(); });
+  document.addEventListener('keydown',(e)=>{ if (e.key==='Escape' && !modal.classList.contains('hidden')) closeModal(); });
+
+  const ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_YOURS';
+  form?.addEventListener('submit', async (e)=>{
     e.preventDefault();
-    const payload={name:form.name.value.trim(),email:form.email.value.trim(),message:form.message.value.trim()};
-    if(!payload.name||!payload.email||!payload.message){ msg.textContent='Please fill in all required fields.'; return;}
-    msg.textContent='Sending...';
+    const payload = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      message: form.message.value.trim()
+    };
+    if(!payload.name || !payload.email || !payload.message){
+      msg.textContent = 'Please fill in all required fields.'; return;
+    }
+    msg.textContent = 'Sending...';
     try{
-      const res=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
       if(!res.ok) throw new Error('Network error');
-      msg.textContent='Thanks! Your message has been sent.'; form.reset(); setTimeout(closeModal,900);
-    }catch(err){ console.error(err); msg.textContent='Send failed. Please try again.'; }
+      msg.textContent = 'Thanks! Your message has been sent.';
+      form.reset();
+      setTimeout(closeModal, 900);
+    }catch(err){
+      console.error(err);
+      msg.textContent = 'Send failed. Please try again.';
+    }
   });
 })();
-document.getElementById('y').textContent = new Date().getFullYear();
+
+document.getElementById('y').textContent = new Date().getFullYear()
 </script>
 </body>
 </html>
