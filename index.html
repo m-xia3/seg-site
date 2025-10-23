@@ -63,21 +63,20 @@ img{max-width:100%;height:auto;display:block}
 .btn:hover{filter:brightness(1.08)}
 section{scroll-margin-top:80px}
 
-/* === Samples 标题右侧 Catalog 下载按钮（新增） === */
+/* === 标题行 + 小按钮（Samples/Expertise 共用） === */
 .section-head{
   display:flex;
   align-items:center;
-  justify-content:flex-start;   /* 紧贴标题，而不是顶到最右 */
+  justify-content:flex-start;
   gap:12px;
   margin-bottom:16px;
-  flex-wrap:wrap;               /* 窄屏自动换行 */
+  flex-wrap:wrap;
 }
-.section-head .btn--catalog{    /* 标题右侧留一点间距 */
-  margin-left:12px;
-}
-/* 目录按钮外观与交互（复用 .btn 基础） */
+.section-head .btn--catalog{ margin-left:12px; } /* 与标题留距 */
+
+/* 小按钮外观（复用 .btn 视觉基因） */
 .btn--catalog{
-  border-radius:12px;           /* 矩形圆角 */
+  border-radius:12px;
   padding:10px 16px;
   font-weight:700;
   letter-spacing:.2px;
@@ -383,13 +382,13 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
 <section id="samples" class="section">
   <div class="container">
 
-    <!-- 标题 + Catalog 按钮（新增） -->
+    <!-- 标题 + Catalog 按钮 -->
     <div class="section-head">
       <h2 class="h2">Samples</h2>
-    <a class="btn btn--catalog"
-      href="catalog.html"
-      target="_blank" rel="noopener"
-      aria-label="Open Catalog Preview">Catalog</a>
+      <a class="btn btn--catalog"
+         href="catalog.html"
+         target="_blank" rel="noopener"
+         aria-label="Open Catalog Preview">Catalog</a>
     </div>
 
     <div class="sample-grid" style="margin-top:18px;">
@@ -426,7 +425,9 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
 <!-- 合作品牌 -->
 <section id="partners" class="section">
   <div class="container">
-    <h2 class="h2">Partners</h2>
+    <div class="section-head">
+      <h2 class="h2">Partners</h2>
+    </div>
   
     <div class="brand-grid" style="margin-top:18px;">
       <a class="brand-card" data-brand="hm" href="#" aria-label="H&M">
@@ -492,7 +493,14 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
 <!-- Expertise -->
 <section id="expertise" class="section">
   <div class="container">
-    <h2 class="h2">Expertise</h2>
+    <!-- 标题 + Overview 按钮（新增） -->
+    <div class="section-head">
+      <h2 class="h2">Expertise</h2>
+      <a class="btn btn--catalog"
+         href="expertise-team.html"
+         target="_blank" rel="noopener"
+         aria-label="Open Expertise Overview">Overview</a>
+    </div>
 
     <div class="tri-slab" style="margin-top:16px;">
       <div class="tri-track">
@@ -511,7 +519,9 @@ footer{color:var(--muted);border-top:1px solid var(--line);padding:28px 0 40px;m
 <!-- What We Care -->
 <section id="care" class="section">
   <div class="container">
-    <h2 class="h2">What We Care</h2>
+    <div class="section-head">
+      <h2 class="h2">What We Care</h2>
+    </div>
 
     <div class="care-tiles" style="margin-top:16px">
       <!-- Our People -->
