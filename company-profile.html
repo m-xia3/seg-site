@@ -3,35 +3,54 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Company Profile · PDF</title>
+<title>Company Profile Preview · Hong Kong Tai Yuk</title>
 <style>
-:root{ --text:#e5e7eb; --muted:#94a3b8; --bg:#0a0f1f; --card:#0f1629; --line:#1f2937; --accent:#e11d48; --container:1200px; }
-*{box-sizing:border-box} html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
-.container{max-width:var(--container);margin:0 auto;padding:18px 24px}
-.header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.title{font-size:22px;margin:0}
-.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;border:1px solid rgba(255,255,255,.12);padding:10px 16px;border-radius:12px;font-weight:800;text-decoration:none}
-.btn:hover{filter:brightness(1.08)}
-.viewer{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;height:calc(100vh - 120px)}
-.viewer iframe{width:100%;height:100%;border:0;display:block;background:#111827}
-.note{color:var(--muted);font-size:14px;margin-top:10px}
+  :root{
+    --bg:#0f172a; --ink:#0b1020; --text:#e5e7eb; --muted:#94a3b8;
+    --card:#111827; --line:#1f2937; --accent:#e11d48; --accent-ink:#fff;
+    --container:1200px;
+  }
+  html,body{margin:0;background:#0a0f1f;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+  .container{max-width:var(--container);margin:0 auto;padding:0 16px}
+  .topbar{
+    position:sticky;top:0;z-index:10;background:rgba(10,15,31,.85);
+    backdrop-filter:saturate(160%) blur(6px); border-bottom:1px solid var(--line);
+  }
+  .topbar .row{display:flex;align-items:center;gap:12px;padding:10px 0}
+  .title{font-weight:800;letter-spacing:.3px;margin-right:auto}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:10px 16px;border-radius:10px;background:var(--accent);color:var(--accent-ink);
+    border:1px solid rgba(255,255,255,.12);font-weight:700;text-decoration:none
+  }
+  .btn:hover{filter:brightness(1.08)}
+  .viewer{height:calc(100vh - 64px)}
+  .viewer iframe,.viewer object{width:100%;height:100%;border:0;background:#0a0f1f}
+  .fallback{padding:20px;color:var(--muted);text-align:center}
+  .fallback a{color:#fff;text-decoration:underline}
 </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1 class="title">Company Profile</h1>
+  <div class="topbar">
+    <div class="container row">
+      <div class="title">Company Profile</div>
+      <!-- 与 Catalog 一致：仅保留下载按钮 -->
       <a class="btn" href="assets/company-profile.pdf" download>Download PDF</a>
-      <a class="btn" href="assets/company-profile.pdf" target="_blank" rel="noopener">Open in New Tab</a>
     </div>
-
-    <div class="viewer" role="region" aria-label="PDF viewer">
-      <iframe src="assets/company-profile.pdf#zoom=page-width"></iframe>
-      <noscript><div class="note">Your browser blocked the inline viewer. Please use the buttons above to open or download.</div></noscript>
-    </div>
-
-    <p class="note"></p>
   </div>
+
+  <main class="viewer">
+    <!-- 方式一：iframe 预览（与 Catalog 相同） -->
+    <iframe src="assets/company-profile.pdf#toolbar=1"></iframe>
+
+    <!-- 方式二（备选）：object；提供降级 fallback -->
+    <object data="assets/company-profile.pdf#toolbar=1" type="application/pdf">
+      <div class="fallback">
+        Your browser cannot preview PDFs.
+        <a href="assets/company-profile.pdf" target="_blank" rel="noopener">Open in new tab</a> or
+        <a href="assets/company-profile.pdf" download>download the file</a>.
+      </div>
+    </object>
+  </main>
 </body>
 </html>
